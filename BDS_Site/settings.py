@@ -1,4 +1,3 @@
-
 import environ
 from pathlib import Path
 import os
@@ -7,11 +6,9 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
@@ -19,7 +16,6 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -69,7 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BDS_Site.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -83,7 +78,6 @@ DATABASES = {
         'PORT': env('DB_PORT')
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -102,7 +96,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -134,6 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
 ANYMAIL = {
-    "BREVO_API_KEY": env("ENV_BREVO_API_KEY",)
+    "BREVO_API_KEY": env("ENV_BREVO_API_KEY")
 }
+
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
