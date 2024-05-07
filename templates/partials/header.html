@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{% block title %}{% endblock %}</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="/images/img-accueil/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/images/img-accueil/favicon.ico" type="image/x-icon">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex align-items-center">
+
+	    <div class="logo mr-auto">
+        <h1 class="text-light"><a href="{% url 'index' %}"><span>B.D.S</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+	    <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
+          <li><a href="{% url 'index' %}#about">A-propos</a></li>
+          <li><a href="{% url 'index' %}#features">Les solutions</a></li>
+          <li><a href="{% url 'index' %}#gallery">Portfolio</a></li>
+          <li><a href="{% url 'index' %}#team">L'équipe</a></li>
+          <li class="drop-down"><a>Liens</a>
+            <ul>
+              <li class="drop-down"><a href="#">Réseaux sociaux</a>
+                <ul>
+                  <li><a href="https://www.facebook.com/BDS.EI/" class="facebook">
+	                  <i class="bx bxl-facebook"></i> - Facebook</a></li>
+                  <li><a href="https://www.instagram.com/luc.belier/" class="instagram">
+	                  <i class="bx bxl-instagram"></i> - Instagram</a></li>
+                  <li><a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin">
+	                  <i class="bx bxl-linkedin"></i> - Linkedin</a></li>
+                  <li><a href="https://github.com/II-Luc-II/" class="linkedin">
+	                  <i class="bx bxl-github"></i> - Github</a></li>
+                  <li><a href="https://discord.com/channels/1235925566432215111/1235925566964764723" class="linkedin">
+	                  <i class="bx bxl-discord"></i> - Discord</a></li>
+                </ul>
+              </li>
+              <li><a href="https://portfolio.bds38.com/work/">Détail portefolio</a></li>
+              <!-- <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">Drop Down 5</a></li> -->
+            </ul>
+          </li>
+          <li><a href="{% url "index" %}#contact">Contact</a></li>
+		{% if user.is_authenticated %}
+		  <li>
+			<form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+			<button class="btn">
+				<a >
+					| {{ user.username }}
+				</a>
+			</button>
+			</form>
+        {% endif %}
+		  </li>
+        </ul>
+
+
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+
+
+

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+	<section id="hero">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
+          <div data-aos="zoom-out">
+            <h1 class="mt-5">Bélier Développement Solution</h1>
+            <h2>Développeur freelance | Fullstack</h2>
+            <div class="text-center text-lg-left">
+              <a href="#about" class="btn-get-started scrollto">Découvrir</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+          <img src="{% static 'images/img-accueil/BLEU-ICON.svg' %}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+		<div class="mask d-flex align-items-center h-100 gradient-custom-3 py-5">
+			<div class="container-fluid h-100 overflow-auto">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+						<div class="card" style="border-radius: 15px">
+							<div class="card-body">
+								<h2 class="text-uppercase text-center mb-5">
+									Connexion
+								</h2>
+								{% if messages %}
+									<div>
+										{% include "components/messages.html" with messages=messages %}
+									</div>
+								{% endif %}
+								<form action="{% url 'sign_in' %}" method="POST">
+									{% csrf_token %}
+									<!-- Email input -->
+									<div class="form-outline">
+										<input type="email" id="form1Example1" class="form-control" name="email"
+										       required/>
+										<label class="form-label" for="form1Example1">Email address</label>
+									</div>
+
+									<!-- Password input -->
+									<div class="form-outline mb-4">
+										<input type="password" id="form1Example2" class="form-control" name="password"
+										       required/>
+										<label class="form-label" for="form1Example2">Password</label>
+									</div>
+
+									<!-- 2 column grid layout for inline styling -->
+
+									<!-- Submit button -->
+									<button type="submit" class="btn btn-info" style="background-color: #0f4050;
+                     color: white; text-decoration: none;">Connexion
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+
+  </section><!-- End Hero -->
+
+{% endblock content %}
