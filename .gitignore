@@ -1,0 +1,117 @@
+.env
+
+*.log
+*.pot
+*.pyc
+
+__pycache__
+db.sqlite
+
+# backup file
+*.bak
+
+# if you using pycharm
+.idea/**/workspace.xml
+.idea/**/task.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionnaries
+.idea/**/shelf
+
+# AWS User-specific
+.idea/**/aws.xml
+
+# genarate files
+
+idea/**/dataSources/
+idea/**/dataSources.ids
+idea/**/dataSources.local.xml
+idea/**/sqlDataSources.xml
+idea/**/dynamic.xml
+idea/**/uiDesigner.xml
+idea/**/dbnavigator.xml
+
+# gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# file-based project format
+$.iws
+
+# jira pluding
+atlassian-ide-pluging.xml
+
+# Distribution / packing
+.Python build/
+develop-eggs/
+dist/
+doanloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.manifest
+*.spec
+
+# installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+*.cover
+.hypothesis/
+
+# jupiter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery
+celerybeat-schedule.*
+
+# environements
+CampsProject/ .env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+# sublime Text
+*.tmlangue.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+# package control specific files package
+Control.last-run
+Contro.ca-list
+Control.ca-bundle
+Control.system-ca-bundle
+GitHub.sublime-settings optimized / DLL files
+
+staticfiles
