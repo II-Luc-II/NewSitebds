@@ -134,6 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
 ANYMAIL = {
-    "BREVO_API_KEY": env("BREVO_API_KEY",)
+    "BREVO_API_KEY": env("ENV_BREVO_API_KEY",)
 }
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
