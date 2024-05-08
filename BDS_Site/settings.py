@@ -16,7 +16,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', cast=bool)
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['.bds38.com', 'www.bds38.com']
+ALLOWED_HOSTS = ['bds38.com', 'www.bds38.com']
 # Application definition
 
 INSTALLED_APPS = [
