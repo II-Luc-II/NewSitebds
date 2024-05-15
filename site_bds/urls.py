@@ -7,4 +7,4 @@ urlpatterns = [
     path('add-news-letter', views.add_news_letter, name='add-news-letter'),
 ]
 
-handler404 = views.handler404
+handler404 = views.handle404
