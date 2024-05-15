@@ -6,3 +6,5 @@ urlpatterns = [
     path('contact-message', views.contact_message, name='contact_message'),
     path('add-news-letter', views.add_news_letter, name='add-news-letter'),
 ]
+
+handler404 = views.handler404

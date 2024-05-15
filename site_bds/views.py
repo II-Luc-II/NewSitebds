@@ -8,6 +8,10 @@ from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newslette
 from django.utils.html import escape
 
 
+def handle404(request, exception):
+    return render(request, '404.html', status=404)
+
+
 def index(request):
     gallery = Gallery.objects.all()
     testimonials = Testimonials.objects.all()
