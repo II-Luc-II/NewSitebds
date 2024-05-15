@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from site_bds.ContactForm import ContactForm
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact
+from site_bds.ContactForm import ContactForm, NewsLetterForm
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter
+from django.utils.html import escape
 
 
 def index(request):
@@ -58,4 +60,17 @@ def contact_message(request):
     # Envoyer l'email
     msg.send()
 
-    return redirect('index')
+    return redirect('client-message')
+
+
+def add_news_letter(request):
+    new_letter = escape(request.POST.get('new-letter-email'))
+    new_letter_email, created = Newsletter.objects.get_or_create(email=new_letter,)
+    if not created:
+        messages.error(request, 'Vous êtes déja inscrit à la newsletter')
+        url = reverse('index') + '#newsletter'
+        return redirect(url)
+    else:
+        messages.success(request, 'Vous êtes bien inscrit à la newsletter.')
+        url = reverse('index') + '#newsletter'
+        return redirect(url)

@@ -22,8 +22,8 @@ class Testimonials(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Testimonials'
-        verbose_name = 'Testimonial'
+        verbose_name_plural = 'Témoignages'
+        verbose_name = 'Témoignage'
 
 
 class Team(models.Model):
@@ -41,8 +41,8 @@ class Team(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Teams'
-        verbose_name = 'Team'
+        verbose_name_plural = 'Equipe'
+        verbose_name = 'Equipe'
 
 
 class Ask(models.Model):
@@ -53,6 +53,10 @@ class Ask(models.Model):
 
     def __str__(self):
         return self.ask
+
+    class Meta:
+        verbose_name_plural = 'Questions clients'
+        verbose_name = 'Question client'
 
 
 class Contact(models.Model):
@@ -65,3 +69,11 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Newsletter(models.Model):
+    email = models.EmailField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email

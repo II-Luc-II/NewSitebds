@@ -15,8 +15,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', cast=bool)
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['site.bds38.com', 'www.site.bds38.com']
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'site_bds',
-    'account'
+    'account',
+    'yourproject'
 ]
 
 MIDDLEWARE = [

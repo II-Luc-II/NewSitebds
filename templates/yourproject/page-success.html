@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+	<section id="hero">
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+
+  </section><!-- End Hero -->
+		<div class="mask d-flex align-items-center h-100 gradient-custom-3 py-5">
+			<div class="container-fluid h-100 overflow-auto">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+						<div class="card" style="border-radius: 15px">
+							<div class="card-header">
+								<h2 class="text-uppercase text-center mt-3" style="color: black">
+									Devis enregistré
+								</h2>
+								<hr />
+								<div class="card-body text-center">
+									<p>Le devis est bien enregistré {{ devis.author }}, nous reviendrons vers vous très rapidement.</p>
+									<p>Merci pour votre confiance.</p>
+								</div>
+								<div class="card-footer text-center">
+								<a href="{% url 'index'%}" class="btn-general">
+										Continuer
+								</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock content %}

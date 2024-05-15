@@ -25,34 +25,29 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Plan du site</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Accueil</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'index' %}">Accueil</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/#about">A-propos</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/#features">Les solutions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#polycy-Modal" data-toggle="modal"
+                                                         data-target="#polycy-Modal">Privacy policy</a></li>
             </ul>
           </div>
 
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
 
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+          <div class="col-lg-4 col-md-6 footer-newsletter" id="newsletter">
+            <h4>La Newsletter</h4>
+	          {% if messages %}
+						<div>
+							{% include "components/messages.html" with messages=messages %}
+						</div>
+					{% endif %}
+            <p>S'incrire :</p>
+            <form action="{% url 'add-news-letter' %}" method="post">
+	            {% csrf_token %}
+              <input type="email" name="new-letter-email" placeholder="Saisir votre email"><input type="submit"
+                                                                                                  value="Inscription">
             </form>
-
           </div>
-
         </div>
       </div>
     </div>
@@ -62,12 +57,74 @@
         &copy; Copyright <strong><span>bds38.com</span></strong>
       </div>
       </div>
+
+  </footer>
+<!-- End Footer -->
+
+<!-- Modal -->
+<div class="modal fade" id="polycy-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Politique de confidentialité du Site BDS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <p>Cette politique de confidentialité décrit comment BDS, utilise et protège vos données
+	    personnelles lorsque vous utilisez notre site web.</p>
+
+    <h2>Informations que nous collectons</h2>
+    <p>Nous ne collectons que votre nom, le nom de l'entreprise, l'adresse mail et le n° de téléphone lors d'une demande
+	    de devis ou de l'envoi d'un message dans contact sur notre site.
+	    Ces informations sont nécessaires pour pouvoir répondre à vos demandes.</p>
+
+
+    <h2>Protection de vos données</h2>
+    <p>Nous prenons des mesures de sécurité appropriées pour protéger vos données personnelles contre tout accès non
+	    autorisé, modification, divulgation ou destruction.</p>
+
+    <h2>Cookies</h2>
+    <p>Notre site peut utiliser des cookies pour améliorer votre expérience utilisateur. Ces cookies ne collectent pas
+	    d'informations personnelles vous concernant et sont utilisés uniquement à des fins techniques.</p>
+
+    <h2>Vos droits</h2>
+    <p>Vous avez le droit de demander l'accès à vos données personnelles, de les corriger, de les mettre à jour ou de
+	    les supprimer. Pour exercer ces droits, veuillez nous contacter à contact@bds38.com.</p>
+
+    <h2>Modifications de cette politique</h2>
+    <p>Nous nous réservons le droit de mettre à jour cette politique de confidentialité à tout moment. Les modifications
+	    seront publiées sur cette page avec une date de mise à jour.</p>
+
+    <p>Dernière mise à jour : Jeudi 4 mars 2024</p>
+      </div>
+      <div class="modal-footer">
+            <a href="{% url "index" %}" class="btn-general">
+	            Retour
+            </a>
+        </button>
+      </div>
     </div>
-  </footer><!-- End Footer -->
+  </div>
+</div>
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
   <div id="preloader"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@ckeditor/ckeditor5-build-classic@41.2.1/build/ckeditor.min.js"></script>
+	<script>
+        const editors = document.querySelectorAll('textarea')
+
+        editors.forEach(editor => {
+            editor.removeAttribute('required')
+            ClassicEditor
+                .create(editor)
+                .catch(error => {
+                    console.error(error);
+                })
+        })
+	</script>
   <!-- Vendor JS Files -->
   <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

@@ -1,6 +1,6 @@
 from django import forms
 
-from site_bds.models import Contact
+from site_bds.models import Contact, Newsletter
 
 
 class ContactForm(forms.ModelForm):
@@ -14,3 +14,15 @@ class ContactForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+
+class NewsLetterForm(forms.ModelForm):
+
+    class Meta:
+        model = Newsletter
+        fields = ('email',)
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
+
+

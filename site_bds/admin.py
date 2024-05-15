@@ -1,8 +1,7 @@
 from django.contrib import admin
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter
 from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
-from django.urls import reverse
 from django.db import models
 
 admin.site.site_header = 'SITE BDS Administration'
@@ -118,6 +117,11 @@ class ContactAdmin(admin.ModelAdmin):
             return format_html(no_icon + name)
 
 
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ("email", "created_at")
+
+
+admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Testimonials, TestimonialsAdmin)
 admin.site.register(Team, TeamAdmin)
