@@ -25,14 +25,15 @@
 	</svg>
 	</section>
 	<!-- End Hero -->
-
-<div class="container">
+<main id="main">
+	<section class="about">
+	<div class="container">
 		<div class="section-title py-5" data-aos="fade-up">
           <h2>Devis</h2>
           <p>Parlez nous de votre projet </p>
         </div>
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-3" data-aos="fade-right">
 				<form method="post" enctype="multipart/form-data" class="py-2">
 					{% csrf_token %}
 					<div class="form-group">
@@ -69,8 +70,8 @@
 						{% endif %}
 					</div>
 				</div>
-				<div class="col">
-					<div class="form-group">
+				<div class="col-sm-9" data-aos="fade-left">
+					<div class="form-group py-3">
 						<label for="description"></label>
 						{{ form.description }}
 						{% if form.description.errors %}
@@ -82,7 +83,7 @@
 						{% endif %}
 					</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-3" data-aos="fade-up">
 					<div class="form-group m-1 p-0">
 						<label for="author"></label>
 						{{ form.author }}
@@ -94,6 +95,8 @@
 							{% endfor %}
 						{% endif %}
 					</div>
+			</div>
+			<div class="col-sm-3" data-aos="fade-up">
 					<div class="form-group m-1 p-0">
 						<label for="entreprise"></label>
 						{{ form.entreprise }}
@@ -105,6 +108,8 @@
 							{% endfor %}
 						{% endif %}
 					</div>
+			</div>
+			<div class="col-sm-3" data-aos="fade-up">
 					<div class="orm-group m-1 p-0">
 						<label for="email"></label>
 						{{ form.email }}
@@ -116,6 +121,8 @@
 							{% endfor %}
 						{% endif %}
 					</div>
+			</div>
+			<div class="col-sm-3" data-aos="fade-up">
 					<div class="orm-group m-1 p-0">
 						<label for="telephone"></label>
 						{{ form.telephone }}
@@ -127,7 +134,7 @@
 							{% endfor %}
 						{% endif %}
 					</div>
-					<div class="button-form py-4">
+					<div class="button-form py-4" data-aos="fade-up">
 						<div class="text-center">
 							<button class="btn btn-info" type="submit">
 								Envoyer
@@ -141,6 +148,9 @@
 		</div>
 	</div>
 
+	</section>
+
+<main id="main">
 {% endblock content %}
 
 {% block footer %}
