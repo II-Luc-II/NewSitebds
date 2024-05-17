@@ -363,12 +363,11 @@
 
         <div class="row g-3" data-aos="fade-left">
 
-	{% for team in team %}
-				<div class="col-3 col-md-6 col-lg-3">
-
+			{% for team in team %}
+				<div class="col-12 col-md-6 col-lg-3">
 				{% if team.is_published %}
 					<div class="member" data-aos="zoom-in" data-aos-delay="100">
-						<div class="pic" style="height: 300px">
+						<div class="pic" style="min-height: 300px">
 							<img src="{{ team.image.url }}" class="img-fluid" alt="team">
 						</div>
 						<div class="member-info">
@@ -469,7 +468,7 @@
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
 						<div class="form-row">
-							<div class="col-10 ">
+							<div class="col-12 ">
 								<div class="form-group">
 									<label for="name">Nom</label>
 									{{ form.name }}
