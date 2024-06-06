@@ -29,7 +29,7 @@ def your_project(request):
 
 
 def devis_message(request):
-    message = Question.objects.all().order_by('-update_at').first()
+    message = Question.objects.all().order_by('created_at').first()
     html = f"""
            <p>Bonjour Luc.</p>
            <p>Un nouveau devis vient d'être publié par : <br>
@@ -55,7 +55,7 @@ def devis_message(request):
 
 
 def client_message(request):
-    message = Question.objects.all().order_by('-update_at').first()
+    message = Question.objects.all().order_by('-created_at').first()
     html = f"""
            <p>Bonjour,</p>
            <p>Nous confirmons la reception de votre message.</p>
@@ -82,5 +82,5 @@ def client_message(request):
 
 
 def page_success(request):
-    devis = Question.objects.all().order_by('-update_at').first()
+    devis = Question.objects.all().order_by('-created_at').first()
     return render(request, 'yourproject/page-success.html', {'devis': devis})

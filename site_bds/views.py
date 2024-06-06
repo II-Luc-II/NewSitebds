@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from site_bds.ContactForm import ContactForm, NewsLetterForm
@@ -22,7 +21,7 @@ def index(request):
         form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Vous êtes bien enregistré')
+            messages.success(request, 'Merci, Le message est bien envoyé')
             return redirect('contact_message')
         else:
             messages.error(request, 'Merci de vérifier les informations du formulaire.')

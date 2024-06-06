@@ -10,7 +10,7 @@ class Question(models.Model):
     entreprise =models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField()
     telephone = models.CharField(max_length=255)
-    update_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.author
