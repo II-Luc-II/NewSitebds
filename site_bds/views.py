@@ -63,7 +63,7 @@ def contact_message(request):
     # Envoyer l'email
     msg.send()
 
-    return redirect('client-message')
+    return redirect('client-message-contact')
 
 
 def add_news_letter(request):
@@ -77,3 +77,35 @@ def add_news_letter(request):
         messages.success(request, 'Vous êtes bien inscrit à la newsletter.')
         url = reverse('index') + '#newsletter'
         return redirect(url)
+
+
+def client_message_contact(request):
+    message = Contact.objects.all().order_by('-created_at').first()
+    html = f"""
+           <p>Bonjour,</p>
+           <p>Nous confirmons la reception de votre message.</p>
+           <p>Nous vous contacterons rapidement après l'étude de votre demande.<p>
+           <p>Merci pour votre confiance.<p>
+           <p>Cordialement</p>
+           <p>L'équipe BDS<p>
+           """
+
+    # Créer un objet EmailMessage
+    msg = EmailMessage(
+        "Contact BDS",
+        html,
+        "contact@bds38.com",
+        [message.email],
+    )
+
+    # Définir le type de contenu de l'email comme HTML
+    msg.content_subtype = 'html'
+    # Envoyer l'email
+    msg.send()
+
+    return redirect('page-success-client')
+
+
+def page_success_client(request):
+    contact = Contact.objects.all().order_by('-created_at').first()
+    return render(request, 'site/page-success-client.html', {'contact': contact})
