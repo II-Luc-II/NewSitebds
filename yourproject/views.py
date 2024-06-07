@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+
 from yourproject.forms import QuestionForm
 from yourproject.models import Question
 
@@ -56,19 +58,12 @@ def devis_message(request):
 
 def client_message(request):
     message = Question.objects.all().order_by('-created_at').first()
-    html = f"""
-           <p>Bonjour,</p>
-           <p>Nous confirmons la reception de votre message.</p>
-           <p>Nous vous contacterons rapidement après l'étude de votre demande.<p>
-           <p>Merci pour votre confiance.<p>
-           <p>Cordialement</p>
-           <p>L'équipe BDS<p>
-           """
+    html_text = render_to_string("email-client.html", {})
 
     # Créer un objet EmailMessage
     msg = EmailMessage(
         "Contact BDS",
-        html,
+        html_text,
         "contact@bds38.com",
         [message.email],
     )
