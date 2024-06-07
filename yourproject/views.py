@@ -64,7 +64,7 @@ def client_message(request):
     msg = EmailMessage(
         "Contact BDS",
         html_text,
-        "contact@bds38.com",
+        "BDS <contact@bds38.com>",
         [message.email],
     )
 
