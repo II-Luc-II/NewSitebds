@@ -103,3 +103,7 @@ def client_message_contact(request):
 def page_success_client(request):
     contact = Contact.objects.all().order_by('-created_at').first()
     return render(request, 'site/page-success-client.html', {'contact': contact})
+
+
+def privacy(request):
+    return render(request, 'site/privacy.html')
