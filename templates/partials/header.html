@@ -19,22 +19,26 @@
   <meta name="description" content="Développeur Fullstack et Backend basé en Isère, Rhône-Alpes. Spécialisé dans Python et Django. Création de sites web et applications pour les entreprises de la région d'Aoste et aux alentours.">
   <meta name="keywords" content="développeur Fullstack, développeur Backend, Python, Django, Isère, Aoste, Rhône-Alpes, site web, application, développement web, développement d'applications">
   <script src="https://cdnapp.websitepolicies.com/widgets/cookies/pkb2kuc4.js" defer></script>
-<!-- Matomo -->
-<script>
-    const _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-      const u = "https://contactbds38com.matomo.cloud/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '1']);
-      const d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-      g.async=true; g.src='https://cdn.matomo.cloud/contactbds38com.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Code -->
-  <!-- Favicons -->
+
+  <!-- Matomo -->
+  <script>
+      const _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        const u = "https://contactbds38com.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+        const d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://cdn.matomo.cloud/contactbds38com.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+
+  <!-- Charts.js Code -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- End Charts.js Code -->
+
   <link rel="icon" href="{% static 'images/img-accueil/favicon.ico' %}">
 
 
@@ -73,12 +77,15 @@
       </div>
 	    <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
-          <li><a href="{% url 'index' %}#about">A-propos</a></li>
-          <li><a href="{% url 'index' %}#features">Les solutions</a></li>
-          <li><a href="{% url 'index' %}#gallery">Portfolio</a></li>
-          <li><a href="{% url 'index' %}#team">L'équipe</a></li>
-          <li class="drop-down"><a>Liens</a>
+            <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
+            <li><a href="{% url 'index' %}#about">A-propos</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'visitor_statistics' %}">Statistiques</a></li>
+        {% endif %}
+            <li><a href="{% url 'index' %}#features">Les solutions</a></li>
+            <li><a href="{% url 'index' %}#gallery">Portfolio</a></li>
+            <li><a href="{% url 'index' %}#team">L'équipe</a></li>
+            <li class="drop-down"><a>Liens</a>
             <ul>
               <li class="drop-down"><a href="#">Réseaux sociaux</a>
                 <ul>

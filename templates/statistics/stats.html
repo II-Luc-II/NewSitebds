@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Statistics
+{% endblock %}
+
+{% block content %}
+<section id="hero">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
+          <div data-aos="zoom-out">
+            <h1 class="mt-5">Bélier Développement Solution</h1>
+            <h2>Développeur freelance | Fullstack</h2>
+            <div class="text-center text-lg-left">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+          <img src="{% static 'images/img-accueil/BLEU-ICON.svg' %}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+	<div class="container">
+		<div class="col-12 py-5 colors-text-stats text-center">
+			<h3 style="color: white">Statistiques des visiteurs</h3>
+		</div>
+			<div class="row text-center colors-text-stats">
+				<div class="col-12 col-md-6 col-lg-3 mb-4">
+					<h5>Visiteurs quotidiens <br></h5><p>(7 derniers jours)</p>
+	            <canvas id="dailyChart" width="100" height="100"></canvas>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3 mb-4">
+					<h5>Visiteurs hebdomadaires<br></h5><p>(4 dernières semaines)</p>
+	            <canvas id="weeklyChart" width="100" height="100"></canvas>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3 mb-4">
+					<h5>Visiteurs mensuels <br></h5><p>(12 derniers mois)</p>
+	            <canvas id="monthlyChart" width="100" height="100"></canvas>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3 mb-4">
+					<h5>Visiteurs annuels <br></h5><p>(5 dernières années)</p>
+	            <canvas id="yearlyChart" width="100" height="100"></canvas>
+				</div>
+			</div>
+		</div>
+<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+
+	</section>
+
+
+	<script>
+    // Données pour les visiteurs par jour
+    const dailyLabels = [{% for visitor in daily_visitors %}"{{ visitor.day|date:"Y-m-d" }}",{% endfor %}];
+    const dailyData = [{% for visitor in daily_visitors %}{{ visitor.count }}, {% endfor %}];
+
+    // Données pour les visiteurs par semaine
+    const weeklyLabels = [{% for visitor in weekly_visitors %}"{{ visitor.week|date:"Y W" }}",{% endfor %}];
+    const weeklyData = [{% for visitor in weekly_visitors %}{{ visitor.count }}, {% endfor %}];
+
+    // Données pour les visiteurs par mois
+    const monthlyLabels = [{% for visitor in monthly_visitors %}"{{ visitor.month|date:"Y-m" }}",{% endfor %}];
+    const monthlyData = [{% for visitor in monthly_visitors %}{{ visitor.count }}, {% endfor %}];
+
+    // Données pour les visiteurs par année
+    const yearlyLabels = [{% for visitor in yearly_visitors %}"{{ visitor.year|date:"Y" }}",{% endfor %}];
+    const yearlyData = [{% for visitor in yearly_visitors %}{{ visitor.count }}, {% endfor %}];
+
+    // Options de configuration pour les graphiques
+    const chartOptions = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'white'  // Couleur des labels en blanc
+                }
+            }
+        }
+    };
+
+    // Création des camemberts avec Chart.js
+    const ctxDaily = document.getElementById('dailyChart').getContext('2d');
+    new Chart(ctxDaily, {
+        type: 'pie',
+        data: {
+            labels: dailyLabels,
+            datasets: [{
+                label: 'Daily Visitors',
+                data: dailyData,
+                backgroundColor: [
+                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#8B0000'
+                ],
+            }]
+        },
+        options: chartOptions
+    });
+
+    const ctxWeekly = document.getElementById('weeklyChart').getContext('2d');
+    new Chart(ctxWeekly, {
+        type: 'pie',
+        data: {
+            labels: weeklyLabels,
+            datasets: [{
+                label: 'Weekly Visitors',
+                data: weeklyData,
+                backgroundColor: [
+                    '#FF4500', '#2E8B57', '#FFD700', '#8A2BE2', '#FF69B4'
+                ],
+            }]
+        },
+        options: chartOptions
+    });
+
+    const ctxMonthly = document.getElementById('monthlyChart').getContext('2d');
+    new Chart(ctxMonthly, {
+        type: 'pie',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: 'Monthly Visitors',
+                data: monthlyData,
+                backgroundColor: [
+                    '#1E90FF', '#FF6347', '#32CD32', '#FFA500', '#DA70D6', '#4B0082', '#7FFF00', '#D2691E', '#FF1493', '#9400D3', '#00BFFF', '#FF4500'
+                ],
+            }]
+        },
+        options: chartOptions
+    });
+
+    const ctxYearly = document.getElementById('yearlyChart').getContext('2d');
+    new Chart(ctxYearly, {
+        type: 'pie',
+        data: {
+            labels: yearlyLabels,
+            datasets: [{
+                label: 'Yearly Visitors',
+                data: yearlyData,
+                backgroundColor: [
+                    '#FFD700', '#C71585', '#4682B4', '#9ACD32', '#FF7F50'
+                ],
+            }]
+        },
+        options: chartOptions
+    });
+</script>
+
+{% endblock %}
+
+

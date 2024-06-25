@@ -2,6 +2,7 @@ import environ
 from pathlib import Path
 import os
 
+
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -31,7 +32,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'site_bds',
     'account',
-    'yourproject'
+    'yourproject',
+    'site_stats'
 ]
 
 MIDDLEWARE = [
@@ -44,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
+    'site_stats.middleware.VisitorTrackingMiddleware'
 ]
 
 ROOT_URLCONF = 'BDS_Site.urls'
