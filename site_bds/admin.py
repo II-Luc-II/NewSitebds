@@ -4,6 +4,8 @@ from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
 from django.db import models
 
+from site_stats.models import Visitor
+
 admin.site.site_header = 'SITE BDS Administration'
 
 
