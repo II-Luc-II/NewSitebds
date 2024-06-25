@@ -76,8 +76,7 @@ def add_news_letter(request):
         return redirect(url)
     else:
         messages.success(request, 'Vous êtes bien inscrit à la newsletter.')
-        url = reverse('index') + '#newsletter'
-        return redirect(url)
+        return redirect('contact_message_newsletter')
 
 
 def client_message_contact(request):
@@ -107,3 +106,29 @@ def page_success_client(request):
 
 def privacy(request):
     return render(request, 'site/privacy.html')
+
+
+def contact_message_newsletter(request):
+    news_letter = Newsletter.objects.all().order_by('-created_at').first()
+    html = f"""
+           <p>Bonjour Luc.</p>
+           <p>Un nouveau client vient de s'abonner à la news-letter : <br>
+           {news_letter.email}<br>
+           sur le site 'BDS' le {news_letter.created_at}</p>
+           """
+
+    # Créer un objet EmailMessage
+    msg = EmailMessage(
+        "Client news-letter",
+        html,
+        "contact@bds38.com",
+        ["contact@bds38.com"],
+    )
+
+    # Définir le type de contenu de l'email comme HTML
+    msg.content_subtype = 'html'
+    # Envoyer l'email
+    msg.send()
+
+    url = reverse('index') + '#newsletter'
+    return redirect(url)
