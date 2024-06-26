@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'site_bds',
     'account',
     'yourproject',
-    'site_stats'
+    'site_stats',
+    'site_gadgetes'
 ]
 
 MIDDLEWARE = [
