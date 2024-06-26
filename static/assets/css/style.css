@@ -436,12 +436,23 @@ h1, h2, h3, h4, h5, h6 {
   text-align: justify;
 }
 /*--------------------------------------------------------------
-# Stats
+# Stats et gadgets
 --------------------------------------------------------------*/
 .colors-text-stats {
   color: whitesmoke !important;
 }
 
+
+.input-colors-text-gadgets{
+  min-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Style pour la barre de progression */
+.progress-bar {
+        transition: width 0.5s ease;
+    }
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/

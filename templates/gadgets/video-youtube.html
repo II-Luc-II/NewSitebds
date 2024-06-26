@@ -2,67 +2,66 @@
 {% load static %}
 
 {% block title %}
-Statistics
+	Vidéos Youtube
 {% endblock %}
 
 {% block content %}
-<section id="hero">
+	<section id="hero">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
-          <div data-aos="zoom-out">
-            <h1 class="mt-5">Bélier Développement Solution</h1>
-            <h2>Développeur freelance | Fullstack</h2>
-            <div class="text-center text-lg-left">
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
-          <img src="{% static 'images/img-accueil/BLEU-ICON.svg' %}" class="img-fluid animated" alt="">
-        </div>
-      </div>
-    </div>
-
-	<div class="container-fluid">
-		<div class="col-12 py-5 input-colors-text-stats text-center">
-			<h3 style="color: white">Statistiques des visiteurs</h3>
-		</div>
-			<div class="row text-center colors-text-stats  p-5">
-				<div class="col-12 col-md-6 col-lg-3 mb-4 p-5">
-					<h5>Visiteurs quotidiens <br></h5><p>(7 derniers jours)</p>
-	            <canvas id="dailyChart" width="100" height="100"></canvas>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
+					<div data-aos="zoom-out">
+						<h1 class="mt-5">Bélier Développement Solution</h1>
+						<h2>Développeur freelance | Fullstack</h2>
+						<div class="text-center text-lg-left">
+						</div>
+					</div>
 				</div>
-				<div class="col-12 col-md-6 col-lg-3 mb-4 p-5">
-					<h5>Visiteurs hebdomadaires<br></h5><p>(4 dernières semaines)</p>
-	            <canvas id="weeklyChart" width="100" height="100"></canvas>
-				</div>
-				<div class="col-12 col-md-6 col-lg-3 mb-4 p-5">
-					<h5>Visiteurs mensuels <br></h5><p>(12 derniers mois)</p>
-	            <canvas id="monthlyChart" width="100" height="100"></canvas>
-				</div>
-				<div class="col-12 col-md-6 col-lg-3 mb-4 p-5">
-					<h5>Visiteurs annuels <br></h5><p>(5 dernières années)</p>
-	            <canvas id="yearlyChart" width="100" height="100"></canvas>
+				<div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+					<img src="{% static 'images/img-accueil/BLEU-ICON.svg' %}" class="img-fluid animated" alt="">
 				</div>
 			</div>
+		</div>
 
-<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 24 150 28 " preserveAspectRatio="none">
-      <defs>
-        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-      </defs>
-      <g class="wave1">
-        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
-      </g>
-      <g class="wave2">
-        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
-      </g>
-      <g class="wave3">
-        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
-      </g>
-    </svg>
-	</div>
+		<div class="col-12 py-5 colors-text-stats text-center input-colors-text-gadgets" style="max-width: 800px">
+			<div class="row">
+                <div class="col">
+                    <div class="container-fluid">
+                        <div class="col-12 py-5 colors-text-stats text-center">
+                            <!-- Espace pour afficher les messages de téléchargement -->
+                            <div id="download-message" class="alert" role="alert"></div>
+
+                        <!-- Formulaire de téléchargement -->
+                        <form id="download-form" action="{% url 'video_youtube' %}" method="post" onsubmit="submitForm(event)">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Télécharger</button>
+                        </form>
+                    </div>
+                </div>
+			</div>
+		</div>
+		</div>
+		<div class="container-fluid">
+			<div class="col-12 py-5 colors-text-stats text-center">
+			</div>
+			<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+			     viewBox="0 24 150 28 " preserveAspectRatio="none">
+				<defs>
+					<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+				</defs>
+				<g class="wave1">
+					<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+				</g>
+				<g class="wave2">
+					<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+				</g>
+				<g class="wave3">
+					<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+				</g>
+			</svg>
+		</div>
 	</section>
 
 
