@@ -10,6 +10,7 @@ from .forms import YouTubeDownloadForm
 from django.http import StreamingHttpResponse
 import requests
 
+
 def video_youtube(request):
     if request.method == 'POST':
         form = YouTubeDownloadForm(request.POST)
