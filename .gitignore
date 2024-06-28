@@ -20,6 +20,7 @@ db.sqlite
 # AWS User-specific
 .idea/**/aws.xml
 
+
 # genarate files
 
 idea/**/dataSources/
@@ -115,3 +116,4 @@ Control.system-ca-bundle
 GitHub.sublime-settings optimized / DLL files
 
 staticfiles
+/media/downloads/
