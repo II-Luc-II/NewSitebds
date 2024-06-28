@@ -5,18 +5,33 @@ from django.db.models.functions import TruncDay, TruncWeek, TruncMonth, TruncYea
 from .models import Visitor
 from datetime import datetime, timedelta
 
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count
+from django.db.models.functions import TruncDay, TruncWeek, TruncMonth, TruncYear
+from django.utils import timezone  # Importez timezone
+from .models import Visitor
+from datetime import timedelta
+
 
 @login_required(login_url='sign_in')
 def visitor_statistics(request):
-    # Visiteurs par jour
+    # Obtenez la date et l'heure actuelle avec le fuseau horaire
+    now = timezone.now()
+
     # Calcul des dates pour filtrer les visites récentes
-    today = datetime.today().date()
+    today = now.date()  # Utilisez la date de 'now'
     start_of_week = today - timedelta(days=today.weekday())
     start_of_month = today.replace(day=1)
     start_of_year = today.replace(month=1, day=1)
 
+    # Convertir les dates de filtrage en dates conscientes du fuseau horaire
+    start_of_week = timezone.make_aware(datetime.combine(start_of_week, datetime.min.time()))
+    start_of_month = timezone.make_aware(datetime.combine(start_of_month, datetime.min.time()))
+    start_of_year = timezone.make_aware(datetime.combine(start_of_year, datetime.min.time()))
+
     # Visiteurs par jour (les 7 derniers jours)
-    daily_visitors = Visitor.objects.filter(date_visited__gte=today - timedelta(days=7)).annotate(
+    daily_visitors = Visitor.objects.filter(date_visited__gte=now - timedelta(days=7)).annotate(
         day=TruncDay('date_visited')).values('day').annotate(count=Count('id')).order_by('day')
 
     # Visiteurs par semaine (les 4 dernières semaines)
