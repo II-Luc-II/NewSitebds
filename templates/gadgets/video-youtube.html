@@ -29,6 +29,11 @@
                 <div class="col">
                     <div class="container-fluid">
                         <div class="col-12 py-5 colors-text-stats text-center">
+	                        {% if messages %}
+								<div>
+									{% include "components/messages.html" with messages=messages %}
+								</div>
+							{% endif %}
                             <!-- Espace pour afficher les messages de téléchargement -->
                             <div id="download-message" class="alert" role="alert"></div>
 

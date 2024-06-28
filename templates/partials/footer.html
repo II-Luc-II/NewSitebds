@@ -41,11 +41,11 @@
 							{% include "components/messages.html" with messages=messages %}
 						</div>
 					{% endif %}
-            <p>S'incrire :</p>
+            <p>S'inscrire :</p>
             <form action="{% url 'add-news-letter' %}" method="post">
 	            {% csrf_token %}
-              <input type="email" name="new-letter-email" placeholder="Saisir votre email"><input type="submit"
-                                                                                                  value="Inscription">
+              <input type="email" name="new-letter-email" placeholder="Saisir votre email">
+	            <input type="submit" value="Inscription">
             </form>
           </div>
         </div>
