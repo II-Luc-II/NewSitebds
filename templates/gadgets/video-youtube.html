@@ -34,8 +34,6 @@
 									{% include "components/messages.html" with messages=messages %}
 								</div>
 							{% endif %}
-                            <!-- Espace pour afficher les messages de téléchargement -->
-                            <div id="download-message" class="alert" role="alert"></div>
 
                         <!-- Formulaire de téléchargement -->
                         <form id="download-form" action="{% url 'video_youtube' %}" method="post" onsubmit="submitForm(event)">
