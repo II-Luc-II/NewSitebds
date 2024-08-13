@@ -1,5 +1,13 @@
 from django.urls import path
 from site_bds import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap
+from .views import robots_txt
+
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -9,6 +17,8 @@ urlpatterns = [
     path('add-news-letter-message', views.contact_message_newsletter, name='contact_message_newsletter'),
     path('page-success-client', views.page_success_client, name='page-success-client'),
     path('privacy', views.privacy, name='privacy'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    path('robots.txt', robots_txt),
 ]
 
 handler404 = views.handle404

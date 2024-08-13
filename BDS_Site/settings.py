@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'yourproject',
     'site_stats',
     'site_gadgetes',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [

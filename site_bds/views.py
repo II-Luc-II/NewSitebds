@@ -1,11 +1,23 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from site_bds.ContactForm import ContactForm, NewsLetterForm
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter
 from django.utils.html import escape
+
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /admin/",
+        "Disallow: /account/",
+        "Disallow: /site_gadgetes/",
+        "Sitemap: https://site.bds38.com/sitemap.xml"
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
 def handle404(request, exception):

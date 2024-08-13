@@ -1,0 +1,14 @@
+# Autoriser tous les robots à explorer tout le site
+User-agent: *
+Disallow:
+
+# Bloquer l'accès aux pages d'administration de Django
+Disallow: /admin/
+
+# Bloquer l'accès aux pages spécifiques
+Disallow: /private/
+Disallow: /account/
+Disallow: /site_gadgetes/
+
+# Spécifier le chemin vers le sitemap
+Sitemap: https://site.bds38.com/sitemap.xml
