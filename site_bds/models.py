@@ -6,6 +6,7 @@ class Gallery(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='galleries/')
     is_published = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -17,6 +18,7 @@ class Testimonials(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='testimonials/')
     is_published = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -36,6 +38,7 @@ class Team(models.Model):
     instagram = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='team/')
     is_published = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

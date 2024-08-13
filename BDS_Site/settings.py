@@ -1,7 +1,7 @@
-import environ
+
 from pathlib import Path
 import os
-
+import environ
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'account',
     'yourproject',
     'site_stats',
-    'site_gadgetes'
+    'site_gadgetes',
 ]
 
 MIDDLEWARE = [

@@ -6,20 +6,10 @@ from django.http import StreamingHttpResponse
 import requests
 import time
 from pytube.exceptions import PytubeError
-
-
-from django.shortcuts import render
-from django.contrib import messages
-from pytube import YouTube
-from .forms import YouTubeDownloadForm
-from django.http import StreamingHttpResponse
-import requests
-import time
-from pytube.exceptions import PytubeError
 import logging
 
 # Configurer le logger
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.CRITICAL,
                     filename='gadgets.log',
                     filemode='a',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -86,6 +76,5 @@ def video_youtube(request):
         form = YouTubeDownloadForm()
 
     return render(request, 'gadgets/video-youtube.html', {'form': form})
-
 
 

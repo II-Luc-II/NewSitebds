@@ -15,8 +15,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="Développeur Fullstack et Backend basé en Isère, Rhône-Alpes. Spécialisé dans Python et Django. Création de sites web et applications pour les entreprises de la région d'Aoste et aux alentours.">
+  <title>{% block title %}BDS | Bélier Développement Solution | Développeur Aoste{% endblock %}</title>
+  <meta name="description" content="Bélier Développement Solution, Développeur Fullstack et Backend basé en Isère, Rhône-Alpes. Spécialisé dans Python et Django. Création de sites web et applications pour les entreprises de la région d'Aoste et aux alentours.">
   <meta name="keywords" content="développeur Fullstack, développeur Backend, Python, Django, Isère, Aoste, Rhône-Alpes, site web, application, développement web, développement d'applications">
   <script src="https://cdnapp.websitepolicies.com/widgets/cookies/pkb2kuc4.js" defer></script>
 
@@ -62,14 +62,19 @@
       </div>
 	    <nav class="nav-menu d-none d-lg-block">
         <ul>
-            <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
-            <li><a href="{% url 'index' %}#about">A-propos</a></li>
+            <li class="{% if request.resolver_match.view_name == 'index' %} active {% endif %}">
+	            <a href="{% url 'index' %}">Accueil</a>
+            </li>
+            <li><a href="{% url 'index' %}#about" data-target="about">A-propos</a></li>
         {% if user.is_authenticated %}
-            <li><a href="{% url 'visitor_statistics' %}">Statistiques</a></li>
+            <li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
+	            <a href="{% url 'visitor_statistics' %}">Statistiques</a>
+            </li>
         {% endif %}
-            <li><a href="{% url 'index' %}#features">Les solutions</a></li>
-            <li><a href="{% url 'index' %}#gallery">Portfolio</a></li>
-            <li><a href="{% url 'index' %}#team">L'équipe</a></li>
+            <li><a href="{% url 'index' %}#features" data-target="features">Les solutions</a></li>
+            <li><a href="{% url 'index' %}#gallery" data-target="gallery">Portfolio</a></li>
+            <li><a href="{% url 'index' %}#team" data-target="team">L'équipe</a></li>
+			<li><a href="{% url "index" %}#contact" data-target="contact">Contact</a></li>
             <li class="drop-down"><a>Liens</a>
             <ul>
               <li class="drop-down"><a href="#">Réseaux sociaux</a>
@@ -91,7 +96,7 @@
               <li><a href="#">Drop Down 5</a></li> -->
             </ul>
           </li>
-          <li><a href="{% url "index" %}#contact">Contact</a></li>
+
 		{% if user.is_authenticated %}
 		  <li>
 			<form action="{% url 'logout' %}" method="post">
