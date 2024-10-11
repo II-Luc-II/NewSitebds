@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Gallery(models.Model):
@@ -80,3 +81,25 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Blogs(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Titre", blank=True, null=True)
+    image = models.ImageField(upload_to='images-blogs', blank=True, null=True, verbose_name="Image")
+    image_2 = models.ImageField(upload_to='images-blogs', blank=True, null=True, verbose_name="Image 2")
+    image_3 = models.ImageField(upload_to='images-blogs', blank=True, null=True, verbose_name="Image 3")
+    text = models.TextField(blank=True, null=True)
+    text_details = models.TextField(blank=True, null=True, verbose_name="Texte détails")
+    text_details_2 = models.TextField(blank=True, null=True, verbose_name="Texte détails 2")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
+    en_ligne = models.BooleanField(default=False, verbose_name="Publié")
+
+    class Meta:
+        verbose_name_plural = 'News'
+        verbose_name = 'News'
+
+    def __str__(self):
+        return f"{self.title}"
+
+    def get_absolute_url(self):
+        return reverse('blog_single', args=[self.pk])

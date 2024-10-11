@@ -17,6 +17,8 @@ urlpatterns = [
     path('add-news-letter-message', views.contact_message_newsletter, name='contact_message_newsletter'),
     path('page-success-client', views.page_success_client, name='page-success-client'),
     path('privacy', views.privacy, name='privacy'),
+    path('news', views.news, name='news'),
+    path('blog-single/<int:blog_id>', views.blog_single, name='blog_single'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('robots.txt', robots_txt),
 ]

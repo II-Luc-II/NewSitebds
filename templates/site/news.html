@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+	<section id="hero">
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+
+	</section><!-- End Hero -->
+
+	<!-- ======= Blog Section ======= -->
+	<section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					{% for blogs in blogs %}
+						{% if blogs.en_ligne %}
+							<article class="entry" id="blog-{{ blogs.id }}">
+
+								<h2 class="entry-title">
+									<a href="{% url 'blog_single' blog_id=blogs.id %}">{{ blogs.title }}</a>
+								</h2>
+
+								<div class="entry-meta">
+									<ul>
+										<li class="d-flex align-items-center">
+											<i class="icofont-wall-clock"></i>
+											<a href="{% url 'blog_single' blog_id=blogs.id %}">
+												<time datetime="2020-01-01">{{ blogs.created_at }}</time>
+											</a>
+									</ul>
+								</div>
+								<div class="d-flex justify-content-center">
+									<img src="{{ blogs.image.url }}" alt="{{ blogs.title }}"
+									     class="img-fluid rounded mb-1"
+									>
+								</div>
+								<div class="entry-content mt-3">
+									<p>
+										{{ blogs.text|safe }}
+									</p>
+									<div class="read-more">
+										<a class="btn-get-started" style="border-radius: 30px" href="{% url 'blog_single' blog_id=blogs.id %}">Voir plus</a>
+									</div>
+								</div>
+
+							</article><!-- End blog entry -->
+						{% endif %}
+
+					{% endfor %}
+				</div><!-- End blog entries list -->
+
+				<div class="col-lg-4">
+					<div class="sidebar">
+						<div class="sidebar-item">
+							<img src="{% static 'images/54-Grande.jpeg' %}" alt="image-judoAdministrator"
+							     class="rounded" height="200" width="270">
+						</div>
+
+						<h3 class="sidebar-title">Toutes les news</h3>
+						<div class="sidebar-item recent-posts">
+							{% for blog in blogs %}
+								{% if blog.en_ligne %}
+									<div class="post-item clearfix">
+										<img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+										<h4><a href="#blog-{{ blog.id }}">{{ blog.title }}</a></h4>
+										<time datetime="2020-01-01">{{ blog.created_at }}</time>
+									</div>
+								{% endif %}
+
+							{% endfor %}
+						</div><!-- End sidebar recent posts-->
+					</div><!-- End sidebar -->
+				</div><!-- End blog sidebar -->
+			</div><!-- End .row -->
+		</div><!-- End .container -->
+	</section><!-- End Blog Section -->
+
+	</main><!-- End #main -->
+
+{% endblock content %}

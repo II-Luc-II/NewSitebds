@@ -1,5 +1,5 @@
 from django.contrib import admin
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs
 from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
 from django.db import models
@@ -123,10 +123,42 @@ class NewsletterAdmin(admin.ModelAdmin):
     list_display = ("email", "created_at")
 
 
+
+class BlogsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at', 'en_ligne', 'display_image', 'display_image_2', 'display_image_3', 'created_at')
+    list_editable = ('en_ligne',)
+
+    def display_image(self, obj):
+        if obj.image:  # Vérification si l'image est présente
+            return format_html(f'<img src="{obj.image.url}" width="150" />')
+        return ""
+
+    display_image.short_description = 'Image'
+
+    def display_image_2(self, obj):
+        if obj.image_2:  # Vérification si l'image_2 est présente
+            return format_html(f'<img src="{obj.image_2.url}" width="150" />')
+        return ""
+
+    display_image_2.short_description = 'Image 2'
+
+    def display_image_3(self, obj):
+        if obj.image_3:  # Vérification si l'image_3 est présente
+            return format_html(f'<img src="{obj.image_3.url}" width="150" />')
+        return ""
+
+    display_image_3.short_description = 'Image 3'
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorWidget}
+    }
+
+
 admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Testimonials, TestimonialsAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(Ask, AskAdmin)
 admin.site.register(Contact, ContactAdmin)
+admin.site.register(Blogs, BlogsAdmin)
 

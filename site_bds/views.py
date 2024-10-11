@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
-from site_bds.ContactForm import ContactForm, NewsLetterForm
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter
 from django.utils.html import escape
+
+from site_bds.ContactForm import ContactForm
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs
 
 
 def robots_txt(request):
@@ -144,3 +145,25 @@ def contact_message_newsletter(request):
 
     url = reverse('index') + '#newsletter'
     return redirect(url)
+
+
+def news(request):
+    blogs = Blogs.objects.all().order_by('-created_at')
+
+    context = {
+        'blogs': blogs,
+    }
+    return render(request, 'site/news.html', context)
+
+
+def blog_single(request, blog_id):
+    blogs = Blogs.objects.get(id=blog_id)
+    blog_all = Blogs.objects.all()
+
+    context = {
+        'blogs': blogs,
+        "blog_all": blog_all,
+        'blog_single': blog_single,
+    }
+
+    return render(request, 'site/blog-single.html', context)

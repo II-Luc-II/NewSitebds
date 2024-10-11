@@ -65,6 +65,9 @@
             <li class="{% if request.resolver_match.view_name == 'index' %} active {% endif %}">
 	            <a href="{% url 'index' %}">Accueil</a>
             </li>
+            <li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
+	            <a href="{% url 'news' %}">Les news</a>
+            </li>
             <li><a href="{% url 'index' %}#about" data-target="about">A-propos</a></li>
         {% if user.is_authenticated %}
             <li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
