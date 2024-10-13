@@ -19,6 +19,7 @@ urlpatterns = [
     path('privacy', views.privacy, name='privacy'),
     path('news', views.news, name='news'),
     path('blog-single/<int:blog_id>', views.blog_single, name='blog_single'),
+    path('gallery-single/<int:gallery_id>', views.gallery_single, name='gallery_single'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('robots.txt', robots_txt),
 ]

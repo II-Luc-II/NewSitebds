@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}News{% endblock %}
+{% block title %}Gallerie{% endblock %}
 
 
 {% block header %}
@@ -38,19 +38,22 @@
           <div class="col-lg-8 entries">
 
             <article class="entry entry-single">
+	            <div>
+		            <h1>{{ gallery.name }}</h1>
+	            </div>
               <div class="d-flex justify-content-center">
-                <img src="{{ blogs.image.url }}" alt="{{ blogs.title }}" class="img-fluid">
+                <img src="{{ gallery.image.url }}" alt="{{ gallery.title }}" class="img-fluid">
               </div>
 
               <h2 class="entry-title">
-                <a href="{% url 'blog_single' blog_id=blogs.id %}">{{ blogs.title }}</a>
+                <a href="{% url 'gallery_single' gallery_id=gallery.id %}">{{ gallery.title }}</a>
               </h2>
 
               <div class="entry-meta">
                 <ul>
                   <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i>
-					<a href="{% url 'blog_single' blog_id=blogs.id %}">
-						<time datetime="2020-01-01">{{ blogs.created_at }}</time>
+					<a href="{% url 'gallery_single' gallery_id=gallery.id %}">
+						<time datetime="2020-01-01">{{ gallery.created_at }}</time>
 					</a>
                 </ul>
               </div>
@@ -58,25 +61,10 @@
               <div class="entry-content">
 	              <div>
 		              <p>
-	                {{ blogs.text|safe }}
+	                {{ gallery.description|safe }}
                     </p>
 	              </div>
-				  <div class="m-5">
-                    <img src="{{ blogs.image_2.url }}" alt="{{ blogs.title }}" class="img-fluid">
-				  </div>
-	              <div>
-		              <p>
-                        {{ blogs.text_details|safe }}
-		              </p>
-	              </div>
               </div>
-
-				<div class="m-5">
-                    <img src="{{ blogs.image_3.url }}" alt="{{ blogs.title }}" class="img-fluid">
-                 </div>
-                <p>
-                  {{ blogs.text_details_2|safe }}
-                </p>
             </article><!-- End blog entry -->
           </div><!-- End blog entries list -->
 
@@ -88,13 +76,13 @@
 					     class="rounded" height="200" width="270">
 				</div><!-- End sidebar search form-->
 
-				<h3 class="sidebar-title">Toutes les news</h3>
+				<h3 class="sidebar-title">Toutes les commandes</h3>
 				<div class="sidebar-item recent-posts">
-					{% for blog_all in blog_all %}
+					{% for gallery_all in gallery_all %}
 						<div class="post-item clearfix">
-							<img src="{{ blog_all.image.url }}" alt="{{ blog_all.title }}" height="50" width="80">
-							<h4><a href="{% url 'news' %}#blog-{{ blog.id }}">{{ blog_all.title }}</a></h4>
-							<time datetime="2020-01-01">{{ blog_all.created_at }}</time>
+							<img src="{{ gallery_all.image.url }}" alt="{{ gallery_all.title }}" height="50" width="80">
+							<h4><a href="{% url 'gallery_single' gallery_id=gallery_all.id %}">{{ gallery_all.name }}</a></h4>
+							<time datetime="2020-01-01">{{ gallery.created_at }}</time>
 						</div>
 					{% endfor %}
 				</div>

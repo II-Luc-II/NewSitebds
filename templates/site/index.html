@@ -341,7 +341,7 @@
 			{% if gallery.is_published %}
 				<div class="col-lg-3 col-md-4 rounded m-4">
             <div class="gallery-item  shadow" data-aos="zoom-in" data-aos-delay="100">
-              <a href="{{ gallery.image.url }}" class="venobox" data-gall="gallery-item">
+              <a href="{% url 'gallery_single' gallery.id  %}">
                 <img src="{{ gallery.image.url }}" alt="" class="img-fluid rounded" style=" height: 130px; width: 100%">
               </a>
             </div>

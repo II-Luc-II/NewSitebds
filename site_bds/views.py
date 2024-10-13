@@ -167,3 +167,16 @@ def blog_single(request, blog_id):
     }
 
     return render(request, 'site/blog-single.html', context)
+
+
+def gallery_single(request, gallery_id):
+    gallery = Gallery.objects.get(id=gallery_id)
+    gallery_all = Gallery.objects.all()
+
+
+    context = {
+        'gallery': gallery,
+        'gallery_all': gallery_all,
+    }
+
+    return render(request, 'site/gallery-single.html', context)
