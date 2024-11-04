@@ -2,558 +2,651 @@
 {% load static %}
 
 {% block content %}
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
+	<!-- ======= Hero Section ======= -->
+	<section id="hero">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
-          <div data-aos="zoom-out">
-            <h1 class="mt-5">Bélier Développement Solution</h1>
-            <h2>Développeur freelance | Fullstack</h2>
-            <div class="text-center text-lg-left">
-              <a href="#about" class="btn-get-started scrollto">Découvrir</a>
-              <a href="{% url 'your-project' %}" class="btn-get-started scrollto">Votre projet</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
-          <img src="{% static 'images/img-accueil/BLANC-ICON.svg' %}" class="img-fluid animated" alt="Logo-bds">
-        </div>
-      </div>
-    </div>
-
-    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
-      <defs>
-        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-      </defs>
-      <g class="wave1">
-        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
-      </g>
-      <g class="wave2">
-        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
-      </g>
-      <g class="wave3">
-        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
-      </g>
-    </svg>
-
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container-fluid">
-
-        <div class="row">
-          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch" data-aos="fade-right">
-           <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a> -->
-          </div>
-
-          <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" data-aos="fade-left">
-            <h3>Bienvenue chez BDS - Votre Partenaire Développeur Web et Applications.</h3>
-            <p>Êtes-vous prêt à transformer vos idées en réalité numérique ?</p><br>
-            <h4 class="title">Pourquoi travailler avec BDS.</h4>
-
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Expertise Technique</a></h4>
-              <p class="description">Nous maîtrisons une gamme variée de langages de programmation
-	              et de <a href="https://fr.wikipedia.org/wiki/Framework">frameworks</a> , ce qui signifie que nous
-	              pouvons choisir la technologie parfaite pour votre projet.
-              </p>
-            </div>
-
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-              <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Engagement envers la Qualité</a></h4>
-              <p class="description">La qualité est notre priorité absolue. Chaque ligne de code que nous écrivons et
-	              chaque pixel que nous concevons sont soumis à des normes rigoureuses pour garantir la satisfaction
-	              de nos clients.</p>
-            </div>
-
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-              <div class="icon"><i class="bx bx-atom"></i></div>
-              <h4 class="title"><a href="">Collaboration Transparente</a></h4>
-              <p class="description">Nous croyons en la transparence et en une communication ouverte avec nos clients.
-	              Votre vision est au cœur de tout ce que nous faisons. Découvrez comment nous pouvons donner vie à vos
-	              idées numériques. Parcourez notre portfolio pour voir ce que nous avons accompli pour nos clients, et
-	              contactez-nous pour discuter de votre projet. Chez BDS, nous ne construisons pas seulement des sites
-	              web et des applications, nous bâtissons des expériences exceptionnelles.</p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-    <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>dev</h2>
-          <p>Les solutions proposées</p>
-        </div>
-
-        <div class="row" data-aos="fade-left">
-          <div class="col-lg-3 col-md-4">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
-              <i class="ri-store-line" style="color: #ffbb2c;"></i>
-              <h3>E-commerce</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-              <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-              <h3>Data science</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="150">
-              <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
-              <h3>App bureau</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-              <i><img src="/static/icons/icons8-web-64.png" style="height: 27px"  alt="phone"></i>
-              <h3>App web</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="250">
-              <i class="ri-database-2-line" style="color: #47aeff;"></i>
-              <h3>Gestion db</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-              <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
-              <h3>Scraping</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="350">
-              <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
-              <h3>Automatisation</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="400">
-              <i> <img src="/static/icons/icons8-smartphone-64.png" style="height: 26px"  alt="phone"></i>
-              <h3>App mobile</h3>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-	  <!-- End Features Section -->
-
-    <!-- ======= Counts Section ======= -->
-    <!-- <section id="counts" class="counts">
-      <div class="container">
-
-        <div class="row" data-aos="fade-up">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="icofont-simple-smile"></i>
-              <span data-toggle="counter-up">232</span>
-              <p>Happy Clients</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-            <div class="count-box">
-              <i class="icofont-document-folder"></i>
-              <span data-toggle="counter-up">521</span>
-              <p>Projects</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="icofont-live-support"></i>
-              <span data-toggle="counter-up">1,463</span>
-              <p>Hours Of Support</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="icofont-users-alt-5"></i>
-              <span data-toggle="counter-up">15</span>
-              <p>Hard Workers</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-    <-- End Counts Section -->
-
-    <!-- ======= Details Section ======= -->
-    <section id="details" class="details">
-      <div class="container">
-
-        <div class="row content">
-          <div class="col-md-4" data-aos="fade-right">
-            <img src="{% static 'images/img-accueil/image-techno.png' %}" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-8 pt-4" data-aos="fade-up">
-            <h3>Les avantages de Travailler avec Nos Technologies.</h3>
-            <p class="font-italic">
-              Nous mettons l'utilisateur final au centre de nos conceptions.
-            </p>
-            <ul>
-              <li><i class="icofont-check"></i> La garantie que vos projets bénéficient des dernières innovations.</li>
-              <li><i class="icofont-check"></i> Nous planifions et développons en gardant à l'esprit la croissance
-	              future de votre projet.</li>
-              <li><i class="icofont-check"></i> Les applications sont rigoureusement testés pour garantir une protection
-	              maximale.</li>
-              <li><i class="icofont-check"></i> Nous assurons que chaque projet offre une expérience intuitive.</li>
-            </ul>
-            <p class="text-justify">
-              Découvrez comment nous pouvons mettre en œuvre ces technologies pour réaliser vos projets numériques.
-	            Contactez-nous pour discuter de vos besoins spécifiques et laissez-nous transformer vos idées en réalité
-	            numérique.
-            </p>
-          </div>
-        </div>
-
-        <div class="row content">
-          <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
-            <img src="{% static 'images/img-accueil/Back-end.2.jpg' %}" class="img-fluid" alt="back-end">
-	          <h3 class='text-center'>Backend</h3>
-          </div>
-          <div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
-            <h3>Développement Backend Python : Puissant, Polyvalent, Performant</h3>
-            <p class="font-italic text-justify">
-              À la base de chaque grand site web se trouve un
-	            <a href="https://fr.wikipedia.org/wiki/Backend">
-		            backend
-	            </a>
-	            robuste et fiable. Et pour beaucoup, Python est
-	            le langage de choix pour cette tâche. Avec sa syntaxe simple, sa grande communauté de développeurs et
-	            sa multitude de frameworks éprouvés, le développement backend en
-	            <a href="https://fr.wikipedia.org/wiki/Python">Python</a> offre une solution puissante
-	            pour répondre aux besoins de votre entreprise en ligne.
-            </p>
-            <p class="text-justify">
-              L'écosystème Python est vaste et dynamique, avec des bibliothèques et des outils pour presque toutes les
-	            tâches imaginables. Que vous ayez besoin de manipuler des données, de gérer des
-	            <a href="https://fr.wikipedia.org/wiki/API">API</a> , de travailler avec
-	            des bases de données ou d'intégrer des services tiers, il existe une bibliothèque Python pour vous.
-            </p>
-            <p class="text-justify">
-              Le développement backend en Python offre une combinaison unique de puissance, de polyvalence et de
-	            performance pour votre site internet. Que vous construisiez une startup en pleine croissance ou que vous
-	            optimisiez un système existant, Python est là pour répondre à vos besoins. Contactez-nous aujourd'hui
-	            pour découvrir comment nous pouvons vous aider à faire passer votre projet au
-	            niveau supérieur.
-            </p>
-          </div>
-        </div>
-
-        <div class="row content">
-          <div class="col-md-4" data-aos="fade-right">
-            <img src="{% static 'images/img-accueil/image-django.png' %}" class="img-fluid" alt="django">
-          </div>
-          <div class="col-md-8 pt-5" data-aos="fade-up">
-            <h3>Développement Web avec Django : Rapidité, Robustesse, Fiabilité.</h3>
-            <p class="text-justify">Quand il s'agit de construire des applications web puissantes et évolutives,
-	            <a href="https://fr.wikipedia.org/wiki/Django_(framework)">Django</a>  se distingue comme
-	            l'un des frameworks les plus populaires et les plus appréciés. Alimenté par Python, Django offre une
-	            combinaison unique de rapidité, de robustesse et de fiabilité pour transformer vos idées en réalité
-	            numérique.</p>
-            <ul>
-              <li><i class="icofont-check"></i> Rapidité de développement.</li>
-              <li><i class="icofont-check"></i> Robustesse et sécurité.</li>
-              <li><i class="icofont-check"></i> Évolutivité et performance.</li>
-            </ul>
-            <p class="text-justify">
-              Le développement web avec Django offre une solution complète pour la construction d'applications web
-	            puissantes, robustes et évolutives. Que vous construisiez un site de commerce électronique, une
-	            plateforme de médias sociaux ou une application d'entreprise, Django est là pour répondre à vos besoins.
-	            Contactez-nous dès aujourd'hui pour découvrir comment notre équipe de développeurs Django peut
-	            transformer vos idées en succès numérique.
-            </p>
-          </div>
-        </div>
-
-        <div class="row content">
-          <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
-            <img src="{% static 'images/img-accueil/business_promotion_isometric_illustration-06.jpg' %}" 
-                 class="img-fluid" alt="illustration-4">
-          </div>
-          <div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
-            <h3>Le front-end</h3>
-            <p class="font-italic">
-              Le 
-	            <a href="https://en.wikipedia.org/wiki/Front_end">
-		            front-end
-	            </a> est la vitrine de votre présence en ligne.
-            </p>
-            <p>
-              nous développons le front-end, utilisant les dernières technologies et les
-	            meilleures pratiques pour créer des sites web dynamiques et réactifs .
-            </p>
-            <ul>
-              <li>
-	              <i class="icofont-check"></i> 
-	              HTML5 et CSS3 pour créer des interfaces utilisateur modernes et esthétiques.
-              </li>
-              <li>
-	              <i class="icofont-check"></i>
-	              Le JavaScript est au cœur de toute expérience web interactive.
-              </li>
-              <li>
-	              <i class="icofont-check"></i>
-	              Bootstrap pour accélérer le développement et garantir une compatibilité multiplateforme.
-              </li>
-              <li>
-	              <i class="icofont-check"></i>
-	              Tailwind CSS, nous apprécions sa flexibilité et sa facilité d'utilisation.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Details Section -->
-
-    <!-- ======= Gallery Section ======= -->
-    <section id="gallery" class="gallery">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Portfolio</h2>
-          <p>les commandes clients</p>
-        </div>
-
-        <div class="row no-gutters" data-aos="fade-left">
-		{% for gallery in gallery %}
-			{% if gallery.is_published %}
-				<div class="col-lg-3 col-md-4 rounded m-4">
-            <div class="gallery-item  shadow" data-aos="zoom-in" data-aos-delay="100">
-              <a href="{% url 'gallery_single' gallery.id  %}">
-                <img src="{{ gallery.image.url }}" alt="" class="img-fluid rounded" style=" height: 130px; width: 100%">
-              </a>
-            </div>
-			{% endif %}
-          </div>
-		{% endfor %}
-        </div>
-      </div>
-    </section><!-- End Gallery Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
-      <div class="container">
-
-        <div class="owl-carousel testimonials-carousel" data-aos="zoom-in">
-		{% for testimonials in testimonials %}
-			{% if testimonials.is_published %}
-			<div class="testimonial-item">
-            <img src="{{ testimonials.image.url }}" class="testimonial-img" alt="">
-            <h3>{{ testimonials.name }}</h3>
-            <h4>{{ testimonials.job }}</h4>
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-	            {{ testimonials.description | safe}}
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-          </div>
-			{% endif %}
-		{% endfor %}
-
-      </div>
-    </section><!-- End Testimonials Section -->
-
-    <!-- ======= Team Section ======= -->
-    <section id="team" class="team">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>l'équipe</h2>
-          <p>Dev/Design</p>
-        </div>
-
-        <div class="row g-3" data-aos="fade-left">
-
-			{% for team in team %}
-				<div class="col-12 col-md-6 col-lg-3">
-				{% if team.is_published %}
-					<div class="member" data-aos="zoom-in" data-aos-delay="100">
-						<div class="pic" style="min-height: 300px">
-							<img src="{{ team.image.url }}" class="img-fluid" alt="team">
-						</div>
-						<div class="member-info">
-							<h4>{{ team.name }}</h4>
-                            <span>{{ team.function }}</span>
-						<div class="social">
-							{% if team.twitter %}
-								<a href="{{ team.twitter }}"><i class="icofont-twitter"></i></a>
-							{% endif %}
-							{% if team.facebook %}
-								<a href="{{ team.facebook }}"><i class="icofont-facebook"></i></a>
-							{% endif %}
-							{% if team.instagram %}
-								<a href="{{ team.instagram }}"><i class="icofont-instagram"></i></a>
-							{% endif %}
-							{% if team.linkedin %}
-								<a href="{{ team.linkedin }}"><i class="icofont-linkedin"></i></a>
-							{% endif %}
-				        </div>
-					</div>
-				</div>
-			{% endif %}
-        </div>
-        {% endfor %}
-    </div>
-  </div>
-    </section><!-- End Team Section -->
-
-
-    <!-- ======= F.A.Q Section ======= -->
-    <section id="faq" class="faq section-bg">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>F.A.Q</h2>
-          <p>Les questions les plus fréquentes</p>
-        </div>
-
-        <div class="faq-list">
-		{% for ask in ask %}
-			{% if ask.is_published %}
-          <ul>
-            <li data-aos="fade-up">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">
-	            {{ ask.ask | safe }} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse show" data-parent=".faq-list">
-                <p>
-                 {{ ask.response | safe}}
-                </p>
-              </div>
-            </li>
-          </ul>
-			{% endif %}
-	        {% endfor %}
-        </div>
-      </div>
-    </section><!-- End F.A.Q Section -->
-
-  	<!-- ======= Contact Section ======= -->
-	<section id="contact" class="contact">
 		<div class="container">
-
-			<div class="section-title" data-aos="fade-up">
-				<h2>Contact</h2>
-			</div>
-
 			<div class="row">
-
-				<div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
-					<div class="info">
-						<div class="address">
-							<a href="https://maps.app.goo.gl/aQHpGfwvEvhobLkX7"><i class="icofont-google-map"></i></a>
-							<h4>Localité</h4>
-							<p>38490 AOSTE</p>
-						</div>
-
-						<div class="email">
-							<a href="mailto:contact.bds38.com"><i class="icofont-envelope"></i></a>
-							<h4>Email</h4>
-							<p>contact.bds38.com</p>
-						</div>
-
-						<div class="phone">
-							<a href="tel:+33673212272"><i class="icofont-phone"></i></a>
-							<h4>Téléphone</h4>
-							<p>06 73 21 22 72</p>
+				<div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
+					<div data-aos="zoom-out">
+						<h1 class="mt-5">Bélier Développement Solution</h1>
+						<h2>Développeur freelance | Fullstack</h2>
+						<div class="text-center text-lg-left">
+							<a href="#about" class="btn-get-started scrollto">Découvrir</a>
+							<a href="{% url 'your-project' %}" class="btn-get-started scrollto">Votre projet</a>
 						</div>
 					</div>
-
 				</div>
-
-				<div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
-					{% if messages %}
-						<div>
-							{% include "components/messages.html" with messages=messages %}
-						</div>
-					{% endif %}
-					<form method="post" enctype="multipart/form-data">
-						{% csrf_token %}
-						<div class="form-row">
-							<div class="col-12 ">
-								<div class="form-group">
-									<label for="name">Nom</label>
-									{{ form.name }}
-									{% if form.name.errors %}
-										{% for error in form.name.errors %}
-											<span>
-				                                {{ error }}
-				                            </span>
-										{% endfor %}
-									{% endif %}
-								</div>
-								<div class="form-group">
-									<label for="email">Email</label>
-									{{ form.email }}
-									{% if form.email.errors %}
-										{% for error in form.email.errors %}
-											<span>
-                                                {{ error }}
-                                            </span>
-										{% endfor %}
-									{% endif %}
-								</div>
-								<div class="form-group">
-									<label for="subject">Sujet</label>
-									{{ form.subject }}
-									{% if form.subject.errors %}
-										{% for error in form.subject.errors %}
-											<span>
-                                                {{ error }}
-                                            </span>
-										{% endfor %}
-									{% endif %}
-								</div>
-								<div class="form-group">
-									<label for="message">Message</label>
-									{{ form.message }}
-									{% if form.message.errors %}
-										{% for error in form.message.errors %}
-											<span>
-                                                {{ error }}
-                                            </span>
-										{% endfor %}
-									{% endif %}
-								</div>
-
-								<div class="php-email-form">
-									<div class="text-center">
-										<button class="btn btn-info" type="submit">
-											Envoyer
-										</button>
-									</div>
-								</div>
-
-							</div>
-							<div class="mb-3"></div>
-					</form>
+				<div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+					<img src="{% static 'images/img-accueil/BLANC-ICON.svg' %}" class="img-fluid animated"
+					     alt="Logo-bds">
 				</div>
 			</div>
 		</div>
-	</section><!-- End Contact Section -->
 
-  </main><!-- End #main -->
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+
+	</section><!-- End Hero -->
+
+	<main id="main">
+		<section class="why-us section-bg" data-aos="fade-up" data-aos-delay="200">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-7 video-box m-0 p-2">
+						<a href="url://www.youtu.be/NYtjNY0lM1k">
+							<video
+									autoplay
+									loop
+									muted
+									playsinline
+									class="small-video text-center"
+									onclick="window.open('https://www.youtube.com/watch?v=NYtjNY0lM1k', '_blank');"
+									style="cursor: pointer;">
+								<source src="{% static 'vidéos/JudoAdminstrator-BDS.mp4' %}">
+							</video>
+						</a>
+					</div>
+
+					<div class="col-lg-5 d-flex flex-column justify-content-center p-3">
+						{% if a_la_une.en_ligne %}
+							<div class="icon-box">
+
+								<div class="icon">
+									<a href="{% url 'blog_single' blog_id=1 %}">
+									<img src="{% static 'images/Logo-Judo-Administrator-2.png' %}"
+									     alt="{{ a_la_une.title }}"
+									     width="70px"
+									>
+									</a>
+								</div>
+								<h4 class="title">{{ a_la_une.title }}</h4>
+								<p class="description" style="text-align: justify">{{ a_la_une.text | safe }}</p>
+							</div>
+
+							<div class="icon-box">
+								<div class="icon">
+									<a href="{% url 'blog_single' blog_id=1 %}">
+									<img src="{% static 'icons/inspection-94.png' %}"
+									     alt="{{ a_la_une.title_2 }}"
+									     width="70px"
+									>
+									</a>
+								</div>
+								<h4 class="title">{{ a_la_une.title_2 }}</h4>
+								<p class="description">{{ a_la_une.text_2 }}</p>
+							</div>
+
+							</div>
+						{% endif %}
+				</div>
+
+			</div>
+		</section>
+		<!-- End Why Us Section -->
+
+		<!-- ======= About Section ======= -->
+		<section id="about" class="about">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch"
+					     data-aos="fade-right">
+						<!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a> -->
+					</div>
+
+					<div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
+					     data-aos="fade-left">
+						<h3>Bienvenue chez BDS - Votre Partenaire Développeur Web et Applications.</h3>
+						<p>Êtes-vous prêt à transformer vos idées en réalité numérique ?</p><br>
+						<h4 class="title">Pourquoi travailler avec BDS.</h4>
+
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+							<div class="icon"><i class="bx bx-fingerprint"></i></div>
+							<h4 class="title"><a href="">Expertise Technique</a></h4>
+							<p class="description">Nous maîtrisons une gamme variée de langages de programmation
+								et de <a href="https://fr.wikipedia.org/wiki/Framework">frameworks</a> , ce qui signifie
+								que nous
+								pouvons choisir la technologie parfaite pour votre projet.
+							</p>
+						</div>
+
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+							<div class="icon"><i class="bx bx-gift"></i></div>
+							<h4 class="title"><a href="">Engagement envers la Qualité</a></h4>
+							<p class="description">La qualité est notre priorité absolue. Chaque ligne de code que nous
+								écrivons et
+								chaque pixel que nous concevons sont soumis à des normes rigoureuses pour garantir la
+								satisfaction
+								de nos clients.</p>
+						</div>
+
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
+							<div class="icon"><i class="bx bx-atom"></i></div>
+							<h4 class="title"><a href="">Collaboration Transparente</a></h4>
+							<p class="description">Nous croyons en la transparence et en une communication ouverte avec
+								nos clients.
+								Votre vision est au cœur de tout ce que nous faisons. Découvrez comment nous pouvons
+								donner vie à vos
+								idées numériques. Parcourez notre portfolio pour voir ce que nous avons accompli pour
+								nos clients, et
+								contactez-nous pour discuter de votre projet. Chez BDS, nous ne construisons pas
+								seulement des sites
+								web et des applications, nous bâtissons des expériences exceptionnelles.</p>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</section><!-- End About Section -->
+
+		<!-- ======= Features Section ======= -->
+		<section id="features" class="features">
+			<div class="container">
+
+				<div class="section-title" data-aos="fade-up">
+					<h2>dev</h2>
+					<p>Les solutions proposées</p>
+				</div>
+
+				<div class="row" data-aos="fade-left">
+					<div class="col-lg-3 col-md-4">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
+							<i class="ri-store-line" style="color: #ffbb2c;"></i>
+							<h3>E-commerce</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+							<i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
+							<h3>Data science</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="150">
+							<i class="ri-calendar-todo-line" style="color: #e80368;"></i>
+							<h3>App bureau</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+							<i><img src="/static/icons/icons8-web-64.png" style="height: 27px" alt="phone"></i>
+							<h3>App web</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="250">
+							<i class="ri-database-2-line" style="color: #47aeff;"></i>
+							<h3>Gestion db</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
+							<i class="ri-gradienter-line" style="color: #ffa76e;"></i>
+							<h3>Scraping</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="350">
+							<i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+							<h3>Automatisation</h3>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 mt-4">
+						<div class="icon-box" data-aos="zoom-in" data-aos-delay="400">
+							<i> <img src="/static/icons/icons8-smartphone-64.png" style="height: 26px" alt="phone"></i>
+							<h3>App mobile</h3>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Features Section -->
+
+		<!-- ======= Counts Section ======= -->
+		<!-- <section id="counts" class="counts">
+          <div class="container">
+
+            <div class="row" data-aos="fade-up">
+
+              <div class="col-lg-3 col-md-6">
+                <div class="count-box">
+                  <i class="icofont-simple-smile"></i>
+                  <span data-toggle="counter-up">232</span>
+                  <p>Happy Clients</p>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                <div class="count-box">
+                  <i class="icofont-document-folder"></i>
+                  <span data-toggle="counter-up">521</span>
+                  <p>Projects</p>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                <div class="count-box">
+                  <i class="icofont-live-support"></i>
+                  <span data-toggle="counter-up">1,463</span>
+                  <p>Hours Of Support</p>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                <div class="count-box">
+                  <i class="icofont-users-alt-5"></i>
+                  <span data-toggle="counter-up">15</span>
+                  <p>Hard Workers</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+        <-- End Counts Section -->
+
+		<!-- ======= Details Section ======= -->
+		<section id="details" class="details">
+			<div class="container">
+
+				<div class="row content">
+					<div class="col-md-4" data-aos="fade-right">
+						<img src="{% static 'images/img-accueil/image-techno.png' %}" class="img-fluid" alt="">
+					</div>
+					<div class="col-md-8 pt-4" data-aos="fade-up">
+						<h3>Les avantages de Travailler avec Nos Technologies.</h3>
+						<p class="font-italic">
+							Nous mettons l'utilisateur final au centre de nos conceptions.
+						</p>
+						<ul>
+							<li><i class="icofont-check"></i> La garantie que vos projets bénéficient des dernières
+								innovations.
+							</li>
+							<li><i class="icofont-check"></i> Nous planifions et développons en gardant à l'esprit la
+								croissance
+								future de votre projet.
+							</li>
+							<li><i class="icofont-check"></i> Les applications sont rigoureusement testés pour garantir
+								une protection
+								maximale.
+							</li>
+							<li><i class="icofont-check"></i> Nous assurons que chaque projet offre une expérience
+								intuitive.
+							</li>
+						</ul>
+						<p class="text-justify">
+							Découvrez comment nous pouvons mettre en œuvre ces technologies pour réaliser vos projets
+							numériques.
+							Contactez-nous pour discuter de vos besoins spécifiques et laissez-nous transformer vos
+							idées en réalité
+							numérique.
+						</p>
+					</div>
+				</div>
+
+				<div class="row content">
+					<div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
+						<img src="{% static 'images/img-accueil/Back-end.2.jpg' %}" class="img-fluid" alt="back-end">
+						<h3 class='text-center'>Backend</h3>
+					</div>
+					<div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
+						<h3>Développement Backend Python : Puissant, Polyvalent, Performant</h3>
+						<p class="font-italic text-justify">
+							À la base de chaque grand site web se trouve un
+							<a href="https://fr.wikipedia.org/wiki/Backend">
+								backend
+							</a>
+							robuste et fiable. Et pour beaucoup, Python est
+							le langage de choix pour cette tâche. Avec sa syntaxe simple, sa grande communauté de
+							développeurs et
+							sa multitude de frameworks éprouvés, le développement backend en
+							<a href="https://fr.wikipedia.org/wiki/Python">Python</a> offre une solution puissante
+							pour répondre aux besoins de votre entreprise en ligne.
+						</p>
+						<p class="text-justify">
+							L'écosystème Python est vaste et dynamique, avec des bibliothèques et des outils pour
+							presque toutes les
+							tâches imaginables. Que vous ayez besoin de manipuler des données, de gérer des
+							<a href="https://fr.wikipedia.org/wiki/API">API</a> , de travailler avec
+							des bases de données ou d'intégrer des services tiers, il existe une bibliothèque Python
+							pour vous.
+						</p>
+						<p class="text-justify">
+							Le développement backend en Python offre une combinaison unique de puissance, de polyvalence
+							et de
+							performance pour votre site internet. Que vous construisiez une startup en pleine croissance
+							ou que vous
+							optimisiez un système existant, Python est là pour répondre à vos besoins. Contactez-nous
+							aujourd'hui
+							pour découvrir comment nous pouvons vous aider à faire passer votre projet au
+							niveau supérieur.
+						</p>
+					</div>
+				</div>
+
+				<div class="row content">
+					<div class="col-md-4" data-aos="fade-right">
+						<img src="{% static 'images/img-accueil/image-django.png' %}" class="img-fluid" alt="django">
+					</div>
+					<div class="col-md-8 pt-5" data-aos="fade-up">
+						<h3>Développement Web avec Django : Rapidité, Robustesse, Fiabilité.</h3>
+						<p class="text-justify">Quand il s'agit de construire des applications web puissantes et
+							évolutives,
+							<a href="https://fr.wikipedia.org/wiki/Django_(framework)">Django</a> se distingue comme
+							l'un des frameworks les plus populaires et les plus appréciés. Alimenté par Python, Django
+							offre une
+							combinaison unique de rapidité, de robustesse et de fiabilité pour transformer vos idées en
+							réalité
+							numérique.</p>
+						<ul>
+							<li><i class="icofont-check"></i> Rapidité de développement.</li>
+							<li><i class="icofont-check"></i> Robustesse et sécurité.</li>
+							<li><i class="icofont-check"></i> Évolutivité et performance.</li>
+						</ul>
+						<p class="text-justify">
+							Le développement web avec Django offre une solution complète pour la construction
+							d'applications web
+							puissantes, robustes et évolutives. Que vous construisiez un site de commerce électronique,
+							une
+							plateforme de médias sociaux ou une application d'entreprise, Django est là pour répondre à
+							vos besoins.
+							Contactez-nous dès aujourd'hui pour découvrir comment notre équipe de développeurs Django
+							peut
+							transformer vos idées en succès numérique.
+						</p>
+					</div>
+				</div>
+
+				<div class="row content">
+					<div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
+						<img src="{% static 'images/img-accueil/business_promotion_isometric_illustration-06.jpg' %}"
+						     class="img-fluid" alt="illustration-4">
+					</div>
+					<div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
+						<h3>Le front-end</h3>
+						<p class="font-italic">
+							Le
+							<a href="https://en.wikipedia.org/wiki/Front_end">
+								front-end
+							</a> est la vitrine de votre présence en ligne.
+						</p>
+						<p>
+							nous développons le front-end, utilisant les dernières technologies et les
+							meilleures pratiques pour créer des sites web dynamiques et réactifs .
+						</p>
+						<ul>
+							<li>
+								<i class="icofont-check"></i>
+								HTML5 et CSS3 pour créer des interfaces utilisateur modernes et esthétiques.
+							</li>
+							<li>
+								<i class="icofont-check"></i>
+								Le JavaScript est au cœur de toute expérience web interactive.
+							</li>
+							<li>
+								<i class="icofont-check"></i>
+								Bootstrap pour accélérer le développement et garantir une compatibilité multiplateforme.
+							</li>
+							<li>
+								<i class="icofont-check"></i>
+								Tailwind CSS, nous apprécions sa flexibilité et sa facilité d'utilisation.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</section><!-- End Details Section -->
+
+		<!-- ======= Gallery Section ======= -->
+		<section id="gallery" class="gallery">
+			<div class="container">
+
+				<div class="section-title" data-aos="fade-up">
+					<h2>Portfolio</h2>
+					<p>les commandes clients</p>
+				</div>
+
+				<div class="row no-gutters" data-aos="fade-left">
+					{% for gallery in gallery %}
+						{% if gallery.is_published %}
+							<div class="col-lg-3 col-md-4 rounded m-4">
+							<div class="gallery-item  shadow" data-aos="zoom-in" data-aos-delay="100">
+								<a href="{% url 'gallery_single' gallery.id %}">
+									<img src="{{ gallery.image.url }}" alt="" class="img-fluid rounded"
+									     style=" height: 130px; width: 100%">
+								</a>
+							</div>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section><!-- End Gallery Section -->
+
+		<!-- ======= Testimonials Section ======= -->
+		<section id="testimonials" class="testimonials">
+			<div class="container">
+
+				<div class="owl-carousel testimonials-carousel" data-aos="zoom-in">
+					{% for testimonials in testimonials %}
+						{% if testimonials.is_published %}
+							<div class="testimonial-item">
+								<img src="{{ testimonials.image.url }}" class="testimonial-img" alt="">
+								<h3>{{ testimonials.name }}</h3>
+								<h4>{{ testimonials.job }}</h4>
+								<p>
+									<i class="bx bxs-quote-alt-left quote-icon-left"></i>
+									{{ testimonials.description | safe }}
+									<i class="bx bxs-quote-alt-right quote-icon-right"></i>
+								</p>
+							</div>
+						{% endif %}
+					{% endfor %}
+
+				</div>
+		</section><!-- End Testimonials Section -->
+
+		<!-- ======= Team Section ======= -->
+		<section id="team" class="team">
+			<div class="container">
+
+				<div class="section-title" data-aos="fade-up">
+					<h2>l'équipe</h2>
+					<p>Dev/Design</p>
+				</div>
+
+				<div class="row g-3" data-aos="fade-left">
+
+					{% for team in team %}
+						<div class="col-12 col-md-6 col-lg-3">
+							{% if team.is_published %}
+								<div class="member" data-aos="zoom-in" data-aos-delay="100">
+									<div class="pic" style="min-height: 300px">
+										<img src="{{ team.image.url }}" class="img-fluid" alt="team">
+									</div>
+									<div class="member-info">
+										<h4>{{ team.name }}</h4>
+										<span>{{ team.function }}</span>
+										<div class="social">
+											{% if team.twitter %}
+												<a href="{{ team.twitter }}"><i class="icofont-twitter"></i></a>
+											{% endif %}
+											{% if team.facebook %}
+												<a href="{{ team.facebook }}"><i class="icofont-facebook"></i></a>
+											{% endif %}
+											{% if team.instagram %}
+												<a href="{{ team.instagram }}"><i class="icofont-instagram"></i></a>
+											{% endif %}
+											{% if team.linkedin %}
+												<a href="{{ team.linkedin }}"><i class="icofont-linkedin"></i></a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section><!-- End Team Section -->
+
+
+		<!-- ======= F.A.Q Section ======= -->
+		<section id="faq" class="faq section-bg">
+			<div class="container">
+
+				<div class="section-title" data-aos="fade-up">
+					<h2>F.A.Q</h2>
+					<p>Les questions les plus fréquentes</p>
+				</div>
+
+				<div class="faq-list">
+					{% for ask in ask %}
+						{% if ask.is_published %}
+							<ul>
+								<li data-aos="fade-up">
+									<i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse"
+									                                               class="collapse" href="#faq-list-1">
+									{{ ask.ask | safe }} <i class="bx bx-chevron-down icon-show"></i><i
+										class="bx bx-chevron-up icon-close"></i></a>
+									<div id="faq-list-1" class="collapse show" data-parent=".faq-list">
+										<p>
+											{{ ask.response | safe }}
+										</p>
+									</div>
+								</li>
+							</ul>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</section><!-- End F.A.Q Section -->
+
+		<!-- ======= Contact Section ======= -->
+		<section id="contact" class="contact">
+			<div class="container">
+
+				<div class="section-title" data-aos="fade-up">
+					<h2>Contact</h2>
+				</div>
+
+				<div class="row">
+
+					<div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+						<div class="info">
+							<div class="address">
+								<a href="https://maps.app.goo.gl/aQHpGfwvEvhobLkX7"><i
+										class="icofont-google-map"></i></a>
+								<h4>Localité</h4>
+								<p>38490 AOSTE</p>
+							</div>
+
+							<div class="email">
+								<a href="mailto:contact.bds38.com"><i class="icofont-envelope"></i></a>
+								<h4>Email</h4>
+								<p>contact.bds38.com</p>
+							</div>
+
+							<div class="phone">
+								<a href="tel:+33673212272"><i class="icofont-phone"></i></a>
+								<h4>Téléphone</h4>
+								<p>06 73 21 22 72</p>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
+						{% if messages %}
+							<div>
+								{% include "components/messages.html" with messages=messages %}
+							</div>
+						{% endif %}
+						<form method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="form-row">
+								<div class="col-12 ">
+									<div class="form-group">
+										<label for="name">Nom</label>
+										{{ form.name }}
+										{% if form.name.errors %}
+											{% for error in form.name.errors %}
+												<span>
+				                                {{ error }}
+				                            </span>
+											{% endfor %}
+										{% endif %}
+									</div>
+									<div class="form-group">
+										<label for="email">Email</label>
+										{{ form.email }}
+										{% if form.email.errors %}
+											{% for error in form.email.errors %}
+												<span>
+                                                {{ error }}
+                                            </span>
+											{% endfor %}
+										{% endif %}
+									</div>
+									<div class="form-group">
+										<label for="subject">Sujet</label>
+										{{ form.subject }}
+										{% if form.subject.errors %}
+											{% for error in form.subject.errors %}
+												<span>
+                                                {{ error }}
+                                            </span>
+											{% endfor %}
+										{% endif %}
+									</div>
+									<div class="form-group">
+										<label for="message">Message</label>
+										{{ form.message }}
+										{% if form.message.errors %}
+											{% for error in form.message.errors %}
+												<span>
+                                                {{ error }}
+                                            </span>
+											{% endfor %}
+										{% endif %}
+									</div>
+
+									<div class="php-email-form">
+										<div class="text-center">
+											<button class="btn btn-info" type="submit">
+												Envoyer
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="mb-3"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section><!-- End Contact Section -->
+
+	</main><!-- End #main -->
 
 {% endblock %}
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
 from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
 from django.db import models
@@ -9,6 +9,7 @@ from site_stats.models import Visitor
 admin.site.site_header = 'SITE BDS Administration'
 
 
+@admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('display_name', "display_image", "is_published")
     list_editable = ('is_published',)
@@ -34,6 +35,7 @@ class GalleryAdmin(admin.ModelAdmin):
     }
 
 
+@admin.register(Testimonials)
 class TestimonialsAdmin(admin.ModelAdmin):
     list_display = ('display_name', 'job', 'is_published', 'display_image')
     list_editable = ('is_published', )
@@ -59,6 +61,7 @@ class TestimonialsAdmin(admin.ModelAdmin):
             return format_html(no_icon + name)
 
 
+@admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('display_name', "function", "display_image", "is_published")
     list_editable = ('is_published',)
@@ -84,6 +87,7 @@ class TeamAdmin(admin.ModelAdmin):
     }
 
 
+@admin.register(Ask)
 class AskAdmin(admin.ModelAdmin):
     list_display = ('display_name', "created_at", "is_published")
     list_editable = ('is_published',)
@@ -104,6 +108,7 @@ class AskAdmin(admin.ModelAdmin):
     }
 
 
+@admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('display_name', "created_at", "checked")
 
@@ -119,11 +124,12 @@ class ContactAdmin(admin.ModelAdmin):
             return format_html(no_icon + name)
 
 
+@admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ("email", "created_at")
 
 
-
+@admin.register(Blogs)
 class BlogsAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'en_ligne', 'display_image', 'display_image_2', 'display_image_3', 'created_at')
     list_editable = ('en_ligne',)
@@ -154,11 +160,10 @@ class BlogsAdmin(admin.ModelAdmin):
     }
 
 
-admin.site.register(Newsletter, NewsletterAdmin)
-admin.site.register(Gallery, GalleryAdmin)
-admin.site.register(Testimonials, TestimonialsAdmin)
-admin.site.register(Team, TeamAdmin)
-admin.site.register(Ask, AskAdmin)
-admin.site.register(Contact, ContactAdmin)
-admin.site.register(Blogs, BlogsAdmin)
+@admin.register(ALaUne)
+class ALaUneAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at', 'en_ligne')
+    list_editable = ('en_ligne',)
+
+
 

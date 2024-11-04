@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.html import escape
 
 from site_bds.ContactForm import ContactForm
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
 
 
 def robots_txt(request):
@@ -30,6 +30,8 @@ def index(request):
     testimonials = Testimonials.objects.all()
     team = Team.objects.all()
     ask = Ask.objects.all()
+    a_la_une = ALaUne.objects.all().first()
+
     if request.method == "POST":
         # traitement des données
         form = ContactForm(request.POST, request.FILES)
@@ -50,6 +52,7 @@ def index(request):
         'team': team,
         'ask': ask,
         "form": form,
+        'a_la_une': a_la_une,
     }
     return render(request, 'site/index.html', context)
 

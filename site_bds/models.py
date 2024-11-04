@@ -103,3 +103,16 @@ class Blogs(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog_single', args=[self.pk])
+
+
+class ALaUne(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Titre", blank=True, null=True)
+    text = models.TextField(verbose_name="Texte", blank=True, null=True)
+    title_2 = models.CharField(max_length=255, verbose_name="Titre 2", blank=True, null=True)
+    text_2 = models.TextField(verbose_name="texte_2", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
+    en_ligne = models.BooleanField(default=False, verbose_name="Publié")
+
+    class Meta:
+        verbose_name_plural = 'A la une'
+        verbose_name = 'A la une'
