@@ -69,6 +69,7 @@ class Contact(models.Model):
     subject = models.CharField(max_length=255, verbose_name="Sujet")
     message = models.TextField()
     checked = models.BooleanField(default=False)
+    no_robot = models.BooleanField(default=False, verbose_name="Robot")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Créé le")
 
     def __str__(self):

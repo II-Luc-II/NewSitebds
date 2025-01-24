@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_filter_form %}
 {% load static %}
 
 {% block content %}
@@ -68,10 +69,10 @@
 
 								<div class="icon">
 									<a href="{% url 'blog_single' blog_id=2 %}">
-									<img src="{% static 'images/Logo-Judo-Administrator-2.png' %}"
-									     alt="{{ a_la_une.title }}"
-									     width="70px"
-									>
+										<img src="{% static 'images/Logo-Judo-Administrator-2.png' %}"
+										     alt="{{ a_la_une.title }}"
+										     width="70px"
+										>
 									</a>
 								</div>
 								<h4 class="title">{{ a_la_une.title }}</h4>
@@ -81,10 +82,10 @@
 							<div class="icon-box">
 								<div class="icon">
 									<a href="{% url 'blog_single' blog_id=2 %}">
-									<img src="{% static 'icons/inspection-94.png' %}"
-									     alt="{{ a_la_une.title_2 }}"
-									     width="70px"
-									>
+										<img src="{% static 'icons/inspection-94.png' %}"
+										     alt="{{ a_la_une.title_2 }}"
+										     width="70px"
+										>
 									</a>
 								</div>
 								<h4 class="title">{{ a_la_une.title_2 }}</h4>
@@ -626,6 +627,19 @@
 												<span>
                                                 {{ error }}
                                             </span>
+											{% endfor %}
+										{% endif %}
+									</div>
+									<div class="form-group">
+										<div class="form-check form-switch">
+											<label for="no_robot" style="color:blue";>Je ne suis pas un robot</label>
+											<span class="mx-4">{{ form.no_robot|add_class:"form-check-input" }}</span>
+											<!-- Ajout de la classe Bootstrap -->
+
+										</div>
+										{% if form.no_robot.errors %}
+											{% for error in form.no_robot.errors %}
+												<span class="text-danger">{{ error }}</span>
 											{% endfor %}
 										{% endif %}
 									</div>

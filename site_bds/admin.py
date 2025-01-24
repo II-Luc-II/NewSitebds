@@ -110,7 +110,7 @@ class AskAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('display_name', "created_at", "checked")
+    list_display = ('display_name', "created_at", "checked", "no_robot")
 
     def display_name(self, contact):
         no_icon = '<img src="/static/icons/non.png" alt="False" style="width: 10px">'
