@@ -76,15 +76,15 @@
 				<li class="{% if request.resolver_match.view_name == 'index' %} active {% endif %}">
 					<a href="{% url 'index' %}">Accueil</a>
 				</li>
-				<li><a href="/" data-target="about">A-propos</a></li>
+					<li><a href="{% url 'index' %}#about" data-target="about">A-propos</a></li>
 				{% if user.is_authenticated %}
 					<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
 						<a href="{% url 'visitor_statistics' %}">Statistiques</a>
 					</li>
 				{% endif %}
-				<li><a href="#features" data-target="features">Les solutions</a></li>
-				<li><a href="#gallery" data-target="gallery">Portfolio</a></li>
-				<li><a href="#team" data-target="team">L'équipe</a></li>
+				<li><a href="{% url 'index' %}#features" data-target="features">Les solutions</a></li>
+				<li><a href="{% url 'index' %}#gallery" data-target="gallery">Portfolio</a></li>
+				<li><a href="{% url 'index' %}#team" data-target="team">L'équipe</a></li>
 				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
 					<a href="{% url 'news' %}">Les news</a>
 				</li>
@@ -93,7 +93,9 @@
 						<a href="{% url 'visitor_statistics' %}">Statistiques</a>
 					</li>
 				{% endif %}
-				<li><a href="{% url "contact" %}">Contact</a></li>
+				<li class="{% if request.resolver_match.view_name == 'contact' %} active {% endif %}">
+					<a href="{% url "contact" %}">Contact</a>
+				</li>
 				<li class="drop-down">
 					<a href="#">Réseaux sociaux</a>
 					<ul class="dropdown-menu">

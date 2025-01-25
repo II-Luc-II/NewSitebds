@@ -1,0 +1,61 @@
+{% load static %}
+
+{% include "partials/header-pages.html" %}
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    {% block footer %}
+
+    {% endblock %}
+ {% include "partials/footer.html" %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('.nav-menu a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function removeActiveClasses() {
+            links.forEach(link => {
+                link.parentElement.classList.remove('active');
+            });
+        }
+
+        function setActiveLink(hash) {
+            links.forEach(link => {
+                if (link.getAttribute('href').includes(hash)) {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        }
+
+        function handleInitialHash() {
+            const currentHash = window.location.hash;
+            if (currentHash) {
+                setActiveLink(currentHash);
+            } else {
+                setActiveLink('#home'); // Assuming 'home' is your default section
+            }
+        }
+
+        window.addEventListener('hashchange', function() {
+            const newHash = window.location.hash;
+            removeActiveClasses();
+            setActiveLink(newHash);
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                const hash = this.getAttribute('href').split('#')[1];
+                removeActiveClasses();
+                setActiveLink(`#${hash}`);
+            });
+        });
+
+        handleInitialHash();
+    });
+</script>
+
+
