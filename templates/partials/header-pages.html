@@ -80,7 +80,7 @@
 				<li><a href="{% url 'index' %}#features" data-target="features">Les solutions</a></li>
 				<li><a href="{% url 'index' %}#gallery" data-target="gallery">Portfolio</a></li>
 				<li><a href="{% url 'index' %}#team" data-target="team">L'équipe</a></li>
-				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %} {% if request.resolver_match.view_name == 'blog_single' %} active {% endif %}">
+				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
 					<a href="{% url 'news' %}">Les news</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -92,7 +92,7 @@
 					<a href="{% url "contact" %}">Contact</a>
 				</li>
 				<li class="drop-down">
-					<a href="#">Réseaux sociaux</a>
+					<a href="">Réseaux sociaux</a>
 					<ul class="dropdown-menu">
 						<li><a href="https://www.facebook.com/BDS.EI/" class="facebook">
 							<i class="bx bxl-facebook"></i> - Facebook</a></li>
