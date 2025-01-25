@@ -32,6 +32,16 @@ def index(request):
     ask = Ask.objects.all()
     a_la_une = ALaUne.objects.all().first()
 
+    context = {
+        'gallery': gallery,
+        'testimonials': testimonials,
+        'team': team,
+        'ask': ask,
+        'a_la_une': a_la_une,
+    }
+    return render(request, 'site/index.html', context)
+
+def contact(request):
     if request.method == "POST":
         # traitement des données
         form = ContactForm(request.POST, request.FILES)
@@ -48,14 +58,9 @@ def index(request):
         form = ContactForm()
 
     context = {
-        'gallery': gallery,
-        'testimonials': testimonials,
-        'team': team,
-        'ask': ask,
         "form": form,
-        'a_la_une': a_la_une,
     }
-    return render(request, 'site/index.html', context)
+    return render(request, 'site/contact.html', context)
 
 
 def contact_message(request):
