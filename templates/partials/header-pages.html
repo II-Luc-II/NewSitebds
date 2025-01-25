@@ -55,7 +55,7 @@
 	<link href="/static/assets/css/style.css" rel="stylesheet">
 </head>
 
-<body data-bs-spy="scroll" data-bs-target=".nav-menu" data-bs-offset="50">
+<body>
 
 
 <!-- ======= Header ======= -->
@@ -76,16 +76,11 @@
 				<li class="{% if request.resolver_match.view_name == 'index' %} active {% endif %}">
 					<a href="{% url 'index' %}">Accueil</a>
 				</li>
-					<li><a href="{% url 'index' %}#about" data-target="about">A-propos</a></li>
-				{% if user.is_authenticated %}
-					<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
-						<a href="{% url 'visitor_statistics' %}">Statistiques</a>
-					</li>
-				{% endif %}
+				<li><a href="{% url 'index' %}#about" data-target="about">A-propos</a></li>
 				<li><a href="{% url 'index' %}#features" data-target="features">Les solutions</a></li>
 				<li><a href="{% url 'index' %}#gallery" data-target="gallery">Portfolio</a></li>
 				<li><a href="{% url 'index' %}#team" data-target="team">L'équipe</a></li>
-				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
+				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %} {% if request.resolver_match.view_name == 'blog_single' %} active {% endif %}">
 					<a href="{% url 'news' %}">Les news</a>
 				</li>
 				{% if user.is_authenticated %}

@@ -74,9 +74,9 @@
 		<nav class="nav-menu d-none d-lg-block">
 			<ul>
 				<li class="{% if request.resolver_match.view_name == 'index' %} active {% endif %}">
-					<a href="{% url 'index' %}">Accueil</a>
+					<a href="/">Accueil</a>
 				</li>
-				<li><a href="/" data-target="about">A-propos</a></li>
+				<li><a href="#about" data-target="about">A-propos</a></li>
 				{% if user.is_authenticated %}
 					<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
 						<a href="{% url 'visitor_statistics' %}">Statistiques</a>
