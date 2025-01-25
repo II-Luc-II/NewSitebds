@@ -630,12 +630,11 @@
 											{% endfor %}
 										{% endif %}
 									</div>
-									<div class="form-group">
+									<div class="form-group m-4">
 										<div class="form-check form-switch">
-											<label for="no_robot" style="color:blue";>Je ne suis pas un robot</label>
-											<span class="mx-4">{{ form.no_robot|add_class:"form-check-input" }}</span>
-											<!-- Ajout de la classe Bootstrap -->
-
+											<span>{{ form.no_robot|add_class:"form-check-input" }}</span>
+											<label class="form-check-label" for="no_robot" style="color: blue;">Je ne
+												suis pas un robot</label>
 										</div>
 										{% if form.no_robot.errors %}
 											{% for error in form.no_robot.errors %}

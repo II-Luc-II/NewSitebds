@@ -13,7 +13,7 @@ class ContactForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.Textarea(attrs={'class': 'form-control'}),
-            'no_robot': forms.CheckboxInput(attrs={'class': 'custom-checkbox-input'}),
+            'no_robot': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
 

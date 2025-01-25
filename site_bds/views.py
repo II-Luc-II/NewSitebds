@@ -38,15 +38,12 @@ def index(request):
         if form.is_valid():
             if not form.cleaned_data['no_robot']:
                 messages.error(request, 'Merci de cocher la case "Je ne suis pas un robot"')
-                url = reverse('index') + '#contact'
-                return redirect(url)
-            form.save()
-            messages.success(request, 'Merci, Le message est bien envoyé')
-            return redirect('contact_message')
+            else:
+                form.save()
+                messages.success(request, 'Merci, Le message est bien envoyé')
+                return redirect('contact_message')
         else:
             messages.error(request, 'Merci de vérifier les informations du formulaire.')
-            url = reverse('index') + '#contact'
-            return redirect(url)
     else:
         form = ContactForm()
 
