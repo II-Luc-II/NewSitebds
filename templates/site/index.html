@@ -5,7 +5,6 @@
 {% block content %}
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
-
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
@@ -13,7 +12,7 @@
 						<h1 class="mt-5">Bélier Développement Solution</h1>
 						<h2>Développeur freelance | Fullstack</h2>
 						<div class="text-center text-lg-left">
-							<a href="#about" class="btn-get-started scrollto">Découvrir</a>
+							<a href="{% url 'contact' %}" class="btn-get-started scrollto">Contact</a>
 							<a href="{% url 'your-project' %}" class="btn-get-started scrollto">Votre projet</a>
 						</div>
 					</div>
@@ -166,68 +165,60 @@
 				</div>
 
 				<div class="row" data-aos="fade-left">
-					<div class="col-lg-3 col-md-4">
+					<div class="col-lg-4 col-md-4 zoom">
 						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
+						<a href="#" class="icon-box shadow" data-aos="zoom-in" data-aos-delay="50"
+						   data-bs-toggle="modal"
 						   data-bs-target="#EcommerceModal">
 							<i class="ri-store-line" style="color: #ffbb2c;"></i>
 							<h3>E-commerce</h3>
 						</a>
 					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+					<div class="col-lg-4 col-md-4 mt-4 mt-md-0 zoom">
 						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
-						   data-bs-target="#DataModal">
-							<i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-							<h3>Data science</h3>
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
+						<a href="#" class="icon-box shadow" data-aos="zoom-in" data-aos-delay="50"
+						   data-bs-toggle="modal"
 						   data-bs-target="#DashboardModal">
 							<i class="ri-calendar-todo-line" style="color: #5578ff;"></i>
 							<h3>App bureau</h3>
 						</a>
 					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+					<div class="col-lg-4 col-md-4 mt-4 mt-lg-0 zoom">
 						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
+						<a href="#" class="icon-box shadow" data-aos="zoom-in" data-aos-delay="50"
+						   data-bs-toggle="modal"
 						   data-bs-target="#AppWebModal">
 							<i><img src="/static/icons/icons8-web-64.png" style="height: 27px" alt="web"></i>
 							<h3>App web</h3>
 						</a>
 					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
+				</div>
+				<div class="row" data-aos="fade-left">
+					<div class="col-lg-4 col-md-4 mt-4 zoom">
 						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
+						<a href="#" class="icon-box shadow" data-aos="zoom-in" data-aos-delay="50"
+						   data-bs-toggle="modal"
 						   data-bs-target="#dbModal">
 							<i class="ri-database-2-line" style="color: #47aeff;"></i>
 							<h3>Gestion db</h3>
 						</a>
 					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
+					<div class="col-lg-4 col-md-4 mt-4 zoom">
 						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
-						   data-bs-target="#scrapingModal">
-							<i class="ri-gradienter-line" style="color: #ffa76e;"></i>
-							<h3>Scraping</h3>
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
-						   data-bs-target="#autoModal">
-							<i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
-							<h3>Automatisation</h3>
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<!-- Button trigger modal -->
-						<a href="#" class="icon-box" data-aos="zoom-in" data-aos-delay="50" data-bs-toggle="modal"
+						<a href="#" class="icon-box shadow" data-aos="zoom-in" data-aos-delay="50"
+						   data-bs-toggle="modal"
 						   data-bs-target="#AppMobileModal">
 							<i> <img src="/static/icons/icons8-smartphone-64.png" style="height: 26px" alt="phone"></i>
 							<h3>App mobile</h3>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-4 mt-4 zoom">
+						<!-- Button trigger modal -->
+						<a href="#" class="icon-box shadow" data-aos="zoom-in" data-aos-delay="50"
+						   data-bs-toggle="modal"
+						   data-bs-target="#SurMesureModal">
+							<i> <img src="/static/icons/Sur-mesure-48.png" style="height: 26px" alt="phone"></i>
+							<h3>Sur Mesure</h3>
 						</a>
 					</div>
 				</div>
@@ -634,39 +625,92 @@
 					     style="font-size: 30px">
 						<!-- Icône et texte à l'intérieur du h1 -->
 						<i class="ri-store-line" style="color: #ffa76e"></i>
-						<span class="m-sm-1"></span>Scraping
+						<span class="m-sm-1"></span>E-commerce
 					</div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					...
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
-				</div>
-			</div>
-		</div>
-	</div>
+				<div class="modal-body" style="background: #1d2945eb">
+					<div class="section-modal">
+						<h3>Les solutions Clés en Main</h3>
+						<p>Idéal pour les petits projets ou les clients souhaitant une mise en ligne rapide.</p>
 
-	<!-- Data Modal -->
-	<div class="modal fade" id="DataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<!-- Conteneur flex pour l'alignement de l'icône et du texte -->
-					<div class="icon-box d-flex align-items-center" data-aos="zoom-in" data-aos-delay="300"
-					     style="font-size: 30px">
-						<!-- Icône et texte à l'intérieur du h1 -->
-						<i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-						<span class="m-sm-1"></span>Data science
+						<h4>Shopify</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Simple à utiliser, thèmes variés, paiements intégrés.</li>
+							<li><strong>Limites :</strong> Personnalisation limitée, frais récurrents.</li>
+							<li><strong>Cas d'usage :</strong> Petites boutiques ou entrepreneurs.</li>
+						</ul>
+
+						<h4>WooCommerce (WordPress)</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Gratuit, flexible, riche en plugins.</li>
+							<li><strong>Limites :</strong> Maintenance nécessaire, besoin de compétences techniques.
+							</li>
+							<li><strong>Cas d'usage :</strong> Sites avec blog et e-commerce.</li>
+						</ul>
+
+						<h4>PrestaShop</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Open source, adapté à l'Europe, gestion avancée.</li>
+							<li><strong>Limites :</strong> Complexité de configuration.</li>
+							<li><strong>Cas d'usage :</strong> Moyennes et grandes entreprises.</li>
+						</ul>
 					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					...
+
+					<div class="section-modal">
+						<h3>Développement Sur Mesure</h3>
+						<p>Pour les projets nécessitant une personnalisation avancée ou des fonctionnalités
+							complexes.</p>
+
+						<h4>Django + Django REST Framework</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Sécurisé, hautement personnalisable.</li>
+							<li><strong>Cas d'usage :</strong> Plateformes avec dashboards et intégrations spécifiques.
+							</li>
+						</ul>
+
+						<h4>React.js + Headless CMS</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Expérience utilisateur dynamique, front-end indépendant.
+							</li>
+							<li><strong>Cas d'usage :</strong> Sites interactifs avec gestion de contenu.</li>
+						</ul>
+
+						<h4>Laravel</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Développement rapide, outils natifs pour les paiements.
+							</li>
+							<li><strong>Cas d'usage :</strong> Projets nécessitant une gestion personnalisée.</li>
+						</ul>
+					</div>
+
+					<div class="section-modal">
+						<h3>Outils Complémentaires</h3>
+						<ul>
+							<li><span class="highlight">Paiements :</span> Stripe, PayPal, Mollie.</li>
+							<li><span class="highlight">Logistique :</span> ShipStation, EasyPost.</li>
+							<li><span class="highlight">SEO :</span> Optimisation via Lighthouse, Google Analytics.</li>
+						</ul>
+					</div>
+
+					<div class="section-modal">
+						<h3>Conseils</h3>
+						<p>Assurez-vous de :</p>
+						<ul>
+							<li>Définir un <strong>cahier des charges</strong> clair.</li>
+							<li>Choisir une solution adaptée au <strong>budget</strong> et aux
+								<strong>objectifs</strong>.
+							</li>
+							<li>Sécuriser le site avec un certificat SSL et respecter le RGPD.</li>
+						</ul>
+					</div>
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-general">
+						<a class="text-white" href="{% url 'contact' %}">Contact</a>
+					</button>
+					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -686,11 +730,111 @@
 					</div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					...
+				<div class="modal-body" style="background: #1d2945eb">
+					<div class="section-modal">
+						<h3>Frameworks Populaires pour les Applications de Bureau</h3>
+						<p>Python offre plusieurs bibliothèques adaptées au développement d'applications de bureau :</p>
+
+						<h4>PyQt</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Interface utilisateur riche, prise en charge
+								multiplateforme (Windows, macOS, Linux).
+							</li>
+							<li><strong>Cas d'usage :</strong> Logiciels nécessitant des interfaces graphiques
+								complexes.
+							</li>
+						</ul>
+
+						<h4>Tkinter</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Facile à apprendre, inclus dans Python par défaut.</li>
+							<li><strong>Cas d'usage :</strong> Projets simples ou éducatifs.</li>
+						</ul>
+
+						<h4>Kivy</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Conçu pour des interfaces modernes et tactiles, supporte
+								Android et iOS.
+							</li>
+							<li><strong>Cas d'usage :</strong> Applications mobiles et desktop avec une seule base de
+								code.
+							</li>
+						</ul>
+
+						<h4>PySide</h4>
+						<ul>
+							<li><strong>Avantages :</strong> Similaire à PyQt mais sous licence libre par défaut.</li>
+							<li><strong>Cas d'usage :</strong> Développement open source ou propriétaire.</li>
+						</ul>
+					</div>
+
+					<!-- SECTION 2: Fonctionnalités Clés -->
+					<div class="section-modal">
+						<h3>Fonctionnalités Clés pour Vos Applications</h3>
+						<p>Les fonctionnalités essentielles pour des applications performantes :</p>
+						<ul>
+							<li><strong>Interfaces utilisateur dynamiques :</strong> Créez des interfaces intuitives
+								avec des boutons, menus, formulaires, etc.
+							</li>
+							<li><strong>Base de données :</strong> Intégrez des bases comme <span class="highlight">SQLite</span>,
+								<span class="highlight">PostgreSQL</span>, ou <span class="highlight">MySQL</span>.
+							</li>
+							<li><strong>Génération de fichiers :</strong> Exportez vers des formats comme Excel, PDF ou
+								JSON.
+							</li>
+							<li><strong>Connexion réseau :</strong> Intégrez des fonctionnalités comme les API REST ou
+								la synchronisation cloud.
+							</li>
+							<li><strong>Multithreading :</strong> Garantissez la fluidité pour les tâches de longue
+								durée.
+							</li>
+						</ul>
+					</div>
+
+					<!-- SECTION 3: Bonnes Pratiques -->
+					<div class="section-modal">
+						<h3>Bonnes Pratiques pour le Développement</h3>
+						<ul>
+							<li><strong>Architecture MVC :</strong> Séparez la logique métier, la vue et le contrôleur
+								pour une maintenance simplifiée.
+							</li>
+							<li><strong>Tests unitaires :</strong> Utilisez <span class="highlight">pytest</span> ou
+								<span class="highlight">unittest</span> pour garantir la fiabilité du code.
+							</li>
+							<li><strong>Documentation :</strong> Commentez et documentez chaque module pour faciliter la
+								compréhension.
+							</li>
+							<li><strong>Accessibilité :</strong> Adaptez votre interface pour différents utilisateurs
+								(thèmes, raccourcis clavier).
+							</li>
+							<li><strong>Portabilité :</strong> Testez votre application sur plusieurs systèmes
+								d'exploitation.
+							</li>
+						</ul>
+					</div>
+
+					<!-- SECTION 4: Cas d'Usage -->
+					<div class="section-modal">
+						<h3>Cas d'Usage des Applications de Bureau</h3>
+						<ul>
+							<li><strong>ERP et Gestion d'Entreprise :</strong> Facturation, gestion des stocks, suivi
+								des clients.
+							</li>
+							<li><strong>Logiciels Éducatifs :</strong> Environnements interactifs pour l'apprentissage.
+							</li>
+							<li><strong>Outils de Visualisation :</strong> Tableaux de bord et graphiques personnalisés.
+							</li>
+							<li><strong>Applications Personnelles :</strong> Gestion de projets, trackers d'activités,
+								etc.
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-general">
+						<a class="text-white" href="{% url 'contact' %}">Contact</a>
+					</button>
+					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -705,16 +849,115 @@
 					<div class="icon-box d-flex align-items-center" data-aos="zoom-in" data-aos-delay="300"
 					     style="font-size: 30px">
 						<!-- Icône et texte à l'intérieur du h1 -->
-						<i class="ri-calendar-todo-line" style="color: #5578ff;"></i>
+						<i><img src="/static/icons/icons8-web-64.png" style="height: 27px" alt="web"></i>
 						<span class="m-sm-1"></span>Application Web
 					</div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					...
+				<div class="modal-body" style="background: #1d2945eb">
+					<!-- Section 1: Site Vitrine -->
+					<section id="vitrine" class="mb-5 section-modal">
+						<h3>Création de Sites Web Vitrine</h3>
+						<p>
+							Pour petites entreprises, indépendants, associations, artisans.<br>
+							<strong>Objectif :</strong> Présenter votre activité, vos services et permettre à vos
+							clients de vous contacter facilement.
+						</p>
+						<ul>
+							<li>Design personnalisé et responsive</li>
+							<li>Formulaire de contact dynamique</li>
+							<li>Blog ou actualités</li>
+							<li>Optimisation SEO pour un bon référencement</li>
+						</ul>
+						<p><strong>Technologies :</strong> HTML5, CSS3, JavaScript, Django, Flask ou WordPress.</p>
+					</section>
+
+					<!-- Section 2: E-commerce -->
+					<section id="ecommerce" class="mb-5 section-modal">
+						<h3>Solutions E-Commerce</h3>
+						<p>
+							Pour commerçants, artisans, startups souhaitant vendre en ligne.<br>
+							<strong>Objectif :</strong> Développer une boutique en ligne performante et sécurisée.
+						</p>
+						<ul>
+							<li>Catalogue produits avec filtres et recherche avancée</li>
+							<li>Paiement sécurisé via Stripe ou PayPal</li>
+							<li>Gestion des stocks en temps réel</li>
+							<li>Tableau de bord pour suivre les ventes</li>
+						</ul>
+						<p><strong>Technologies :</strong> Django avec DRF, React ou Shopify.</p>
+					</section>
+
+					<!-- Section 3: Applications de Gestion -->
+					<section id="gestion" class="mb-5 section-modal">
+						<h3>Applications Web de Gestion</h3>
+						<p>
+							Pour entreprises ayant des besoins spécifiques en gestion.<br>
+							<strong>Objectif :</strong> Automatiser et simplifier vos processus métiers.
+						</p>
+						<ul>
+							<li>Gestion des clients et des devis</li>
+							<li>Suivi des projets et des tâches</li>
+							<li>Tableaux de bord pour KPIs</li>
+							<li>Notifications automatisées</li>
+						</ul>
+						<p><strong>Technologies :</strong> Django, Flask, Vue.js ou React.</p>
+					</section>
+
+					<!-- Section 4: Réservation -->
+					<section id="reservation" class="mb-5 section-modal">
+						<h3>Applications Web de Réservation</h3>
+						<p>
+							Pour restaurants, hôtels, coiffeurs ou salles de sport.<br>
+							<strong>Objectif :</strong> Permettre à vos clients de réserver facilement vos services.
+						</p>
+						<ul>
+							<li>Calendrier interactif avec gestion des créneaux</li>
+							<li>Notifications automatiques de confirmation</li>
+							<li>Paiement en ligne sécurisé</li>
+							<li>Interface utilisateur intuitive</li>
+						</ul>
+						<p><strong>Technologies :</strong> Django, React ou outils adaptés.</p>
+					</section>
+
+					<!-- Section 5: Plateformes Collaboratives -->
+					<section id="plateforme" class="mb-5 section-modal">
+						<h3>Plateformes Communautaires</h3>
+						<p>
+							Pour startups ou entreprises souhaitant créer des espaces collaboratifs.<br>
+							<strong>Objectif :</strong> Créer des environnements où les utilisateurs peuvent interagir.
+						</p>
+						<ul>
+							<li>Inscription et gestion de profil</li>
+							<li>Espaces de discussion (forum, chat, groupes)</li>
+							<li>Fonctionnalités sociales (likes, commentaires, partages)</li>
+							<li>Gestion de contenu généré par les utilisateurs</li>
+						</ul>
+						<p><strong>Technologies :</strong> Django Rest Framework, Vue.js ou Angular.</p>
+					</section>
+
+					<!-- Section 6: Data Visualization -->
+					<section id="visualisation" class="mb-5 section-modal">
+						<h3>Applications Web de Data Visualization</h3>
+						<p>
+							Pour entreprises ayant besoin de traiter des données complexes.<br>
+							<strong>Objectif :</strong> Simplifier l’analyse des données grâce à des visualisations
+							claires et interactives.
+						</p>
+						<ul>
+							<li>Tableaux et graphiques interactifs</li>
+							<li>Exportation des données (Excel, PDF)</li>
+							<li>Alertes automatisées basées sur les données</li>
+							<li>Visualisation en temps réel</li>
+						</ul>
+						<p><strong>Technologies :</strong> Python (Pandas, Matplotlib), Plotly, Dash, React.</p>
+					</section>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-general">
+						<a class="text-white" href="{% url 'contact' %}">Contact</a>
+					</button>
+					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -734,18 +977,114 @@
 					</div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					...
+				<div class="modal-body" style="background: #1d2945eb">
+					<!-- Section 1: Conception et Architecture -->
+					<section id="conception" class="mb-5 section-modal">
+						<h3>Conception et Architecture de Bases de Données</h3>
+						<p>
+							<strong>Objectif :</strong> Concevoir des bases de données robustes et évolutives adaptées à
+							vos besoins métiers.
+						</p>
+						<ul>
+							<li>Analyse des besoins métiers</li>
+							<li>Modélisation des données (schéma relationnel, diagrammes ERD)</li>
+							<li>Choix des technologies adaptées (SQL ou NoSQL)</li>
+							<li>Optimisation pour la performance et la scalabilité</li>
+						</ul>
+						<p><strong>Technologies :</strong> MySQL, PostgreSQL, MongoDB, SQLite.</p>
+					</section>
+
+					<!-- Section 2: Administration des Bases de Données -->
+					<section id="administration" class="mb-5 section-modal">
+						<h3>Administration des Bases de Données</h3>
+						<p>
+							<strong>Objectif :</strong> Maintenir vos bases de données performantes, sécurisées et
+							disponibles.
+						</p>
+						<ul>
+							<li>Installation et configuration des serveurs de bases de données</li>
+							<li>Gestion des utilisateurs et des permissions</li>
+							<li>Sauvegardes et restaurations régulières</li>
+							<li>Surveillance et optimisation des performances</li>
+						</ul>
+						<p><strong>Technologies :</strong> PostgreSQL, MySQL, MariaDB, Oracle DB.</p>
+					</section>
+
+					<!-- Section 3: Migration et Transformation des Données -->
+					<section id="migration" class="mb-5  section-modal">
+						<h3>Migration et Transformation des Données</h3>
+						<p>
+							<strong>Objectif :</strong> Migrer vos données d’un système à un autre ou transformer vos
+							données pour de nouveaux besoins.
+						</p>
+						<ul>
+							<li>Migration entre bases de données SQL et NoSQL</li>
+							<li>Transformation des données (ETL : Extract, Transform, Load)</li>
+							<li>Nettoyage et enrichissement des données</li>
+							<li>Réduction des temps d’arrêt (downtime minimal)</li>
+						</ul>
+						<p><strong>Technologies :</strong> Talend, Apache Airflow, Python (Pandas, SQLAlchemy).</p>
+					</section>
+
+					<!-- Section 4: Sécurisation des Données -->
+					<section id="securite" class="mb-5 section-modal">
+						<h3>Sécurisation des Bases de Données</h3>
+						<p>
+							<strong>Objectif :</strong> Protéger vos données sensibles contre les menaces et respecter
+							les normes en vigueur.
+						</p>
+						<ul>
+							<li>Mise en place de politiques de sauvegarde</li>
+							<li>Chiffrement des données au repos et en transit</li>
+							<li>Détection et prévention des intrusions</li>
+							<li>Respect des normes RGPD et PCI-DSS</li>
+						</ul>
+						<p><strong>Technologies :</strong> SSL/TLS, PostgreSQL avec chiffrement, outils de monitoring
+							(Datadog, Zabbix).</p>
+					</section>
+
+					<!-- Section 5: Optimisation des Performances -->
+					<section id="optimisation" class="mb-5 section-modal">
+						<h3>Optimisation des Performances</h3>
+						<p>
+							<strong>Objectif :</strong> Améliorer la rapidité et l’efficacité de vos bases de données.
+						</p>
+						<ul>
+							<li>Indexation des colonnes pour accélérer les requêtes</li>
+							<li>Analyse et réécriture des requêtes SQL</li>
+							<li>Partitionnement des tables volumineuses</li>
+							<li>Cache des requêtes pour réduire la charge</li>
+						</ul>
+						<p><strong>Technologies :</strong> PostgreSQL, Redis, Memcached.</p>
+					</section>
+
+					<!-- Section 6: Analyse et Visualisation des Données -->
+					<section id="visualisation" class="mb-5 section-modal">
+						<h3>Analyse et Visualisation des Données</h3>
+						<p>
+							<strong>Objectif :</strong> Exploitez vos données pour des prises de décision éclairées.
+						</p>
+						<ul>
+							<li>Création de tableaux de bord dynamiques</li>
+							<li>Requêtes avancées pour l’analyse de données</li>
+							<li>Visualisation des données en temps réel</li>
+							<li>Exportation des données (PDF, Excel, CSV)</li>
+						</ul>
+						<p><strong>Technologies :</strong> Tableau, Power BI, Python (Matplotlib, Seaborn).</p>
+					</section>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-general">
+						<a class="text-white" href="{% url 'contact' %}">Contact</a>
+					</button>
+					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Scraping modal -->
-	<div class="modal fade" id="scrapingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- Sur mesure modal -->
+	<div class="modal fade" id="SurMesureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -753,40 +1092,62 @@
 					<div class="icon-box d-flex align-items-center" data-aos="zoom-in" data-aos-delay="300"
 					     style="font-size: 30px">
 						<!-- Icône et texte à l'intérieur du h1 -->
-						<i class="ri-gradienter-line" style="color: #ffa76e;"></i>
-						<span class="m-sm-1"></span>Scraping
+						<i> <img src="/static/icons/Sur-mesure-48.png" style="height: 26px" alt="phone"></i>
+						<span class="m-sm-1"></span>Sur mesure
 					</div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					...
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+				<div class="modal-body" style="background: #1d2945eb">
+					<section class="section-modal">
+						<h3>Pourquoi du Sur-Mesure ?</h3>
+						<p>
+							Chaque entreprise a des besoins spécifiques. Que vous soyez une petite entreprise, une
+							startup ou une grande société, je conçois des applications qui répondent exactement à vos
+							attentes :
+						</p>
+						<ul>
+							<li>Fonctionnalités personnalisées selon votre secteur d'activité</li>
+							<li>Design et expérience utilisateur adaptés à votre audience</li>
+							<li>Intégration avec vos outils existants (CRM, ERP, etc.)</li>
+						</ul>
+					</section>
 
-	<!-- Automatisation modal -->
-	<div class="modal fade" id="autoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<!-- Conteneur flex pour l'alignement de l'icône et du texte -->
-					<div class="icon-box d-flex align-items-center" data-aos="zoom-in" data-aos-delay="300"
-					     style="font-size: 30px">
-						<!-- Icône et texte à l'intérieur du h1 -->
-						<i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
-						<span class="m-sm-1"></span>Automatisation
-					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					...
+					<section class="mt-4 section-modal">
+						<h3>Un Processus Collaboratif</h3>
+						<p>
+							Je travaille en étroite collaboration avec vous tout au long du projet :
+						</p>
+						<ol>
+							<li><strong>Analyse :</strong> Comprendre vos besoins et vos objectifs.</li>
+							<li><strong>Prototypage :</strong> Vous fournir une vision claire avant le développement.
+							</li>
+							<li><strong>Développement :</strong> Conception d'une solution robuste et évolutive.</li>
+							<li><strong>Suivi :</strong> Maintenance et évolutions futures selon vos besoins.</li>
+						</ol>
+					</section>
+
+					<section class="mt-4 section-modal">
+						<h3>Avantages d'une Solution sur Mesure</h3>
+						<ul>
+							<li>Gain de productivité grâce à des outils adaptés</li>
+							<li>Amélioration de l'expérience client</li>
+							<li>Possibilité d'évolution au fil de la croissance de votre entreprise</li>
+						</ul>
+					</section>
+
+					<section class="mt-4 section-modal">
+						<div class="alert alert-success text-center">
+							<h3>Prêt à démarrer votre projet ?</h3>
+							<p>Contactez-moi pour discuter de vos idées et trouver la solution qui vous
+								correspond !</p>
+						</div>
+					</section>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-general">
+						<a class="text-white" href="{% url 'contact' %}">Contact</a>
+					</button>
+					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -806,11 +1167,103 @@
 					</div>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					...
+				<div class="modal-body" style="background: #1d2945eb">
+					<!-- Section 1: Développement Mobile Natif -->
+					<section id="natif" class="mb-5 section-modal">
+						<h3>Développement Mobile Natif</h3>
+						<p>
+							<strong>Objectif :</strong> Créer des applications performantes en tirant parti des
+							fonctionnalités natives des plateformes mobiles.
+						</p>
+						<ul>
+							<li>Applications optimisées pour Android et iOS</li>
+							<li>Intégration des fonctionnalités natives (GPS, caméra, notifications, etc.)</li>
+							<li>Expérience utilisateur fluide et réactive</li>
+						</ul>
+						<p><strong>Technologies :</strong> Java, Kotlin, Swift.</p>
+					</section>
+
+					<!-- Section 2: Développement Mobile Hybride -->
+					<section id="hybride" class="mb-5 section-modal">
+						<h3>Développement Mobile Hybride</h3>
+						<p>
+							<strong>Objectif :</strong> Réduire les coûts et les délais de développement grâce à des
+							technologies multiplateformes.
+						</p>
+						<ul>
+							<li>Une seule base de code pour Android et iOS</li>
+							<li>Intégration rapide et déploiement simplifié</li>
+							<li>Applications légères et performantes</li>
+						</ul>
+						<p><strong>Technologies :</strong> React Native, Flutter, Ionic.</p>
+					</section>
+
+					<!-- Section 3: Applications Web Progressives (PWA) -->
+					<section id="pwa" class="mb-5 section-modal">
+						<h3>Applications Web Progressives (PWA)</h3>
+						<p>
+							<strong>Objectif :</strong> Offrir une expérience mobile similaire à une application native,
+							directement depuis le navigateur.
+						</p>
+						<ul>
+							<li>Applications accessibles sans téléchargement</li>
+							<li>Compatible avec tous les appareils (mobile, tablette, ordinateur)</li>
+							<li>Fonctionnalités hors ligne grâce au cache</li>
+						</ul>
+						<p><strong>Technologies :</strong> Angular, React, Vue.js, Service Workers.</p>
+					</section>
+
+					<!-- Section 4: Conception UI/UX -->
+					<section id="design" class="mb-5 section-modal">
+						<h3>Conception UI/UX</h3>
+						<p>
+							<strong>Objectif :</strong> Créer des interfaces ergonomiques et esthétiques pour garantir
+							la satisfaction des utilisateurs.
+						</p>
+						<ul>
+							<li>Design intuitif et moderne</li>
+							<li>Prototypes interactifs avant développement</li>
+							<li>Respect des standards de design pour iOS et Android</li>
+						</ul>
+						<p><strong>Outils :</strong> Figma, Adobe XD, Sketch.</p>
+					</section>
+
+					<!-- Section 5: Maintenance et Évolution -->
+					<section id="maintenance" class="mb-5 section-modal">
+						<h3>Maintenance et Évolution</h3>
+						<p>
+							<strong>Objectif :</strong> Assurer la pérennité et la mise à jour de vos applications
+							mobiles.
+						</p>
+						<ul>
+							<li>Corrections de bugs</li>
+							<li>Mises à jour régulières pour supporter les nouvelles versions d'Android/iOS</li>
+							<li>Ajout de nouvelles fonctionnalités selon vos besoins</li>
+						</ul>
+						<p><strong>Technologies :</strong> CI/CD (Intégration Continue), Firebase, App Store/Google
+							Play.</p>
+					</section>
+
+					<!-- Section 6: Intégration avec les Systèmes Externes -->
+					<section id="integration" class="mb-5 section-modal">
+						<h3>Intégration avec les Systèmes Externes</h3>
+						<p>
+							<strong>Objectif :</strong> Connecter votre application avec des systèmes tiers pour des
+							fonctionnalités avancées.
+						</p>
+						<ul>
+							<li>API REST et GraphQL</li>
+							<li>Services cloud (AWS, Google Cloud, Azure)</li>
+							<li>Passerelles de paiement (Stripe, PayPal)</li>
+						</ul>
+						<p><strong>Technologies :</strong> REST API, GraphQL, Firebase.</p>
+					</section>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-general">
+						<a class="text-white" href="{% url 'contact' %}">Contact</a>
+					</button>
+					<button type="button" class="btn btn-general" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>

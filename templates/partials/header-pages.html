@@ -94,16 +94,16 @@
 				<li class="drop-down">
 					<a href="">Réseaux sociaux</a>
 					<ul class="dropdown-menu">
-						<li><a href="https://www.facebook.com/BDS.EI/" class="facebook">
+						<li><a href="https://www.facebook.com/BDS.EI/" class="facebook" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-facebook"></i> - Facebook</a></li>
-						<li><a href="https://www.instagram.com/luc.belier/" class="instagram">
+						<li><a href="https://www.instagram.com/luc.belier/" class="instagram" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-instagram"></i> - Instagram</a></li>
-						<li><a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin">
+						<li><a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-linkedin"></i> - Linkedin</a></li>
-						<li><a href="https://github.com/II-Luc-II/" class="linkedin">
+						<li><a href="https://github.com/II-Luc-II/" class="github" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-github"></i> - Github</a></li>
 						<li><a href="https://discord.com/channels/1235925566432215111/1235925566964764723"
-						       class="linkedin">
+						       class="discord" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-discord"></i> - Discord</a></li>
 					</ul>
 				</li>
@@ -112,7 +112,7 @@
 					<li>
 					<form action="{% url 'logout' %}" method="post">
 						{% csrf_token %}
-						<button class="btn">
+						<button class="btn" style="color:white">
 							<a>
 								| {{ user.username }}
 							</a>

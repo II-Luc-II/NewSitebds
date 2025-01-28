@@ -78,11 +78,6 @@
 					<a href="/">Accueil</a>
 				</li>
 				<li><a href="#about" data-target="about">A-propos</a></li>
-				{% if user.is_authenticated %}
-					<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
-						<a href="{% url 'visitor_statistics' %}">Statistiques</a>
-					</li>
-				{% endif %}
 				<li><a href="#features" data-target="features">Les solutions</a></li>
 				<li><a href="#gallery" data-target="gallery">Portfolio</a></li>
 				<li><a href="#team" data-target="team">L'équipe</a></li>
@@ -96,18 +91,18 @@
 				{% endif %}
 				<li><a href="{% url "contact" %}">Contact</a></li>
 				<li class="drop-down">
-					<a href="#">Réseaux sociaux</a>
+					<a href="">Réseaux sociaux</a>
 					<ul class="dropdown-menu">
-						<li><a href="https://www.facebook.com/BDS.EI/" class="facebook">
+						<li><a href="https://www.facebook.com/BDS.EI/" class="facebook" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-facebook"></i> - Facebook</a></li>
-						<li><a href="https://www.instagram.com/luc.belier/" class="instagram">
+						<li><a href="https://www.instagram.com/luc.belier/" class="instagram" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-instagram"></i> - Instagram</a></li>
-						<li><a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin">
+						<li><a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-linkedin"></i> - Linkedin</a></li>
-						<li><a href="https://github.com/II-Luc-II/" class="linkedin">
+						<li><a href="https://github.com/II-Luc-II/" class="github" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-github"></i> - Github</a></li>
 						<li><a href="https://discord.com/channels/1235925566432215111/1235925566964764723"
-						       class="linkedin">
+						       class="discord" target="_blank" rel="noopener noreferrer">
 							<i class="bx bxl-discord"></i> - Discord</a></li>
 					</ul>
 				</li>
@@ -116,7 +111,7 @@
 					<li>
 					<form action="{% url 'logout' %}" method="post">
 						{% csrf_token %}
-						<button class="btn">
+						<button class="btn" style="color: gray">
 							<a>
 								| {{ user.username }}
 							</a>
