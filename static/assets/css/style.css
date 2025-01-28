@@ -435,6 +435,33 @@ h1, h2, h3, h4, h5, h6 {
   color: whitesmoke;
   text-align: justify;
 }
+
+/*--------------------------------------------------------------
+#SKILLS
+--------------------------------------------------------------*/
+
+#skills .heading h2 {
+    color: #d82c2e;
+}
+
+#skills .progress {
+    height: 35px;
+    margin: 30px 20px;
+}
+
+#skills .progress:last-child {
+    margin-bottom: 0;
+}
+
+#skills .progress-bar {
+    background-color: #1d2945eb;
+}
+
+#skills .progress-bar h5 {
+    text-shadow: 1px 1px 1px #000;
+    margin-bottom: 3px;
+}
+
 /*--------------------------------------------------------------
 # Stats et gadgets
 --------------------------------------------------------------*/
@@ -961,7 +988,13 @@ section {
 }
 
 .features .icon-box:hover {
-  background: #ebebff;
+  background: #9797e0;
+  color: white;
+}
+
+.features .icon-box:after {
+  background: #9797e0;
+  color: white;
 }
 
 /*--------------------------------------------------------------
