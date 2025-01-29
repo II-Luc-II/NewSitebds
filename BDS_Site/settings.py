@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'site_stats',
     'site_gadgetes',
     'django.contrib.sitemaps',
+    'captcha',
 ]
 
 MIDDLEWARE = [

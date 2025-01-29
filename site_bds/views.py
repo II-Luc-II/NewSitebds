@@ -41,17 +41,15 @@ def index(request):
     }
     return render(request, 'site/index.html', context)
 
+
 def contact(request):
     if request.method == "POST":
         # traitement des données
         form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
-            if not form.cleaned_data['no_robot']:
-                messages.error(request, 'Merci de cocher la case "Je ne suis pas un robot"')
-            else:
-                form.save()
-                messages.success(request, 'Merci, Le message est bien envoyé')
-                return redirect('contact_message')
+            form.save()
+            messages.success(request, 'Merci, Le message est bien envoyé')
+            return redirect('contact_message')
         else:
             messages.error(request, 'Merci de vérifier les informations du formulaire.')
     else:
@@ -91,7 +89,7 @@ def contact_message(request):
 
 def add_news_letter(request):
     new_letter = escape(request.POST.get('new-letter-email'))
-    new_letter_email, created = Newsletter.objects.get_or_create(email=new_letter,)
+    new_letter_email, created = Newsletter.objects.get_or_create(email=new_letter, )
     if not created:
         messages.error(request, 'Vous êtes déja inscrit à la newsletter')
         url = reverse('index') + '#newsletter'
@@ -181,7 +179,6 @@ def blog_single(request, blog_id):
 def gallery_single(request, gallery_id):
     gallery = Gallery.objects.get(id=gallery_id)
     gallery_all = Gallery.objects.all()
-
 
     context = {
         'gallery': gallery,

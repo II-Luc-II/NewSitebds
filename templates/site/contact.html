@@ -6,135 +6,133 @@
 
 {% block content %}
 	<section id="hero">
-    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
-      <defs>
-        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-      </defs>
-      <g class="wave1">
-        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
-      </g>
-      <g class="wave2">
-        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
-      </g>
-      <g class="wave3">
-        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
-      </g>
-    </svg>
-  </section><!-- End Hero -->
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+	</section><!-- End Hero -->
 	<!-- ======= Contact Section ======= -->
-		<section id="contact" class="contact">
-			<div class="container">
+	<section id="contact" class="contact">
+		<div class="container">
 
-				<div class="section-title" data-aos="fade-up">
-					<h2>Contact</h2>
-				</div>
+			<div class="section-title" data-aos="fade-up">
+				<h2>Contact</h2>
+			</div>
 
-				<div class="row">
+			<div class="row">
 
-					<div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
-						<div class="info">
-							<div class="address">
-								<a href="https://maps.app.goo.gl/aQHpGfwvEvhobLkX7"><i
-										class="icofont-google-map"></i></a>
-								<h4>Localité</h4>
-								<p>38490 AOSTE</p>
-							</div>
-
-							<div class="email">
-								<a href="mailto:contact.bds38.com"><i class="icofont-envelope"></i></a>
-								<h4>Email</h4>
-								<p>contact@bds38.com</p>
-							</div>
-
-							<div class="phone">
-								<a href="tel:+33673212272"><i class="icofont-phone"></i></a>
-								<h4>Téléphone</h4>
-								<p>06 73 21 22 72</p>
-							</div>
+				<div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+					<div class="info">
+						<div class="address">
+							<a href="https://maps.app.goo.gl/aQHpGfwvEvhobLkX7"><i
+									class="icofont-google-map"></i></a>
+							<h4>Localité</h4>
+							<p>38490 AOSTE</p>
 						</div>
 
+						<div class="email">
+							<a href="mailto:contact.bds38.com"><i class="icofont-envelope"></i></a>
+							<h4>Email</h4>
+							<p>contact@bds38.com</p>
+						</div>
+
+						<div class="phone">
+							<a href="tel:+33673212272"><i class="icofont-phone"></i></a>
+							<h4>Téléphone</h4>
+							<p>06 73 21 22 72</p>
+						</div>
 					</div>
 
-					<div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
-						{% if messages %}
-							<div>
-								{% include "components/messages.html" with messages=messages %}
-							</div>
-						{% endif %}
-						<form method="post" enctype="multipart/form-data">
-							{% csrf_token %}
-							<div class="form-row">
-								<div class="col-12 ">
-									<div class="form-group">
-										<label for="name">Nom</label>
-										{{ form.name }}
-										{% if form.name.errors %}
-											{% for error in form.name.errors %}
-												<span>
+				</div>
+
+				<div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
+					{% if messages %}
+						<div>
+							{% include "components/messages.html" with messages=messages %}
+						</div>
+					{% endif %}
+					<form method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="form-row">
+							<div class="col-12 ">
+								<div class="form-group">
+									<label for="name">Nom</label>
+									{{ form.name }}
+									{% if form.name.errors %}
+										{% for error in form.name.errors %}
+											<span>
 				                                {{ error }}
 				                            </span>
-											{% endfor %}
-										{% endif %}
-									</div>
-									<div class="form-group">
-										<label for="email">Email</label>
-										{{ form.email }}
-										{% if form.email.errors %}
-											{% for error in form.email.errors %}
-												<span>
-                                                {{ error }}
-                                            </span>
-											{% endfor %}
-										{% endif %}
-									</div>
-									<div class="form-group">
-										<label for="subject">Sujet</label>
-										{{ form.subject }}
-										{% if form.subject.errors %}
-											{% for error in form.subject.errors %}
-												<span>
-                                                {{ error }}
-                                            </span>
-											{% endfor %}
-										{% endif %}
-									</div>
-									<div class="form-group">
-										<label for="message">Message</label>
-										{{ form.message }}
-										{% if form.message.errors %}
-											{% for error in form.message.errors %}
-												<span>
-                                                {{ error }}
-                                            </span>
-											{% endfor %}
-										{% endif %}
-									</div>
-									<div class="form-group m-4">
-										<div class="form-check form-switch">
-											<span>{{ form.no_robot|add_class:"form-check-input" }}</span>
-											<label class="form-check-label" for="no_robot" style="color: blue;">Je ne
-												suis pas un robot</label>
-										</div>
-										{% if form.no_robot.errors %}
-											{% for error in form.no_robot.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										{% endif %}
-									</div>
-
-									<div class="php-email-form">
-										<div class="text-center">
-											<button class="btn btn-general" type="submit">
-												Envoyer
-											</button>
-										</div>
-									</div>
-
+										{% endfor %}
+									{% endif %}
 								</div>
-								<div class="mb-3"></div>
-						</form>
-					</div>
+								<div class="form-group">
+									<label for="email">Email</label>
+									{{ form.email }}
+									{% if form.email.errors %}
+										{% for error in form.email.errors %}
+											<span>
+                                                {{ error }}
+                                            </span>
+										{% endfor %}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									<label for="subject">Sujet</label>
+									{{ form.subject }}
+									{% if form.subject.errors %}
+										{% for error in form.subject.errors %}
+											<span>
+                                                {{ error }}
+                                            </span>
+										{% endfor %}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									<label for="message">Message</label>
+									{{ form.message }}
+									{% if form.message.errors %}
+										{% for error in form.message.errors %}
+											<span>
+                                                {{ error }}
+                                            </span>
+										{% endfor %}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									<label for="captcha">Vérification</label>
+									{{ form.captcha }}
+									{% if form.captcha.errors %}
+										{% for error in form.captcha.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
+									{% endif %}
+								</div>
+
+								<div class="php-email-form">
+									<div class="text-center">
+										<button class="btn btn-general" type="submit">
+											Envoyer
+										</button>
+									</div>
+								</div>
+
+							</div>
+							<div class="mb-3"></div>
+					</form>
 				</div>
 			</div>
-		</section><!-- End Contact Section -->
+		</div>
+	</section><!-- End Contact Section -->
 {% endblock content %}

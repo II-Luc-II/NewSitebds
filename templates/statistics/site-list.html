@@ -1,0 +1,97 @@
+{% extends 'base-pages.html' %}
+{% load static %}
+
+{% block title %}
+	Statistics
+{% endblock %}
+
+{% block content %}
+	<section id="hero">
+	</section>
+	<div class="container min-vh-100">
+		<div class="row">
+			<h1 class="py-2">Dashboard</h1>
+
+			<nav>
+				<ul class="nav nav-pills" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab1" role="tab">Sites</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" data-bs-toggle="pill" data-bs-target="#tab2" role="tab">Applications</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" data-bs-toggle="pill" data-bs-target="#tab3" role="tab">?</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" data-bs-toggle="pill" data-bs-target="#tab4" role="tab">?</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" data-bs-toggle="pill" data-bs-target="#tab5" role="tab">?</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" data-bs-toggle="pill" data-bs-target="#tab6" role="tab">?</a>
+					</li>
+				</ul>
+			</nav>
+			<div class="tab-content">
+
+				<div class="tab-pane active" id="tab1" role="tabpanel">
+					<div class="row">
+						<div>
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th>Nom</th>
+									<th>URL</th>
+									<th>Statut</th>
+									<th>Dernière mise à jour</th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for site in sites %}
+									<tr>
+										<td>{{ site.name }}</td>
+										<td><a href="{{ site.url }}" target="_blank">{{ site.url }}</a></td>
+										<td>{{ site.status|yesno:"En ligne,Hors ligne" }}</td>
+										<td>{{ site.updated_at }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane active" id="tab2" role="tabpanel">
+					<div class="row">
+						<div>
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Host</th>
+									<th>URL</th>
+									<th>Statut</th>
+									<th>Dernière mise à jour</th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for site in applis %}
+									<tr>
+										<td>{{ site.name }}</td>
+										<td>{{ site.host }}</td>
+										<td><a href="{{ site.url }}" target="_blank">{{ site.url }}</a></td>
+										<td>{{ site.status|yesno:"En ligne,Hors ligne" }}</td>
+										<td>{{ site.updated_at }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.db.models import Count
 from django.db.models.functions import TruncDay, TruncWeek, TruncMonth, TruncYear
-from .models import Visitor
+from .models import Visitor, Vpn
 from datetime import datetime, timedelta
 
 from django.shortcuts import render
@@ -12,6 +12,9 @@ from django.db.models.functions import TruncDay, TruncWeek, TruncMonth, TruncYea
 from django.utils import timezone  # Importez timezone
 from .models import Visitor
 from datetime import timedelta
+from django.shortcuts import render
+from .models import Site
+
 
 
 @login_required(login_url='sign_in')
@@ -53,3 +56,15 @@ def visitor_statistics(request):
         'yearly_visitors': yearly_visitors,
     }
     return render(request, 'statistics/stats.html', context)
+
+
+
+def site_list(request):
+    sites = Site.objects.all()
+    applis = Vpn.objects.all()
+
+    context = {
+        'sites': sites,
+        'applis': applis,
+    }
+    return render(request, 'statistics/site-list.html', context)
