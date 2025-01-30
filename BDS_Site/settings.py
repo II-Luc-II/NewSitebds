@@ -137,4 +137,9 @@ ANYMAIL = {
     "BREVO_API_KEY": env("ENV_BREVO_API_KEY")
 }
 
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'  # Utiliser des questions mathématiques
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
+CAPTCHA_FONT_SIZE = 32
+
+
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"

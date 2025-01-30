@@ -111,13 +111,13 @@
 									{% endif %}
 								</div>
 								<div class="form-group">
-									<label for="captcha">Vérification</label>
-									{{ form.captcha }}
 									{% if form.captcha.errors %}
 										{% for error in form.captcha.errors %}
 											<span class="text-danger">{{ error }}</span>
 										{% endfor %}
 									{% endif %}
+									<label for="captcha">{{ form.captcha }} <br>Code de Vérification (Saisir le résultat de l'opération) </label>
+
 								</div>
 
 								<div class="php-email-form">
