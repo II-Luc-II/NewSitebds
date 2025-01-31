@@ -58,7 +58,7 @@ def visitor_statistics(request):
     return render(request, 'statistics/stats.html', context)
 
 
-
+@login_required(login_url='sign_in')
 def site_list(request):
     sites = Site.objects.all()
     applis = Vpn.objects.all()
