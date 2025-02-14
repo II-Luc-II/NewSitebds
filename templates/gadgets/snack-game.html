@@ -12,8 +12,14 @@
 	        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	        crossorigin="anonymous"></script>
 	<title>snack-game</title>
+
 </head>
 <body>
+<div class="d-flex justify-content-center align-items-center py-3">
+	<a href="{% url 'index' %}" class="btn btn-success">
+		Retour
+	</a>
+</div>
 <script>
 	window.onload = function () {
     let canvasWidth = 900;
