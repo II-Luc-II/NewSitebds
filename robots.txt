@@ -9,6 +9,7 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /account/
 Disallow: /site_gadgetes/
+Disallow: /site_stats/
 
 # Spécifier le chemin vers le sitemap
 Sitemap: https://site.bds38.com/sitemap.xml
