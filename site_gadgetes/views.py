@@ -78,3 +78,7 @@ def video_youtube(request):
     return render(request, 'gadgets/video-youtube.html', {'form': form})
 
 
+def snack_game(request):
+    return render(request, 'gadgets/snack-game.html')
+
+

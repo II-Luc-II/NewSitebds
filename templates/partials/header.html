@@ -50,7 +50,7 @@
 	<link href="/static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 	<link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
 
-
+	{% block link %}{% endblock %}
 	<!-- Template Main CSS File -->
 	<link href="/static/assets/css/style.css" rel="stylesheet">
 </head>
@@ -83,12 +83,29 @@
 				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
 					<a href="{% url 'news' %}">Les news</a>
 				</li>
-				{% if user.is_authenticated %}
-					<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
-						<a href="{% url 'visitor_statistics' %}">Statistiques</a>
+				<li>
+					<a href="{% url "contact" %}">Contact</a>
+				</li>
+				{% if user.is_authenticated and request.user.is_superuser %}
+				<li class="drop-down {% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}
+					">
+					<a href="#">Admin</a>
+						<ul class="dropdown-menu">
+							<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
+								<a href="{% url 'visitor_statistics' %}">Statistiques</a>
+							</li>
+							<li class="{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}">
+								<a href="{% url 'site_list' %}">Liste des sites</a>
+							</li>
+							<li class="{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}">
+								<a href="{% url 'snack_game' %}">Le jeu du serpent</a>
+							</li>
+						</ul>
 					</li>
 				{% endif %}
-				<li><a href="{% url "contact" %}">Contact</a></li>
+
 				<li class="drop-down">
 					<a href="">Réseaux sociaux</a>
 					<ul class="dropdown-menu">
