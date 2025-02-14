@@ -62,6 +62,25 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
 }
 
+.icon-a-la-une {
+    margin-top: 20px;
+    height: 80px;
+    width: 80px;
+    background-color: white;
+    align-items: center;
+    text-align: center;
+    border-radius: 50px;
+}
+
+.icon-a-la-une:hover {
+    margin-top: 20px;
+    height: 80px;
+    width: 80px;
+    background-color: rgba(128, 128, 128, 0.43);
+    align-items: center;
+    text-align: center;
+    border-radius: 50px;
+}
 
 /*--------------------------------------------------------------
 # Preloader

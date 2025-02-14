@@ -163,5 +163,9 @@ class ALaUneAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'en_ligne')
     list_editable = ('en_ligne',)
 
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorWidget}
+    }
+
 
 
