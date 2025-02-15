@@ -72,7 +72,7 @@ def site_list(request):
     return render(request, 'statistics/site-list.html', context)
 
 
-def stats_combined(request):
+""" def stats_combined(request):
     # 📍 1️⃣ Récupérer toutes les visites avec leur localisation
     visits = Visit.objects.values('latitude', 'longitude', 'city', 'country')
 
@@ -89,4 +89,4 @@ def stats_combined(request):
     return render(request, "statistics/stats-2.html", {
         "visits": json.dumps(list(visits)),
         "data": data
-    })
+    })"""
