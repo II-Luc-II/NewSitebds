@@ -142,6 +142,5 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'  # Utiliser des quest
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
 
-GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
