@@ -51,7 +51,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
     'site_stats.middleware.VisitorTrackingMiddleware',
-    'site_stats.middleware.GeoIPMiddleware',
 ]
 
 ROOT_URLCONF = 'BDS_Site.urls'
