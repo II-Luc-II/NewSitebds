@@ -2521,3 +2521,12 @@ section modal index solutions
     padding: 2px 5px;
     border-radius: 4px;
 }
+
+/* --------------------------------------------------------
+        PAGE STATS
+ ---------------------------------------------------------*/
+
+.bg-stat-1 {
+     background: url("../../assets/img/Carte-du-monde.jpeg") no-repeat center;
+    background-size: cover;
+}
