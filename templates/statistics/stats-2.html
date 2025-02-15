@@ -1,0 +1,66 @@
+{% extends 'base-pages.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+	Statistics
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<section id="stats">
+		<h2>🌍 Carte des Visiteurs</h2>
+		<div id="map" style="height: 400px;"></div>
+
+		<h2 class="py-3">📈 Évolution des Connexions en France</h2>
+		<canvas id="visitsChart"></canvas>
+
+		<script>
+            // 🌍 1️⃣ Affichage de la carte avec Leaflet
+            var map = L.map('map').setView([46.603354, 1.888334], 5);  // Centré sur la France
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            var visits = {{ visits|safe }};
+            visits.forEach(function (visit) {
+                if (visit.latitude && visit.longitude) {
+                    L.marker([visit.latitude, visit.longitude])
+                        .addTo(map)
+                        .bindPopup("📍 " + visit.city + ", " + visit.country);
+                }
+            });
+
+            // 📈 2️⃣ Affichage du graphique des connexions en France
+            const ctx = document.getElementById('visitsChart').getContext('2d');
+            const dates = {{ data|map_attribute:"0"|safe }};  <!-- Utiliser le filtre personnalisé -->
+            const counts = {{ data|map_attribute:"1"|safe }};  <!-- Utiliser le filtre personnalisé -->
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Nombre de Connexions en France',
+                        data: counts,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {beginAtZero: true}
+                    }
+                }
+            });
+		</script>
+
+
+	</section>
+	</div>
+
+
+
+{% endblock %}

@@ -26,3 +26,13 @@ class Vpn(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Visit(models.Model):
+    ip_address = models.GenericIPAddressField()
+    country = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+

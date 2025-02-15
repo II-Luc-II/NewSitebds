@@ -4,7 +4,6 @@ from django.db.models import Count
 from django.db.models.functions import TruncDay, TruncWeek, TruncMonth, TruncYear
 from .models import Visitor, Vpn
 from datetime import datetime, timedelta
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -14,6 +13,9 @@ from .models import Visitor
 from datetime import timedelta
 from django.shortcuts import render
 from .models import Site
+from .models import Visit
+import json
+from django.db.models.functions import TruncDate
 
 
 
@@ -68,3 +70,23 @@ def site_list(request):
         'applis': applis,
     }
     return render(request, 'statistics/site-list.html', context)
+
+
+def stats_combined(request):
+    # 📍 1️⃣ Récupérer toutes les visites avec leur localisation
+    visits = Visit.objects.values('latitude', 'longitude', 'city', 'country')
+
+    # 🇫🇷 2️⃣ Récupérer les connexions en France par jour
+    visits_france = Visit.objects.filter(country="France") \
+        .annotate(date=TruncDate('timestamp')) \
+        .values('date') \
+        .annotate(count=Count('id')) \
+        .order_by('date')
+
+    data = [(v['date'].strftime('%Y-%m-%d'), v['count']) for v in visits_france]
+
+    # 📡 3️⃣ Envoyer toutes les données dans le template
+    return render(request, "statistics/stats-2.html", {
+        "visits": json.dumps(list(visits)),
+        "data": data
+    })

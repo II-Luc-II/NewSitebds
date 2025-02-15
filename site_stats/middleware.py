@@ -1,4 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
+from django.contrib.gis.geoip2 import GeoIP2
+from .models import Visit
 from django.utils.crypto import get_random_string
 from .models import Visitor
 
@@ -17,3 +19,25 @@ class VisitorTrackingMiddleware(MiddlewareMixin):
     def increment_visitor_count(self, visitor_id):
         if not Visitor.objects.filter(visitor_id=visitor_id).exists():
             Visitor.objects.create(visitor_id=visitor_id)
+
+
+
+
+
+
+class GeoIPMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        ip = request.META.get('REMOTE_ADDR', '127.0.0.1')
+        geo = GeoIP2()
+
+        try:
+            location = geo.city(ip)
+            Visit.objects.create(
+                ip_address=ip,
+                country=location.get('country_name', ''),
+                city=location.get('city', ''),
+                latitude=location.get('latitude', None),
+                longitude=location.get('longitude', None),
+            )
+        except Exception as e:
+            print(f"Erreur GeoIP: {e}")

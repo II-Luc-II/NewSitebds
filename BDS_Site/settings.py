@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'site_gadgetes',
     'django.contrib.sitemaps',
     'captcha',
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
-    'site_stats.middleware.VisitorTrackingMiddleware'
+    'site_stats.middleware.VisitorTrackingMiddleware',
+    'site_stats.middleware.GeoIPMiddleware',
 ]
 
 ROOT_URLCONF = 'BDS_Site.urls'
@@ -141,5 +143,6 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'  # Utiliser des quest
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
 
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
