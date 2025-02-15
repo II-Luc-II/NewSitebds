@@ -1,6 +1,4 @@
 from django.utils.deprecation import MiddlewareMixin
-from django.contrib.gis.geoip2 import GeoIP2
-from .models import Visit
 from django.utils.crypto import get_random_string
 from .models import Visitor
 
