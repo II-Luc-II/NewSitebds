@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include('site_stats.urls')),
     path('', include('site_gadgetes.urls')),
     path('captcha/', include('captcha.urls')),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

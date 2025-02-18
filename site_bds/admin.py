@@ -1,7 +1,7 @@
 from django.contrib import admin
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
 from django.utils.html import format_html
-from ckeditor.widgets import CKEditorWidget
+from django_ckeditor_5.fields import CKEditor5Widget
 from django.db import models
 
 admin.site.site_header = 'SITE BDS Administration'
@@ -29,7 +29,7 @@ class GalleryAdmin(admin.ModelAdmin):
     display_image.short_description = 'image'
 
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget}
+        models.TextField: {'widget': CKEditor5Widget}
     }
 
 
@@ -44,7 +44,7 @@ class TestimonialsAdmin(admin.ModelAdmin):
     display_image.short_description = 'image'
 
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget}
+        models.TextField: {'widget': CKEditor5Widget}
     }
 
     def display_name(self, gallery):
@@ -81,7 +81,7 @@ class TeamAdmin(admin.ModelAdmin):
     display_image.short_description = 'image'
 
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget}
+        models.TextField: {'widget': CKEditor5Widget}
     }
 
 
@@ -102,7 +102,7 @@ class AskAdmin(admin.ModelAdmin):
             return format_html(no_icon + name)
 
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget}
+        models.TextField: {'widget': CKEditor5Widget}
     }
 
 
@@ -154,7 +154,7 @@ class BlogsAdmin(admin.ModelAdmin):
     display_image_3.short_description = 'Image 3'
 
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget}
+        models.TextField: {'widget': CKEditor5Widget}
     }
 
 
@@ -164,7 +164,7 @@ class ALaUneAdmin(admin.ModelAdmin):
     list_editable = ('en_ligne',)
 
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget}
+        models.TextField: {'widget': CKEditor5Widget}
     }
 
 
