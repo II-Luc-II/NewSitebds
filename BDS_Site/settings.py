@@ -135,10 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
 ANYMAIL = {
-    "BREVO_API_KEY": env("ENV_BREVO_API_KEY")
+    "REVO_API_KEY": env("ENV_BREVO_API_KEY")
 }
 
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'  # Utiliser des questions mathématiques
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
 
