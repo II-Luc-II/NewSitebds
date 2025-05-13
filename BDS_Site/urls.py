@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from BDS_Site import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin-loco/', admin.site.urls),
     path('', include('site_bds.urls')),
     path('', include('account.urls')),
     path('', include('yourproject.urls')),
