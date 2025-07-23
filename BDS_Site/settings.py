@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'captcha',
     'django_user_agents',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'site_bds.context_processors.unread_bds',
             ],
         },
     },
@@ -135,8 +137,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
 ANYMAIL = {
-    "REVO_API_KEY": env("ENV_BREVO_API_KEY")
+    "BREVO_API_KEY": env("ENV_BREVO_API_KEY"),
+    "FROM_EMAIL": env("ENV_BREVO_FROM_EMAIL"),
 }
+
+DEFAULT_FROM_EMAIL = 'arapvcorp@gmail.com'
 
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
@@ -241,4 +246,30 @@ CKEDITOR_5_CONFIGS = {
             'reversed': 'true',
         }
     }
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        '__main__': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
 }

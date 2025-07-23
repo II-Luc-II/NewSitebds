@@ -5,9 +5,12 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import escape
-
-from site_bds.ContactForm import ContactForm
+import logging
+from site_bds.ContactForm import ContactForm, NewsLetterForm
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
+
+# Initialise le logger
+logger = logging.getLogger(__name__)
 
 
 def robots_txt(request):
@@ -44,13 +47,19 @@ def index(request):
 
 def contact(request):
     if request.method == "POST":
-        # traitement des données
         form = ContactForm(request.POST, request.FILES)
+
         if form.is_valid():
             form.save()
-            messages.success(request, 'Merci, Le message est bien envoyé')
+            messages.success(request, 'Merci, le message a bien été envoyé.')
             return redirect('contact_message')
         else:
+            # 🔍 Logguer toutes les erreurs du formulaire
+            logger.warning("Échec de validation du formulaire de contact.")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    logger.warning(f"[{field}] {error}")
+
             messages.error(request, 'Merci de vérifier les informations du formulaire.')
     else:
         form = ContactForm()
@@ -88,15 +97,19 @@ def contact_message(request):
 
 
 def add_news_letter(request):
-    new_letter = escape(request.POST.get('new-letter-email'))
-    new_letter_email, created = Newsletter.objects.get_or_create(email=new_letter, )
-    if not created:
-        messages.error(request, 'Vous êtes déja inscrit à la newsletter')
-        url = reverse('index') + '#newsletter'
-        return redirect(url)
-    else:
-        messages.success(request, 'Vous êtes bien inscrit à la newsletter.')
-        return redirect('contact_message_newsletter')
+    if request.method == "POST":
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            obj, created = Newsletter.objects.get_or_create(email=email)
+            if not created:
+                messages.error(request, 'Vous êtes déjà inscrit à la newsletter.')
+            else:
+                messages.success(request, 'Vous êtes bien inscrit à la newsletter.')
+            return redirect(reverse('index') + '#newsletter')
+        else:
+            messages.error(request, "Merci de valider le formulaire.")
+            return redirect(reverse('index') + '#newsletter')
 
 
 def client_message_contact(request):

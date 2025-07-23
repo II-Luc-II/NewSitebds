@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 
 <!-- ======= Footer ======= -->
 <footer id="footer">
@@ -8,10 +9,16 @@
 
 				<div class="col-lg-4 col-md-6">
 					<div class="footer-info">
-						<h3>BDS</h3>
+						<h3>
+						<img src="{% static 'images/img-accueil/BLANC-ICON.svg' %}"
+						     alt="Logo-bds"
+						     height="50"
+						>
+						BDS
+						</h3>
 						<strong>Téléphone:</strong> 06 73 21 22 72<br>
 						<strong>Email:</strong> contact@bds38.com<br>
-						</p>
+
 						<div class="social-links mt-3">
 							<a href="https://www.facebook.com/BDS.EI/" class="facebook"><i class="bx bxl-facebook"></i></a>
 							<a href="https://www.instagram.com/luc.belier/" class="instagram"><i
@@ -25,32 +32,54 @@
 					</div>
 				</div>
 
-				<div class="col-lg-2 col-md-6 footer-links">
+				<div class="col-lg-4 col-md-6 footer-links text-center">
 					<h4>Plan du site</h4>
-					<ul>
+					<ul class="list-unstyled d-flex flex-column align-items-center">
 						<li><i class="bx bx-chevron-right"></i> <a href="{% url 'index' %}">Accueil</a></li>
 						<li><i class="bx bx-chevron-right"></i> <a href="/#about">A-propos</a></li>
 						<li><i class="bx bx-chevron-right"></i> <a href="/#features">Les solutions</a></li>
-						<li><i class="bx bx-chevron-right"></i> <a href="#polycy-Modal" data-toggle="modal"
-						                                           data-target="#polycy-Modal">Privacy policy</a></li>
+						<li><i class="bx bx-chevron-right"></i> <a href="{% url 'contact' %}">Contact</a></li>
+						<li><i class="bx bx-chevron-right"></i>
+							<a href="#polycy-Modal" data-bs-toggle="modal" data-bs-target="#polycy-Modal">Privacy
+								policy</a>
+						</li>
 					</ul>
 				</div>
 
 
-				<div class="col-lg-4 col-md-6 footer-newsletter" id="newsletter">
+				<div class="col-lg-4 col-md-6" id="newsletter">
 					<h4>La Newsletter</h4>
-					{% if messages %}
-						<div>
-							{% include "components/messages.html" with messages=messages %}
-						</div>
-					{% endif %}
-					<p>S'inscrire :</p>
-					<form action="{% url 'add-news-letter' %}" method="post">
+
+					<form action="{% url 'add-news-letter' %}" method="post" novalidate id="newsletter-form"
+					      class="footer-info">
 						{% csrf_token %}
-						<input type="email" name="new-letter-email" placeholder="Saisir votre email">
-						<input type="submit" value="Inscription">
+
+						<div class="mb-3">
+							{{ form_news.email.errors }}
+							<label for="{{ form.email.id_for_label }}" class="form-label text-white">Votre adresse
+								email</label>
+							{{ form_news.email|add_class:"form-control bg-light border-0 shadow-sm" }}
+						</div>
+
+						<div class="mb-3 d-none" id="captcha-container">
+							{{ form_news.captcha.errors }}
+							<label for="{{ form.captcha.id_for_label }}" class="form-label text-white">
+								Merci de saisir les lettres ci-dessous
+							</label>
+							<div class="d-flex align-items-center gap-3">
+								{{ form_news.captcha }}
+							</div>
+						</div>
+
+						<div class="d-grid">
+							<button type="submit" class="btn btn-warning btn-sm">
+								<i class="bi bi-envelope-check me-1"></i>
+								S'inscrire
+							</button>
+						</div>
 					</form>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -252,16 +281,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@ckeditor/ckeditor5-build-classic@41.2.1/build/ckeditor.min.js"></script>
 <script>
-    const editors = document.querySelectorAll('textarea')
+    const textareaElements = document.querySelectorAll('textarea');
 
-    editors.forEach(editor => {
-        editor.removeAttribute('required')
+    textareaElements.forEach(editor => {
+        editor.removeAttribute('required');
         ClassicEditor
             .create(editor)
             .catch(error => {
                 console.error(error);
-            })
-    })
+            });
+    });
 </script>
 
 <!-- Vendor JS Files -->
@@ -274,7 +303,22 @@
 <script src="{% static 'assets/vendor/counterup/counterup.min.js' %}"></script>
 <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
 <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.querySelector('#id_email');  // identifiant Django du champ email
+        const captchaContainer = document.getElementById('captcha-container');
 
+        if (emailInput) {
+            emailInput.addEventListener('input', function () {
+                if (emailInput.value.trim().length > 3) {
+                    captchaContainer.classList.remove('d-none');
+                } else {
+                    captchaContainer.classList.add('d-none');
+                }
+            });
+        }
+    });
+</script>
 <!-- Template Main JS File -->
 <script src="{% static 'assets/js/main.js' %}"></script>
 <!-- Google Tag Manager (noscript) -->
