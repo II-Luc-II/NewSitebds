@@ -110,7 +110,8 @@ class AskAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('display_name', "created_at", "checked", "no_robot")
 
-    def display_name(self, contact):
+    @staticmethod
+    def display_name(contact):
         no_icon = '<img src="/static/icons/non.png" alt="False" style="width: 10px">'
         yes_icon = '<img src="/static/icons/oui.png" alt="True" style="width: 10px">'
 
@@ -120,6 +121,10 @@ class ContactAdmin(admin.ModelAdmin):
         else:
             name = '<span style="color:red"> &nbsp;' + contact.name + '<span>'
             return format_html(no_icon + name)
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
 
 
 @admin.register(Newsletter)
