@@ -292,6 +292,11 @@
             });
     });
 </script>
+<!-- pop-over contact -->
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
 
 <!-- Vendor JS Files -->
 <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
@@ -319,6 +324,17 @@
         }
     });
 </script>
+
+<script>
+	// Tooltip
+	document.addEventListener("DOMContentLoaded", function () {
+	    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	        return new bootstrap.Tooltip(tooltipTriggerEl);
+	    });
+	});
+</script>
+
 <!-- Template Main JS File -->
 <script src="{% static 'assets/js/main.js' %}"></script>
 <!-- Google Tag Manager (noscript) -->

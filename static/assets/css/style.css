@@ -62,6 +62,24 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
 }
 
+.btn-general-close {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 50px;
+    transition: 0.5s;
+    color: #fff;
+    background: #505e6c;
+}
+
+.btn-general-close:hover {
+    background: #1D2945;
+    color: #fff;
+}
+
 .icon-a-la-une {
     margin-top: 20px;
     height: 80px;
@@ -2530,3 +2548,69 @@ section modal index solutions
      background: url("../../assets/img/Carte-du-monde.jpeg") no-repeat center;
     background-size: cover;
 }
+
+/*------------ POP uP messages --------------*/
+
+
+#div_id_message input.form-control.textinput {
+    min-height: 80px !important;
+}
+
+#div_id_email input.form-control.textinput,
+#div_id_subject input.form-control.textinput,
+#div_id_message input.form-control.textinput {
+    min-width: 250px !important;
+}
+
+.bouton-modal {
+    transition: transform 0.3s ease; /* pour une animation fluide */
+}
+
+.bouton-modal:hover {
+    cursor: pointer;
+    transform: scale(1.05) !important; /* 5% plus grand */
+}
+
+.modal-contact {
+    border-radius: 30px !important;
+}
+
+/* Cible les tooltips Bootstrap */
+.tooltip-inner {
+    background-color: white !important;
+    color: #333 !important;
+    padding: 1rem !important;
+    margin: 1rem 1rem 0 1rem !important;
+    text-align: center;
+    max-width: 250px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Triangle du tooltip (la petite flèche) */
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: white !important;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: white !important;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: white !important;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: white !important;
+}
+
+.tooltip-inner {
+    background-color: white !important;
+    color: black !important;
+}
+
+input[name="honeypot"] {
+    display: none !important;
+}
+
+/*------------ FONTS --------------*/

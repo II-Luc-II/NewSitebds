@@ -1,4 +1,5 @@
 from captcha.fields import CaptchaField
+from crispy_forms.helper import FormHelper
 from django import forms
 
 from site_bds.models import Contact, Newsletter
@@ -82,4 +83,55 @@ class NewsLetterForm(forms.ModelForm):
             raise ValidationError("Veuillez utiliser un email valide et non temporaire.")
         return email
 
+
+class ContactFormPopUp(forms.ModelForm):
+    captcha = CaptchaField()
+    honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
+
+    class Meta:
+        model = Contact
+        fields = ('name', 'email', 'subject', 'message')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Votre nom'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Votre email'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sujet'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Votre message'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Supprimer tous les labels
+        for field in self.fields.values():
+            field.label = ""
+
+        # Config crispy pour ne pas afficher les labels
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
+        # Placeholder pour le captcha
+        self.fields['captcha'].widget.attrs.update({'placeholder': 'Recopier le texte ci-dessus'})
+
+    def clean_honeypot(self):
+        if self.cleaned_data.get("honeypot"):
+            raise forms.ValidationError("Spam détecté.")
+        return ""
+
+    def clean_message(self):
+        message = self.cleaned_data.get("message", "").strip()
+
+        # Vérifie longueur minimale
+        if len(message) < 20:
+            raise ValidationError("Merci d’écrire un message plus détaillé (20 caractères minimum).")
+
+        # Vérifie contenu indésirable
+        bad_patterns = ["http", "viagra", "casino", "bitcoin", ".ru", ".xyz"]
+        if any(pattern in message.lower() for pattern in bad_patterns):
+            raise ValidationError("Votre message contient du contenu interdit.")
+
+        # Vérifie nombre de liens
+        if len(re.findall(r'https?://', message.lower())) > 1:
+            raise ValidationError("Merci de ne pas inclure plusieurs liens dans votre message.")
+
+        return message
 

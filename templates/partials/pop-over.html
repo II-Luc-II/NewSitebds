@@ -1,0 +1,37 @@
+{% load static %}
+<!-- Modals Pop-Up -->
+{% if popups %}
+    {% for popup in popups %}
+        <div class="modal fade" id="welcomeModal{{ popup.id }}" tabindex="-1" aria-labelledby="welcomeModalLabel{{ popup.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header text-white">
+                        <div class="container-pop-up-title text-center">
+                            <h4>{{ popup.name }}</h4>
+                        </div>
+	                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            {% if popup.image %}
+                                <img src="{{ popup.image.url }}" alt="popup_image" class="img-thumbnail" width="98%" height="200">
+                            {% endif %}
+                        </div>
+                        <h5 class="text-center mt-3 lato-light-italic p-2">{{ popup.description|safe }}</h5>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <a href="/contact" class="btn btn-general">Nous contacter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.first %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal{{ popup.id }}'));
+                    welcomeModal.show();
+                });
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}

@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import escape
 import logging
-from site_bds.ContactForm import ContactForm, NewsLetterForm
+from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
 
 # Initialise le logger
@@ -68,6 +68,55 @@ def contact(request):
         "form": form,
     }
     return render(request, 'site/contact.html', context)
+
+
+def contact_form_view(request):
+    if request.method == "POST":
+        print("POST reçu:", request.POST)
+        form = ContactFormPopUp(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Merci, le message a bien été envoyé.')
+
+            message = Contact.objects.order_by('-created_at').first()
+
+            html = f"""
+                <p>Bonjour.</p>
+                <p>Un nouveau message vient d'être publié par : <br>
+                {message.name}  {message.email} <br>
+                sur le site 'BDS' le {message.created_at}</p>
+                <p>Le message : {message.message}</p>
+            """
+
+            # Email admin
+            EmailMessage(
+                "Nouveau message de contact",
+                html,
+                "BDS <contact@bds38.com>",
+                ["contact@bds38.com"],
+                headers={'Reply-To': message.email}
+            ).send()
+
+            # Email client
+            html_text = render_to_string("email-client.html", {})
+            EmailMessage(
+                "Contact BDS",
+                html_text,
+                "BDS <contact@bds38.com>>",
+                [message.email],
+            ).send()
+
+            return redirect('index')
+
+        else:
+            print("Erreurs formulaire :", form.errors.as_data())
+            messages.error(request, 'Merci de vérifier les informations du formulaire.')
+            request.session['popup_active'] = True
+
+            return render(request, 'site/index.html', {
+                'popup_form': form,
+                'popup_active': True
+            })
 
 
 def contact_message(request):

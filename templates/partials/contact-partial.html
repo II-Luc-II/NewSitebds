@@ -1,0 +1,111 @@
+{% load static %}
+
+<!-- Bouton flottant en bas à droite -->
+<div class="position-fixed bottom-0 end-0 m-5 z-1030 bouton-modal" data-bs-toggle="modal"
+     data-bs-target="#contactModal">
+
+	<a id="autoTooltip"
+	   class="custom-tooltip">
+		<img src="{% static 'svg/icon-for-message.svg' %}" alt="message" height="80" width="80">
+	</a>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+	<div class="modal-dialog rounded-3 position-fixed bottom-0 mb-3 end-0 mx-3 z-1030 modal-dialog-end">
+		<div class="modal-content modal-contact p-4">
+			<form method="POST" action="{% url 'contact_form_view' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="hidden" name="form_name" value="popup_contact">
+				<div class="modal-body">
+					{% if popup_form.non_field_errors %}
+						<div class="alert alert-danger">
+							{% for error in popup_form.non_field_errors %}
+								<p>{{ error }}</p>
+							{% endfor %}
+						</div>
+					{% endif %}
+
+					<div class="form-group mb-3">
+						{{ popup_form.name.label_tag }}
+						{{ popup_form.name }}
+						{% for error in popup_form.name.errors %}
+							<div class="text-danger">{{ error }}</div>
+						{% endfor %}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ popup_form.email.label_tag }}
+						{{ popup_form.email }}
+						{% for error in popup_form.email.errors %}
+							<div class="text-danger">{{ error }}</div>
+						{% endfor %}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ popup_form.subject.label_tag }}
+						{{ popup_form.subject }}
+						{% for error in popup_form.subject.errors %}
+							<div class="text-danger">{{ error }}</div>
+						{% endfor %}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ popup_form.message.label_tag }}
+						{{ popup_form.message }}
+						{% for error in popup_form.message.errors %}
+							<div class="text-danger">{{ error }}</div>
+						{% endfor %}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ popup_form.captcha.label_tag }}
+						{{ popup_form.captcha }}
+						{% for error in popup_form.captcha.errors %}
+							<div class="text-danger">{{ error }}</div>
+						{% endfor %}
+					</div>
+
+					{{ popup_form.honeypot }} {# champ caché anti-spam #}
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-fill-out">Envoyer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const tooltipEl = document.getElementById('autoTooltip');
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+        const tooltip = new bootstrap.Tooltip(tooltipEl, {
+            placement: 'top',
+            html: true,
+            trigger: 'manual',
+            title: `
+                <img src="{% static 'images/woman.jpg' %}" class="rounded-circle mb-2" width="80" height="80"><br>
+                <strong>Bonjour, une question ?</strong><br>
+                Contactez-nous ici.
+            `
+        });
+
+        setTimeout(() => {
+            tooltip.show();
+            setTimeout(() => {
+                tooltip.hide();
+            }, 3000);
+        }, 500);
+    } else {
+        // Mobile : on nettoie les attributs si présents
+        tooltipEl.removeAttribute('data-bs-toggle');
+        tooltipEl.removeAttribute('data-bs-placement');
+        tooltipEl.removeAttribute('data-bs-html');
+        tooltipEl.removeAttribute('title');
+    }
+});
+</script>

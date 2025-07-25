@@ -117,3 +117,18 @@ class ALaUne(models.Model):
     class Meta:
         verbose_name_plural = 'A la une'
         verbose_name = 'A la une'
+
+
+class PopUp(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Titre", blank=True, null=True)
+    description = models.TextField(blank=True, null=True, verbose_name="Description")
+    image = models.ImageField(upload_to='Pop-up', blank=True, null=True, verbose_name="Image")
+    on_line = models.BooleanField(default=False, verbose_name="En ligne")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
+
+    class Meta:
+        verbose_name_plural = 'Pop up'
+        verbose_name = 'Pop-up'
+
+    def __str__(self):
+        return self.name
