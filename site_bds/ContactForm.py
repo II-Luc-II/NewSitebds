@@ -8,6 +8,7 @@ from captcha.fields import CaptchaField
 from django.core.exceptions import ValidationError
 from django.utils.html import strip_tags
 from .models import Contact, Newsletter
+from langdetect import detect, LangDetectException
 
 
 class ContactForm(forms.ModelForm):
@@ -22,6 +23,18 @@ class ContactForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+    def clean_honeypot(self):
+        if self.cleaned_data.get("honeypot"):
+            raise forms.ValidationError("Détection de spam.")
+        return ""
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email", "").strip().lower()
+        bad_domains = [".ru", ".xyz"]
+        if any(email.endswith(domain) for domain in bad_domains):
+            raise ValidationError("Les adresses emails avec ces domaines ne sont pas acceptées.")
+        return email
 
     def clean_message(self):
         message = self.cleaned_data.get("message", "").strip()
@@ -39,6 +52,14 @@ class ContactForm(forms.ModelForm):
         # Trop de liens ?
         if len(re.findall(r'https?://', plain_message.lower())) > 1:
             raise ValidationError("Merci de ne pas inclure plusieurs liens dans votre message.")
+
+        try:
+            lang = detect(message)
+        except LangDetectException:
+            lang = None
+
+        if lang and not lang.startswith("fr"):
+            raise forms.ValidationError("Merci de rédiger votre message en français.")
 
         return message  # très important !
 
