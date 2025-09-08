@@ -5,10 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils.html import escape
 import logging
 
-from pylint.pyreverse.inspector import Project
 
 from customer.models import Customer, MyProject
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
