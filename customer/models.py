@@ -41,4 +41,53 @@ class Customer(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class MyProject(models.Model):
+    ON_HOLD_BDS = "Attente action BDS"
+    ON_HOLD_CUSTOMER = "Attente action client"
+    FINALIZED = "Finalisé"
+
+    STATUS_CHOICES = [
+        (ON_HOLD_BDS, 'Attente action BDS'),
+        (ON_HOLD_CUSTOMER, 'Attente action client'),
+        (FINALIZED, 'Finalisé'),
+    ]
+    SITE_WEB = "Site web"
+    APP = "App web"
+    APP_MOBILE = "App mobile"
+    E_COMMERCE = "E-commerce"
+    APP_BUREAU = "App bureau"
+    GESTION_DB = "Gestion db"
+    AUTRE = "Autre"
+
+    PROJECTS_TYPE_CHOICES = [
+        (SITE_WEB, 'Site web'),
+        (APP, 'App web'),
+        (APP_MOBILE, 'App mobile'),
+        (E_COMMERCE, 'E-commerce'),
+        (APP_BUREAU, 'App bureau'),
+        (GESTION_DB, 'Gestion db'),
+        (AUTRE, 'Autre'),
+    ]
+
+    user = models.ForeignKey(Customer, related_name="facilities", on_delete=models.CASCADE,
+                             verbose_name="Utilisateur")
+    ref = models.CharField(max_length=100, verbose_name="Reférence")
+    project_type = models.CharField(max_length=60, choices=PROJECTS_TYPE_CHOICES, verbose_name="Type du projet")
+    status = models.CharField(max_length=60, choices=STATUS_CHOICES, verbose_name="Statut")
+    project_name = models.CharField(max_length=100, verbose_name="Nom du projet")
+    domaine = models.CharField(max_length=100, verbose_name="Domaine", blank=True, null=True)
+    maintenance_contract = models.CharField(max_length=100, verbose_name="Contrat", blank=True, null=True)
+    server = models.CharField(max_length=100, verbose_name="Serveur", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
+
+    class Meta:
+        verbose_name = "Mon projet"
+        verbose_name_plural = "Mes projets"
+
+    def __str__(self):
+        return self.project_name
+
+
+
+
 

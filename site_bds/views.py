@@ -2,13 +2,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import escape
 import logging
 
-from customer.models import Customer
+from pylint.pyreverse.inspector import Project
+
+from customer.models import Customer, MyProject
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
 
@@ -52,14 +54,29 @@ def index(request):
 def account(request):
     user = request.user
     customer = Customer.objects.filter(user=user).first()
+    projects = MyProject.objects.filter(user=customer)
+
     if not customer:
         messages.error(request, '⬅︎ Merci de compléter votre profil.')
 
-
     context = {
         'customer': customer,
+        'projects': projects,
     }
+
     return render(request, 'site/account.html', context)
+
+
+@login_required(login_url='account_login')
+def details_my_project(request, project_id):
+    project = get_object_or_404(MyProject, id=project_id)
+    # Organiser les documents sous forme de dictionnaire
+
+    context = {
+        'project': project,
+    }
+
+    return render(request, 'site/details-my-project.html', context)
 
 
 def contact(request):

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from customer.models import Customer
+from customer.models import Customer, MyProject
 
 
 class CustomerAdmin(admin.StackedInline):
@@ -25,3 +25,13 @@ admin.site.unregister(User)
 
 # Enregistrer User avec notre CustomUserAdmin
 admin.site.register(User, CustomUserAdmin)
+
+
+@admin.register(MyProject)
+class MyProjectAdmin(admin.ModelAdmin):
+    list_display = ('user', 'ref', 'project_name', 'status', 'created_at', 'project_type', 'domaine', 'server', 'created_at')
+    list_filter = ('user', 'ref', 'project_name', 'project_type', 'domaine', 'server', 'created_at')
+    search_fields = ('user__first_name', 'project_name', 'project_type', 'domaine', 'server', 'created_at')
+
+    list_max_show_all = 50
+    list_per_page = 30

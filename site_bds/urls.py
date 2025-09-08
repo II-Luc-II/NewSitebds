@@ -16,6 +16,7 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     # Account
     path('account', views.account, name='account'),
+    path('details-my-project/<project_id>/', views.details_my_project, name='details_my_project'),
     # formulaire pop-up contact
     path('contact-form/', views.contact_form_view, name='contact_form_view'),
     path('add-news-letter', views.add_news_letter, name='add-news-letter'),
