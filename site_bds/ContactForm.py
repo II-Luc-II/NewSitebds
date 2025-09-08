@@ -1,15 +1,13 @@
+import re
+
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
 from django import forms
-
-from site_bds.models import Contact, Newsletter
-import re
-from django import forms
-from captcha.fields import CaptchaField
 from django.core.exceptions import ValidationError
 from django.utils.html import strip_tags
-from .models import Contact, Newsletter
 from langdetect import detect, LangDetectException
+
+from .models import Contact, Newsletter
 
 
 class ContactForm(forms.ModelForm):
@@ -62,7 +60,7 @@ class ContactForm(forms.ModelForm):
         if lang and not lang.startswith("fr"):
             raise forms.ValidationError("Merci de rédiger votre message en français.")
 
-        return message  # très important !
+        return message
 
 
 class NewsLetterForm(forms.ModelForm):

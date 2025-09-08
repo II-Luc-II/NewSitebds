@@ -18,7 +18,13 @@ DEBUG = env('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 # ALLOWED_HOSTS = ['site.bds38.com', 'www.site.bds38.com']
-# Application definition
+
+
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = '/'  # Redirection après connexion
+LOGOUT_REDIRECT_URL = '/'  # Redirection après déconnexion
+
+SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,19 +32,36 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'livereload',
-    "anymail",
     'django.contrib.staticfiles',
+    'django_user_agents',
+    'widget_tweaks',
+
+    # Allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # Livereload
+    'livereload',
+
+    # Anymail
+    "anymail",
+
+    # Chekditor
     'django_ckeditor_5',
+
+    # Crispy
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     'site_bds',
-    'account',
     'yourproject',
     'site_stats',
     'site_gadgetes',
     'django.contrib.sitemaps',
     'captcha',
-    'django_user_agents',
-    'widget_tweaks',
+    "customer"
+
 ]
 
 MIDDLEWARE = [
@@ -50,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     'livereload.middleware.LiveReloadScript',
     'site_stats.middleware.VisitorTrackingMiddleware',
 ]
@@ -142,7 +166,7 @@ ANYMAIL = {
     "FROM_EMAIL": env("ENV_BREVO_FROM_EMAIL"),
 }
 
-DEFAULT_FROM_EMAIL = 'arapvcorp@gmail.com'
+DEFAULT_FROM_EMAIL = 'contact@bds38.com'
 
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
@@ -274,3 +298,19 @@ LOGGING = {
         },
     },
 }
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Auth classique Django
+    'allauth.account.auth_backends.AuthenticationBackend',  # Auth allauth
+]
+
+DEFAULT_FROM_EMAIL = "contact@bds38.com"
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Force la confirmation d'email
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = True # Désactive le token de confirmation
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False # Active la vérification par code
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# Activation de la vérification par email

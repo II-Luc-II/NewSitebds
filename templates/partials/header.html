@@ -60,7 +60,6 @@
 	<link href="https://fonts.cdnfonts.com/css/arial-narrow-7" rel="stylesheet">
 
 	<!-- Vendor CSS Files -->
-	<link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
 	<link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 	<link href="/static/assets/vendor/venobox/venobox.css" rel="stylesheet">
@@ -154,18 +153,68 @@
 							<i class="bx bxl-discord"></i> - Discord</a></li>
 					</ul>
 				</li>
-
-				{% if user.is_authenticated %}
-					<li>
-					<form action="{% url 'logout' %}" method="post">
-						{% csrf_token %}
-						<button class="btn" style="color: gray">
-							<a>
-								| {{ user.username }}
+			    <li class="drop-down">
+					<a href="{% url "account" %}"><i class="bi bi-person-circle"></i> Mon compte </a>
+					<ul class="dropdown-menu">
+						{% if user.is_authenticated %}
+						<li>
+							<!-- User logout -->
+							<a href="{% url 'account_logout' %}"
+							   class="dropdown-item"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="bottom"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Déconnexion: {{ user.username }}">
+								Déconnexion
 							</a>
-						</button>
-					</form>
-				{% endif %}
+						</li>
+						<li>
+							<!-- User change profile -->
+							<a href="#"
+							   class="dropdown-item"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="bottom"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Inscription">
+								Modifier mon compte
+							</a>
+						</li>
+						<li>
+							<!-- User Change password -->
+							<a href="{% url 'account_change_password' %}"
+							   class="dropdown-item"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="bottom"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Changer son mot de passe">
+								Changer de mot de passe
+							</a>
+						</li>
+					{% else %}
+						<li>
+							<!-- User login -->
+							<a href="{% url 'account_login' %}"
+							   class="dropdown-item"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="bottom"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Connexion">
+								Connexion
+							</a>
+						</li>
+						<li>
+							<!-- User member signup -->
+							<a href="{% url 'account_signup' %}"
+							   class="dropdown-item"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="bottom"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Inscription">
+								Créer son compte
+							</a>
+						</li>
+					{% endif %}
+					</ul>
 				</li>
 			</ul>
 		</nav><!-- .nav-menu -->

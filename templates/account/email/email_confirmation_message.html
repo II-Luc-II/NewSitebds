@@ -1,0 +1,64 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Confirmation d'email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .cta {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Confirmation d'email</h2>
+        </div>
+        <div class="content">
+            {% blocktrans with site_name=current_site.name %}Hello from {{ site_name }}!{% endblocktrans %}
+            {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+            <p>Vous recevez cet email car vous avez utilisé cette adresse pour vous inscrire sur {{ site_name }}.</p>
+            {% endblocktrans %}
+                <p>Pour confirmer, cliquez sur le lien suivant : <a class="cta" href="{{ activate_url }}">Confirmer mon adresse email</a></p>
+            {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Merci d'utiliser {{ site_name }}!
+			{{ site_domain }}{% endblocktrans %}
+        </div>
+    </div>
+
+</body>
+</html>

@@ -10,8 +10,6 @@ from django.shortcuts import render
 from .models import Site
 
 
-
-
 @login_required(login_url='sign_in')
 def visitor_statistics(request):
     # Obtenez la date et l'heure actuelle avec le fuseau horaire
@@ -63,4 +61,3 @@ def site_list(request):
         'applis': applis,
     }
     return render(request, 'statistics/site-list.html', context)
-

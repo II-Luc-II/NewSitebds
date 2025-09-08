@@ -1,0 +1,45 @@
+{% load allauth %}
+
+<div class="text-start form-account" id="form-account">
+	<form method="{{ attrs.method }}" action="{{ attrs.action }}">
+
+		{% slot body %}
+			{% if form %}
+				{% for field in form %}
+					<div class="mb-3">
+						{{ field.label_tag }}
+						<div class="input-group">
+							{{ field }}
+							{% if field.field.widget.input_type == "password" %}
+								<button type="button" class="btn btn-outline-secondary toggle-password" data-target="{{ field.auto_id }}">
+									<i class="fa fa-eye"></i>
+								</button>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		{% endslot %}
+
+		<div class="mt-4 button-password">
+			{% slot actions %}
+			{% endslot %}
+		</div>
+	</form>
+	<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".toggle-password").forEach(button => {
+            button.addEventListener("click", function () {
+                let target = document.getElementById(this.getAttribute("data-target"));
+                if (target.type === "password") {
+                    target.type = "text";
+                    this.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                } else {
+                    target.type = "password";
+                    this.innerHTML = '<i class="fa fa-eye"></i>';
+                }
+            });
+        });
+    });
+</script>
+</div>

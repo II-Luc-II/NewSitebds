@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from site_bds import views
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import StaticViewSitemap
@@ -11,8 +11,11 @@ sitemaps = {
 
 urlpatterns = [
     path('', views.index, name='index'),
+    # message client
     path('contact-message', views.contact_message, name='contact_message'),
     path('contact', views.contact, name='contact'),
+    # Account
+    path('account', views.account, name='account'),
     # formulaire pop-up contact
     path('contact-form/', views.contact_form_view, name='contact_form_view'),
     path('add-news-letter', views.add_news_letter, name='add-news-letter'),
@@ -25,6 +28,7 @@ urlpatterns = [
     path('gallery-single/<int:gallery_id>', views.gallery_single, name='gallery_single'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('robots.txt', robots_txt),
+    path('accounts/', include('allauth.urls')),
 ]
 
 handler404 = views.handle404

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -6,6 +7,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import escape
 import logging
+
+from customer.models import Customer
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne
 
@@ -43,6 +46,20 @@ def index(request):
         'a_la_une': a_la_une,
     }
     return render(request, 'site/index.html', context)
+
+
+@login_required(login_url='account_login')
+def account(request):
+    user = request.user
+    customer = Customer.objects.filter(user=user).first()
+    if not customer:
+        messages.error(request, '⬅︎ Merci de compléter votre profil.')
+
+
+    context = {
+        'customer': customer,
+    }
+    return render(request, 'site/account.html', context)
 
 
 def contact(request):
