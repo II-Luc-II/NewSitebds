@@ -132,3 +132,28 @@ class PopUp(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class InfoLegacy(models.Model):
+    title= models.CharField(max_length=400)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Info légale pour client (formulaires)'
+        verbose_name_plural = 'Info légale pour client (formulaires)'
+
+
+class PolicyLegacy(models.Model):
+    titre = models.CharField(max_length=400)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titre
+
+    class Meta:
+        verbose_name = 'politique de confidentialité'

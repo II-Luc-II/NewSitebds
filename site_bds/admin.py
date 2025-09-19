@@ -1,5 +1,6 @@
 from django.contrib import admin
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, PopUp
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, PopUp, InfoLegacy, \
+    PolicyLegacy
 from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
 from django.db import models
@@ -191,3 +192,21 @@ class PopUpAdmin(admin.ModelAdmin):
         models.TextField: {'widget': CKEditor5Widget}
     }
 
+
+@admin.register(InfoLegacy)
+class InfoLegacyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at')
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
+
+
+@admin.register(PolicyLegacy)
+class PolicyLegacyAdmin(admin.ModelAdmin):
+    list_display = ('titre', 'created_at')
+    list_display_links = ('titre',)
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
