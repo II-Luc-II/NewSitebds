@@ -30,7 +30,7 @@ def add_profil_customer(request):
             customer.save()
 
             messages.success(request, 'Votre profil a été créé avec succès.')
-            return redirect('site:account')
+            return redirect('account')
         else:
             messages.error(request, "Erreur dans le formulaire. Vérifiez vos informations.")
     else:
