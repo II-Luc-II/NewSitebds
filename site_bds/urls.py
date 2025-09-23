@@ -30,6 +30,13 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('robots.txt', robots_txt),
     path('accounts/', include('allauth.urls')),
+
+# Articles
+    path('add-article', views.add_article, name='add_article'),
+    path('articles/<slug:slug>/', views.article_detail, name='article_detail'),
+    path('change-article/<slug:slug>/', views.change_article, name='change_article'),
+    path('send-mail/<slug:slug>/', views.send_mail_article, name='send_mail_article'),
+    path('delete-article/<slug:slug>/', views.delete_article, name='delete_article'),
 ]
 
 handler404 = views.handle404

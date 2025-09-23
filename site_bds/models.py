@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Gallery(models.Model):
@@ -157,3 +158,19 @@ class PolicyLegacy(models.Model):
 
     class Meta:
         verbose_name = 'politique de confidentialité'
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Titre")
+    content = models.TextField(verbose_name="Contenu")
+    image = models.ImageField(upload_to='articles/', blank=True, null=True, verbose_name="Image")
+    created_at = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

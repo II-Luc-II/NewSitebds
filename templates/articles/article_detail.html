@@ -1,0 +1,97 @@
+{% extends 'base-admin.html' %}
+{% load custom_filter_form %}
+{% load static %}
+{% load custom_filter %}
+{% block title %} Article {% endblock %}
+<!-- Fixed navbar -->
+
+{% block content %}
+
+	<div class="container justify-content-center align-items-center min-vh-100">
+		<div class="mt-2">
+			<div class="bg-titre-team p-2 bg-titre-team-rounded">
+				<h1 class="text-center">
+					{{ article.title }}
+				</h1>
+			</div>
+			<div class="row justify-content-center align-items-center">
+				<div class="col-lg-5 col-md-4 col-12">
+					{% if article.image and article.image.url %}
+						<img src="{{ article.image.url }}" alt="{{ article.title }}" width="500" class="rounded">
+					{% endif %}
+				</div>
+				<div class="col-lg-7 col-8 col-12">
+					{{ article.content|safe }}
+				</div>
+				<hr>
+			</div>
+		</div>
+			{% if request.user.is_authenticated and request.user.is_superuser %}
+				 <div class="col-12 d-flex justify-content-between w-75 align-items-center centrage-col mt-4">
+					<a href="{% url 'site:send_mail_article' slug=article.slug %}" class="btn btn-outline-primary">
+						<i class="bi bi-envelope-arrow-up-fill"></i>
+						Envoyer par mail
+					</a>
+					<a href="{% url 'site:change_article' slug=article.slug %}" class="btn btn-outline-primary">
+						<i class="bi bi-arrow-repeat"></i>
+						Modifier l'article
+					</a>
+					<!--bouton pour Modal de confirmation de suppression de l'article -->
+					<a type="button" class="btn btn-outline-danger" style="border-radius:30px"
+					   data-bs-toggle="modal" data-bs-target="#confirmDeleteSessionModal"
+					   data-article-id="{{ article.slug }}">
+						<i class="bi bi-envelope-arrow-up-fill"></i>
+						Supprimer
+					</a>
+				</div>
+
+			{% endif %}
+		</div>
+	<!-- Modal de confirmation de suppression de l'article -->
+	<div class="modal fade" id="confirmDeleteSessionModal" tabindex="-1"
+	     aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">
+						Confirmation de suppression
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					        aria-label="Close">
+
+					</button>
+				</div>
+				<div class="modal-body">
+					Confirmez-vous la suppression de l'article ?
+				</div>
+				<div class="modal-footer">
+					<!-- Formulaire avec le bouton et l'image "Supprimer la session" -->
+					<form id="confirmDeleteForm" method="POST" action="{% url 'delete_article' slug=0 %}">
+						{% csrf_token %}
+						<button type="submit" class="btn btn-danger">
+							Confirmer
+						</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+							Annuler
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+        const confirmDeleteModal = document.getElementById('confirmDeleteSessionModal');
+        if (confirmDeleteModal) {
+            confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const articleId = button.getAttribute('data-article-id');
+
+                const form = document.getElementById('confirmDeleteForm');
+                if (form) {
+                    form.action = "{% url 'delete_article' slug=0 %}".replace("0", articleId);
+                }
+            });
+        }
+	</script>
+
+{% endblock %}

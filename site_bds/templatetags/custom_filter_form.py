@@ -18,3 +18,8 @@ def map_attribute(value, attribute):
     Filtre pour extraire un attribut spécifique d'une liste de dictionnaires
     """
     return [item.get(attribute) for item in value]
+
+
+@register.filter
+def add_class(field, css_class):
+    return field.as_widget(attrs={"class": css_class})

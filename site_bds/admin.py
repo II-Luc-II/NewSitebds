@@ -1,6 +1,6 @@
 from django.contrib import admin
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, PopUp, InfoLegacy, \
-    PolicyLegacy
+    PolicyLegacy, Article
 from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
 from django.db import models
@@ -210,3 +210,21 @@ class PolicyLegacyAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': CKEditor5Widget}
     }
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'created_at')
+    list_display_links = ('title',)
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
+
+    def display_image(self, obj):
+        if obj.image:
+            return format_html(f'<img src="{obj.image.url}" width="150" />')
+        return ""
+
+    display_image.short_description = 'Image'
+

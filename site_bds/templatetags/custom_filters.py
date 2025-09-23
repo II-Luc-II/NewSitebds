@@ -10,3 +10,23 @@ def map_attribute(value, attribute):
     if isinstance(value, list):
         return [item.get(attribute) for item in value]
     return value
+
+
+from django import template
+
+register = template.Library()
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
+
+@register.filter
+def zip(value, arg):
+    """
+    Permet d'associer deux listes ensemble dans le template.
+    """
+    try:
+        return zip(value, arg)
+    except TypeError:
+        return []
