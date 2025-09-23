@@ -1,6 +1,8 @@
 {% extends 'base-pages.html' %}
+{% load widget_tweaks %}
 {% load static %}
 {% load custom_filter_form %}
+{% load custom_filters %}
 
 {% block title %} Case {% endblock %}
 
@@ -140,11 +142,11 @@
 									<div class="form-account">
 										<div class="form-group mt-3">
 											<div class="form-group text-start">
-																	<span class="identify-geo-tel">
-																		 <i class="bi bi-telephone">
-																			 <span class="fs-4"> Téléphone</span>
-																		</i>
-																	 </span>
+												<span class="identify-geo-tel">
+													 <i class="bi bi-telephone">
+														 <span class="fs-4"> Téléphone</span>
+													</i>
+											    </span>
 												<label for="phone"></label>
 												{{ form.phone }}
 												{% for error in form.phone.errors %}
