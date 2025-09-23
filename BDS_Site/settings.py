@@ -76,7 +76,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
     'livereload.middleware.LiveReloadScript',
-    'site_stats.middleware.VisitorTrackingMiddleware',
 ]
 
 ROOT_URLCONF = 'BDS_Site.urls'

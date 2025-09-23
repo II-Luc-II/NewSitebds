@@ -106,20 +106,23 @@
 					<a href="{% url "contact" %}">Contact</a>
 				</li>
 				{% if user.is_authenticated and request.user.is_superuser %}
-					<li class="drop-down {% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}
+					<li class="drop-down {% if request.resolver_match.view_name == 'add_article' %} active {% endif %}
 					{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}
 					{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}
 					">
 						<a href="{% url 'admin:index' %}">Admin</a>
 						<ul class="dropdown-menu">
-							<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
-								<a href="{% url 'visitor_statistics' %}">Statistiques</a>
-							</li>
 							<li class="{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}">
 								<a href="{% url 'site_list' %}">Liste des sites</a>
 							</li>
 							<li class="{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}">
 								<a href="{% url 'snack_game' %}">Le jeu du serpent</a>
+							</li>
+							<li class="{% if request.resolver_match.view_name == 'admin:index' %} active {% endif %}">
+								<a href="{% url 'admin:index' %}">Admin</a>
+							</li>
+							<li class="{% if request.resolver_match.view_name == 'add_article' %} active {% endif %}">
+								<a href="{% url 'add_article' %}">News letter</a>
 							</li>
 						</ul>
 					</li>

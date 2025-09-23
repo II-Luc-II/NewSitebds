@@ -113,9 +113,6 @@
 					">
 						<a href="{% url 'admin:index' %}">Admin</a>
 						<ul class="dropdown-menu">
-							<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
-								<a href="{% url 'visitor_statistics' %}">Statistiques</a>
-							</li>
 							<li class="{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}">
 								<a href="{% url 'site_list' %}">Liste des sites</a>
 							</li>

@@ -1,11 +1,6 @@
 
 from django.contrib import admin
-from .models import Visitor, Site, Vpn
-
-
-@admin.register(Visitor)
-class VisitorAdmin(admin.ModelAdmin):
-    list_display = ('visitor_id', 'date_visited')
+from .models import Site, Vpn
 
 
 @admin.register(Site)
