@@ -1,7 +1,7 @@
-{% extends 'base-admin.html' %}
+{% extends 'base.html' %}
 {% load custom_filter_form %}
 {% load static %}
-{% load custom_filter %}
+{% load custom_filters %}
 {% block title %} Article {% endblock %}
 <!-- Fixed navbar -->
 
@@ -45,11 +45,11 @@
 		</div>
 			{% if request.user.is_authenticated and request.user.is_superuser %}
 				 <div class="col-12 d-flex justify-content-between w-75 align-items-center centrage-col mt-4">
-					<a href="{% url 'site:send_mail_article' slug=article.slug %}" class="btn btn-outline-primary">
+					<a href="{% url 'send_mail_article' slug=article.slug %}" class="btn btn-outline-primary">
 						<i class="bi bi-envelope-arrow-up-fill"></i>
 						Envoyer par mail
 					</a>
-					<a href="{% url 'site:change_article' slug=article.slug %}" class="btn btn-outline-primary">
+					<a href="{% url 'change_article' slug=article.slug %}" class="btn btn-outline-primary">
 						<i class="bi bi-arrow-repeat"></i>
 						Modifier l'article
 					</a>

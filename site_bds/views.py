@@ -302,7 +302,7 @@ def add_article(request):
         if form.is_valid():
             article = form.save()
             messages.success(request, "Article ajouté avec succès !")
-            return redirect('site:article_detail', slug=article.slug)
+            return redirect('article_detail', slug=article.slug)
     else:
         form = ArticleForm()
 
@@ -323,7 +323,7 @@ def change_article(request, slug):
         if form.is_valid():
             article = form.save()
             messages.success(request, "Article modifié avec succès !")
-            return redirect('site:article_detail', slug=article.slug)
+            return redirect('article_detail', slug=article.slug)
     else:
         form = ArticleForm(instance=articles)
 
