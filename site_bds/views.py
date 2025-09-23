@@ -397,7 +397,7 @@ def send_mail_article(request, slug):
     for i in range(0, len(recipient_list), batch_size):
         batch = recipient_list[i:i + batch_size]
         # Appeler la tâche Celery pour envoyer par lots
-        send_mail_batch.delay(subject, html_message, plain_message, batch, "Claire Yoga <claire.yoga38@gmail.com>")
+        send_mail_batch.delay(subject, html_message, plain_message, batch, "BDS <contact@bds38.com>")
 
     messages.success(request, "L'email a été envoyé avec succès aux destinataires.")
     return redirect('article_detail', slug=article.slug)
