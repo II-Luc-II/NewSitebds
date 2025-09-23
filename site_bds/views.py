@@ -400,5 +400,5 @@ def send_mail_article(request, slug):
         send_mail_batch.delay(subject, html_message, plain_message, batch, "Claire Yoga <claire.yoga38@gmail.com>")
 
     messages.success(request, "L'email a été envoyé avec succès aux destinataires.")
-    return redirect('site:article_detail', slug=article.slug)
+    return redirect('article_detail', slug=article.slug)
 
