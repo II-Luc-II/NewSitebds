@@ -314,3 +314,10 @@ ACCOUNT_EMAIL_CONFIRMATION_HMAC = True # Désactive le token de confirmation
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False # Active la vérification par code
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # Activation de la vérification par email
+
+
+# Configuration de celery
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
