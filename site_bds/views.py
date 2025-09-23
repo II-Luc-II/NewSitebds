@@ -14,7 +14,7 @@ from customer.models import Customer, MyProject
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article
-from .tasks import send_mail_batch
+from site_bds.tasks import send_mail_batch
 
 # Initialise le logger
 logger = logging.getLogger(__name__)
