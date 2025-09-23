@@ -111,7 +111,7 @@
 					{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}
 					{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}
 					">
-						<a href="#">Admin</a>
+						<a href="{% url 'admin:index' %}">Admin</a>
 						<ul class="dropdown-menu">
 							<li class="{% if request.resolver_match.view_name == 'visitor_statistics' %} active {% endif %}">
 								<a href="{% url 'visitor_statistics' %}">Statistiques</a>
@@ -127,6 +127,13 @@
 								<a class="nav-link"
 								   href="{% url 'admin:index' %}">
 									Admin
+								</a>
+							</li>
+							<!-- Newsletter  -->
+							<li class="nav-item anim-link">
+								<a class="nav-link"
+								   href="{% url 'add_article' %}">
+									News Letter
 								</a>
 							</li>
 						</ul>
