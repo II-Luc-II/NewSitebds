@@ -40,6 +40,12 @@ def robots_txt(request):
 def handle404(request, exception):
     return render(request, '404.html', status=404)
 
+def handle500(request):
+    return render(request, '500.html', status=500)
+
+def handle502(request):
+    return render(request, '502.html', status=502)
+
 
 def index(request):
     gallery = Gallery.objects.all()
