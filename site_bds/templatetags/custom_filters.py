@@ -30,3 +30,10 @@ def zip(value, arg):
         return zip(value, arg)
     except TypeError:
         return []
+
+
+
+@register.filter
+def get_dict_value(dictionary, key):
+    """ Récupère une valeur d'un dictionnaire à partir d'une clé """
+    return dictionary.get(key, None)

@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os
 import environ
@@ -305,7 +304,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',  # Auth allauth
 ]
 
-DEFAULT_FROM_EMAIL = "contact@bds38.com"
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True

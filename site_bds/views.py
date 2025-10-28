@@ -10,7 +10,7 @@ import logging
 
 from django.utils.html import strip_tags
 
-from customer.models import Customer, MyProject
+from customer.models import Customer, MyProject, Documents
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article
@@ -61,18 +61,26 @@ def index(request):
 @login_required(login_url='account_login')
 def account(request):
     user = request.user
-    customer = Customer.objects.filter(user=user).first()
-    projects = MyProject.objects.filter(user=customer)
+    customer = Customer.objects.filter(user=user).first()  # ✅ un seul objet (ou None)
 
     if not customer:
         messages.error(request, '⬅︎ Merci de compléter votre profil.')
+        return render(request, 'site/account.html', {"customer": None})
+
+    projects = MyProject.objects.filter(user=customer)
+    documents = Documents.objects.filter(user=customer)
+
+
+    documents_dict = {doc.document_name: doc for doc in documents}
 
     context = {
-        'customer': customer,
-        'projects': projects,
+        "customer": customer,
+        "projects": projects,
+        "documents_dict": documents_dict,
+        "DOCS_CHOICES": dict(Documents.DOCS_CHOICES)
     }
+    return render(request, "site/account.html", context)
 
-    return render(request, 'site/account.html', context)
 
 
 @login_required(login_url='account_login')
@@ -399,6 +407,6 @@ def send_mail_article(request, slug):
         # Appeler la tâche Celery pour envoyer par lots
         send_mail_batch.delay(subject, html_message, plain_message, batch, "BDS <contact@bds38.com>")
 
-    messages.success(request, "L'email a été envoyé avec succès aux destinataires.")
+    messages.success(request, f"L'email a été envoyé avec succès aux destinataires : {', '.join(recipient_list)}.")
     return redirect('article_detail', slug=article.slug)
 

@@ -78,6 +78,7 @@ class MyProject(models.Model):
     domaine = models.CharField(max_length=100, verbose_name="Domaine", blank=True, null=True)
     maintenance_contract = models.CharField(max_length=100, verbose_name="Contrat", blank=True, null=True)
     server = models.CharField(max_length=100, verbose_name="Serveur", blank=True, null=True)
+    description = models.TextField(verbose_name="Description", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
 
     class Meta:
@@ -88,6 +89,36 @@ class MyProject(models.Model):
         return self.project_name
 
 
+class Documents(models.Model):
+    ESTIMATE = "Devis"
+    BILL = "Facture"
+    PRODUCT_SHEET = "Cahier des charges"
+    STRUCTURAL_STUDY = "Étude de structure"
+    MAINTENANCE_CONTRACT = "Contrat de maintenance"
+    CHARTE_GRAPHIQUE = "Charte graphique"
+
+
+    DOCS_CHOICES = [
+        (ESTIMATE, 'Devis'),
+        (BILL, 'Facture'),
+        (PRODUCT_SHEET, 'Cahier des charges'),
+        (MAINTENANCE_CONTRACT, 'Contrat de maintenance'),
+        (CHARTE_GRAPHIQUE, 'Charte graphique'),
+    ]
+
+    user = models.ForeignKey(Customer, related_name="documents", verbose_name="Utilisateur",
+                             on_delete=models.PROTECT)
+    document_name = models.CharField(max_length=60, choices=DOCS_CHOICES, verbose_name="Nom du document")
+    document_description = models.CharField(max_length=100, verbose_name="description")
+    document = models.FileField(upload_to="documents/", verbose_name="Document")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
+
+    class Meta:
+        verbose_name = "Document"
+        verbose_name_plural = "Documents"
+
+    def __str__(self):
+        return self.document_name
 
 
 

@@ -80,3 +80,5 @@ def edit_profil_customer(request, customer_id):
     }
 
     return render(request, 'edit-profil-customer.html', context)
+
+

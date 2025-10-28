@@ -29,8 +29,8 @@
 				<h1 class="title-color">Mon installation {{ project.project_name }} </h1>
 				<div class="divider"></div>
 			</div>
-			<div class="row d-flex justify-content-center align-items-center mt-5">
-				<div class="col-lg-6 col-md-6 col-sm-12">
+			<div class="row d-flex justify-content-center align-items-top mt-5">
+				<div class="col-lg-6 col-sm-12">
 					<div class="container-description-installation mt-5">
 						<h2>{{ project.project_name }}</h2>
 						<hr>
@@ -45,11 +45,17 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-6 col-sm-12">
+					<div class="container-description-installation mt-5">
+						<h2>Description</h2><hr>
+						<div class="mt-2">
+							<h5>{{ project.description|safe }}</h5>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	</div>
 
 	<!-- End détails installations -->
-
-
 {% endblock %}

@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.db import models
+from django_ckeditor_5.fields import CKEditor5Widget
 
-from customer.models import Customer, MyProject
+from customer.models import Customer, MyProject, Documents
 
 
 class CustomerAdmin(admin.StackedInline):
@@ -33,5 +35,18 @@ class MyProjectAdmin(admin.ModelAdmin):
     list_filter = ('user', 'ref', 'project_name', 'project_type', 'domaine', 'server', 'created_at')
     search_fields = ('user__first_name', 'project_name', 'project_type', 'domaine', 'server', 'created_at')
 
+    list_max_show_all = 50
+    list_per_page = 30
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
+
+
+@admin.register(Documents)
+class DocumentsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'document_name', 'created_at')
+    list_filter = ('user', 'document_name', 'created_at')
+    search_fields = ('user__first_name', 'document_name', 'created_at')
     list_max_show_all = 50
     list_per_page = 30
