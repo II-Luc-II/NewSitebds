@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Widget
 
-from customer.models import Customer, MyProject, Documents
+from customer.models import Customer, MyProject, Documents, Fonctions
 
 
 class CustomerAdmin(admin.StackedInline):
@@ -31,7 +31,8 @@ admin.site.register(User, CustomUserAdmin)
 
 @admin.register(MyProject)
 class MyProjectAdmin(admin.ModelAdmin):
-    list_display = ('user', 'ref', 'project_name', 'status', 'created_at', 'project_type', 'domaine', 'server', 'created_at')
+    list_display = (
+    'user', 'ref', 'project_name', 'status', 'created_at', 'project_type', 'domaine', 'server', 'created_at')
     list_filter = ('user', 'ref', 'project_name', 'project_type', 'domaine', 'server', 'created_at')
     search_fields = ('user__first_name', 'project_name', 'project_type', 'domaine', 'server', 'created_at')
 
@@ -48,5 +49,16 @@ class DocumentsAdmin(admin.ModelAdmin):
     list_display = ('user', 'document_name', 'created_at')
     list_filter = ('user', 'document_name', 'created_at')
     search_fields = ('user__first_name', 'document_name', 'created_at')
+    list_max_show_all = 50
+    list_per_page = 30
+
+
+@admin.register(Fonctions)
+class FonctionsAdmin(admin.ModelAdmin):
+    list_display = (
+    'project', 'auth_name', 'language_front', 'language_back', 'language_autre', 'planification', 'language_style',
+    'nb_de_pages')
+    list_filter = ('project__user',)
+    search_fields = ('project__project_name',)
     list_max_show_all = 50
     list_per_page = 30

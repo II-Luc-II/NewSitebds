@@ -10,7 +10,7 @@ import logging
 
 from django.utils.html import strip_tags
 
-from customer.models import Customer, MyProject, Documents
+from customer.models import Customer, MyProject, Documents, Fonctions
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article
@@ -70,7 +70,6 @@ def account(request):
     projects = MyProject.objects.filter(user=customer)
     documents = Documents.objects.filter(user=customer)
 
-
     documents_dict = {doc.document_name: doc for doc in documents}
 
     context = {
@@ -87,9 +86,16 @@ def account(request):
 def details_my_project(request, project_id):
     project = get_object_or_404(MyProject, id=project_id)
     # Organiser les documents sous forme de dictionnaire
+    documents = Documents.objects.filter(user=project.user)
+    documents_dict = {doc.document_name: doc for doc in documents}
+    functions = Fonctions.objects.filter(project=project)
 
     context = {
         'project': project,
+        'documents': documents,
+        "documents_dict": documents_dict,
+        "DOCS_CHOICES": dict(Documents.DOCS_CHOICES),
+        "functions": functions,
     }
 
     return render(request, 'site/details-my-project.html', context)

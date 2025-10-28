@@ -2652,4 +2652,19 @@ input[name="honeypot"] {
     display: none !important;
 }
 
-/*------------ FONTS --------------*/
+/*------------ Detail-my-project --------------*/
+
+.row-descr-projects {
+    height: auto;
+}
+
+.bg-card-doc {
+    background-color: #1d2945ed !important;
+    border-radius: 5px !important;
+    height: 100%;
+}
+
+.bg-card-doc, .account {
+    overflow: visible !important;
+}
+

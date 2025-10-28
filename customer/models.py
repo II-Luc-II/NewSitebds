@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import RegexValidator
 
+from BDS_Site.settings import CELERY_BROKER_URL
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Utilisateur")
@@ -119,6 +121,135 @@ class Documents(models.Model):
 
     def __str__(self):
         return self.document_name
+
+
+class Fonctions(models.Model):
+    ALLAUTH = "Allauth"
+    SIMPLE = "Standard"
+
+    AUTH_CHOICES = [
+        (ALLAUTH, 'Allauth'),
+        (SIMPLE, 'Standard'),
+    ]
+
+    CSS = 'Css'
+    CSS_BOOTSTRAP = 'Css + Bootstrap'
+    BOOTSTRAP = 'Bootstrap'
+    TAILWIND = 'Tailwind'
+    HTML = 'Html'
+    JS = 'JavaScript'
+    JS_HTML = 'JavaScript + Html'
+    JS_HTML_HTMX = 'JavaScript + Html + Htmx'
+    REACT = 'React'
+    ANGULAR = 'Angular'
+    VUE = 'Vue.js'
+    SVELTE = 'Svelte'
+    NEXT = 'Next.js'
+    NUXT = 'Nuxt.js'
+    CELERY = 'Celery'
+    DJANGO = 'Django'
+    FLASK = 'Flask'
+    FASTAPI = 'FastAPI'
+    EXPRESS = 'Express.js'
+    NEST = 'NestJS'
+    LARAVEL = 'Laravel'
+    SYMFONY = 'Symfony'
+    RUBY = 'Ruby on Rails'
+    SPRING = 'Spring Boot'
+    DOTNET = '.NET Core'
+    PYTHON = 'Python'
+    PYTHON_JS = 'Python + JavaScript'
+    AUCUN = 'Aucun'
+
+    LANGUAGE_CHOICES = [
+        (CSS, 'Css'),
+        (CSS_BOOTSTRAP, 'Css + Bootstrap'),
+        (BOOTSTRAP, 'Bootstrap'),
+        (TAILWIND, 'Tailwind'),
+        (HTML, 'Html'),
+        (JS, 'JavaScript'),
+        (JS_HTML, 'JavaScript + Html'),
+        (JS_HTML_HTMX, 'JavaScript + Html + Htmx'),
+        (REACT, 'React'),
+        (ANGULAR, 'Angular'),
+        (VUE, 'Vue.js'),
+        (SVELTE, 'Svelte'),
+        (NEXT, 'Next.js'),
+        (NUXT, 'Nuxt.js'),
+        (CELERY, 'Celery'),
+        (DJANGO, 'Django'),
+        (FLASK, 'Flask'),
+        (FASTAPI, 'FastAPI'),
+        (EXPRESS, 'Express.js'),
+        (NEST, 'NestJS'),
+        (LARAVEL, 'Laravel'),
+        (SYMFONY, 'Symfony'),
+        (RUBY, 'Ruby on Rails'),
+        (SPRING, 'Spring Boot'),
+        (DOTNET, '.NET Core'),
+        (PYTHON, 'Python'),
+        (PYTHON_JS, 'Python + JavaScript'),
+        (AUCUN, 'Aucun'),
+    ]
+
+    # 🧱 Liste des frameworks principaux
+    FRAMEWORKS_CHOICES = [
+        ('Bootstrap', 'Bootstrap'),
+        ('Tailwind CSS', 'Tailwind CSS'),
+        ('React', 'React'),
+        ('Angular', 'Angular'),
+        ('Vue.js', 'Vue.js'),
+        ('Svelte', 'Svelte'),
+        ('Next.js', 'Next.js'),
+        ('Nuxt.js', 'Nuxt.js'),
+        ('Django', 'Django'),
+        ('Flask', 'Flask'),
+        ('FastAPI', 'FastAPI'),
+        ('Express.js', 'Express.js'),
+        ('NestJS', 'NestJS'),
+        ('Laravel', 'Laravel'),
+        ('Symfony', 'Symfony'),
+        ('Ruby on Rails', 'Ruby on Rails'),
+        ('Spring Boot', 'Spring Boot'),
+        ('.NET Core', '.NET Core'),
+        ('Celery', 'Celery'),
+        ('Htmx', 'Htmx'),
+        ('jQuery', 'jQuery'),
+        ('Aucun', 'Aucun'),
+    ]
+
+    project = models.ForeignKey(
+        MyProject,
+        related_name="project_function",
+        verbose_name="Projet",
+        on_delete=models.PROTECT
+    )
+
+    auth_name = models.CharField(max_length=60, choices=AUTH_CHOICES, verbose_name="Authentification")
+    language_front = models.CharField(max_length=60, choices=LANGUAGE_CHOICES, verbose_name="Langage front")
+    language_back = models.CharField(max_length=60, choices=LANGUAGE_CHOICES, verbose_name="Langage back-end")
+    language_autre = models.CharField(max_length=60, choices=LANGUAGE_CHOICES, verbose_name="Langage autre")
+    planification = models.CharField(max_length=60, choices=LANGUAGE_CHOICES, verbose_name="Planification")
+    language_style = models.CharField(max_length=60, choices=LANGUAGE_CHOICES, verbose_name="Langage style")
+
+    frameworks = models.CharField(
+        max_length=60,
+        choices=FRAMEWORKS_CHOICES,
+        verbose_name="Framework principal"
+    )
+
+    nb_de_pages = models.IntegerField(default=0, blank=True, null=True, verbose_name="Nb de pages")
+
+    class Meta:
+        verbose_name = "Fonction dans le site"
+        verbose_name_plural = "Fonctions dans le site"
+
+    def __str__(self):
+        return f"{self.project} — {self.frameworks}"
+
+
+
+
 
 
 
