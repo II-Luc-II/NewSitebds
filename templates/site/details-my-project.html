@@ -66,8 +66,14 @@
 							<div class="bg-card-doc text-white mt-3 p-3">
 								<h2><i class="bi bi-pen"></i> Description</h2>
 								<hr>
+
 								<div class="mt-2">
-									<h5>{{ project.description|safe }}</h5>
+								{% if project.description %}
+									<p>{{ project.description|safe }}</p>
+								{% else %}
+									<p class="text-white fst-italic">Aucune description pour ce projet</p>
+								{% endif %}
+
 								</div>
 							</div>
 						</div>
@@ -117,7 +123,7 @@
 										</div>
 									</div>
 								{% empty %}
-									<p class="text-muted fst-italic">Aucune fonction enregistrée pour ce projet.</p>
+									<p class="text-white fst-italic">Aucune fonction enregistrée pour ce projet.</p>
 								{% endfor %}
 							</div>
 						</div>
