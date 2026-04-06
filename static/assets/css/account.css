@@ -16,11 +16,11 @@ label {
     height: auto;
     margin-right: auto;
     margin-left: auto;
-    background-color: #587B9F;
+    background-color: rgba(174, 190, 227, 0.47) !important;
 }
 
 button:hover {
-    background-color: #4f5e70;;
+    background-color: #96a7bb;;
     color: #FFFFFF;
 }
 
@@ -53,7 +53,7 @@ select,
 #form-account input {
     width: 100%;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 4px;
     border: solid black; /* Style et couleur */
     border-width: 1px 0 0 1px; /* Haut, Droite, Bas, Gauche */
     padding: 0 8px;
@@ -68,10 +68,11 @@ span,
 }
 
 input#id_remember {
-    border-radius: 10px;
+    border-radius: 4px;
     width: 15px;
     height: 15px;
-    margin-top: 5px;
+    align-items: start;
+    justify-content: center;
 }
 
 input#email_radio_0 {
@@ -86,7 +87,7 @@ input#email_radio_0 {
 
 label {
     justify-content: center !important;
-    width: 200px !important;
+    width: 200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -100,12 +101,6 @@ select {
     height: 40px;
 }
 
-
-p#id_remember {
-    display: inline-block;
-    align-items: center !important;
-    justify-content: center !important;
-}
 
 strong {
     display: none;
