@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 
 <!doctype html>
 <html lang="fr">
@@ -131,6 +132,9 @@
 						<a href="{{ usersessions_list_url_ }}">{% trans "Sessions" %}</a>
 					</li>
 				{% endif %}
+				<a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark w-100 mb-3">
+					<i class="bi bi-google"></i> Se connecter avec Google
+				</a>
 				{% url 'account_logout' as logout_url_ %}
 				{% if logout_url_ %}
 					<li>
@@ -227,8 +231,6 @@
 
 {% include "partials/footer.html" %}
 
-<script src="{% static 'js/bs-init.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-<script src="{% static 'htmx/htmx.min.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
 </body>
 </html>

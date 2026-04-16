@@ -80,7 +80,7 @@ six==1.16.0
 sqlparse==0.5.3
 tomlkit==0.12.5
 tornado==6.4
-typing_extensions==4.12.2
+typing-extensions>=4.13.2
 tzdata==2025.2
 ua-parser==1.0.1
 ua-parser-builtins==0.18.0.post1
