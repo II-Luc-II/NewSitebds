@@ -39,10 +39,10 @@
 
             <article class="entry entry-single">
               <div class="d-flex justify-content-center">
-                <img src="{{ blogs.image.url }}" alt="{{ blogs.title }}" class="img-fluid">
+                <img src="{{ blogs.image.url }}" alt="{{ blogs.title }}" class="img-fluid rounded shadow">
               </div>
 
-              <h2 class="entry-title">
+              <h2 class="entry-title mt-3">
                 <a href="{% url 'blog_single' blog_id=blogs.id %}">{{ blogs.title }}</a>
               </h2>
 
@@ -62,7 +62,7 @@
                     </p>
 	              </div>
 				  <div class="m-5">
-                    <img src="{{ blogs.image_2.url }}" alt="{{ blogs.title }}" class="img-fluid">
+                    <img src="{{ blogs.image_2.url }}" alt="{{ blogs.title }}" class="img-fluid rounded shadow">
 				  </div>
 	              <div>
 		              <p>
@@ -72,7 +72,7 @@
               </div>
 
 				<div class="m-5">
-                    <img src="{{ blogs.image_3.url }}" alt="{{ blogs.title }}" class="img-fluid">
+                    <img src="{{ blogs.image_3.url }}" alt="{{ blogs.title }}" class="img-fluid rounded shadow">
                  </div>
                 <p>
                   {{ blogs.text_details_2|safe }}
@@ -84,19 +84,27 @@
 			<div class="sidebar">
 
 				<div class="sidebar-item search-form">
-					<img src="{% static 'images/54-Grande.jpeg'  %}" alt="Logo-Miguet-Menuiserie"
+					<img src="{% static 'images/54-Grande.jpeg'  %}" alt="logo-BDS"
 					     class="rounded" height="200" width="270">
 				</div><!-- End sidebar search form-->
 
 				<h3 class="sidebar-title">Toutes les news</h3>
+				<hr>
 				<div class="sidebar-item recent-posts">
 					{% for blog_all in blog_all %}
+
 						<div class="post-item clearfix">
-							<img src="{{ blog_all.image.url }}" alt="{{ blog_all.title }}" height="50" width="80">
+							<img src="{{ blog_all.image.url }}" alt="{{ blog_all.title }}"
+							     height="50"
+							     width="80"
+							     class="rounded"
+							>
 							<h4><a href="{% url 'news' %}#blog-{{ blog.id }}">{{ blog_all.title }}</a></h4>
 							<time datetime="2020-01-01">{{ blog_all.created_at }}</time>
 						</div>
+						<hr>
 					{% endfor %}
+
 				</div>
 				<!-- End sidebar recent posts-->
 
