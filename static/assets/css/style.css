@@ -19,7 +19,7 @@ a {
     text-decoration: none;
 }
 
-.modal h3, h4{
+.modal h3, h4 {
     color: #1d2945eb;
 }
 
@@ -141,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .features {
-  background-color: #587B9F !important;
+    background-color: #587B9F !important;
 }
 
 /*--------------------------------------------------------------
@@ -2396,6 +2396,11 @@ section {
     #footer .footer-top .footer-info {
         margin: -20px 0 30px 0;
     }
+    .no-phone,
+    #contactModal,
+    .modal-contact {
+        display: none
+    }
 }
 
 /*------------------------Why Us --------------------------------------------------------------*/
@@ -2597,7 +2602,7 @@ section modal index solutions
  ---------------------------------------------------------*/
 
 .bg-stat-1 {
-     background: url("../../assets/img/Carte-du-monde.jpeg") no-repeat center;
+    background: url("../../assets/img/Carte-du-monde.jpeg") no-repeat center;
     background-size: cover;
 }
 
@@ -2625,6 +2630,7 @@ section modal index solutions
 
 .modal-contact {
     border-radius: 30px !important;
+    max-width: 400px;
 }
 
 /* Cible les tooltips Bootstrap */
@@ -2681,3 +2687,11 @@ input[name="honeypot"] {
     overflow: visible !important;
 }
 
+/*------------------------Captcha-----------------------*/
+
+.captcha {
+    margin-bottom: 3px !important;
+    margin-top: 3px !important;
+    border-radius: 2px !important;
+    text-align: center !important;
+}

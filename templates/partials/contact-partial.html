@@ -14,10 +14,7 @@
 <!-- Modal -->
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
 	<div class="modal-dialog rounded-3 position-fixed bottom-0 mb-3 end-0 mx-3 z-1030 modal-dialog-end">
-		<div class="modal-content modal-contact p-4 bg-popup">
-			<div class="modal-header">
-				<h4 class="text-center text-white">Contact</h4>
-			</div>
+		<div class="modal-content modal-contact p-2 bg-popup">
 			<form method="POST" action="{% url 'contact_form_view' %}" enctype="multipart/form-data">
 				{% csrf_token %}
 				<input type="hidden" name="form_name" value="popup_contact">
