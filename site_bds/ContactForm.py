@@ -108,7 +108,7 @@ class ContactFormPopUp(forms.ModelForm):
         self.helper.form_show_labels = False
 
         # Placeholder pour le captcha
-        self.fields['captcha'].widget.attrs.update({'placeholder': 'Recopier le texte ci-dessus'})
+        self.fields['captcha'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Saisir le texte ci-dessus'})
 
     def clean_honeypot(self):
         if self.cleaned_data.get("honeypot"):

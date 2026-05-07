@@ -88,6 +88,19 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
 }
 
+.bg-popup {
+    background: #1D2945;
+    border: solid 1px white;
+}
+
+.bg-popup a:hover {
+    color: white;
+}
+
+.bg-popup.btn-close {
+    color: white !important;
+}
+
 .btn-general-close {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;

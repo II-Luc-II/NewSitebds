@@ -20,7 +20,6 @@ class Customer(models.Model):
         validators=[phone_validator],
         verbose_name="Numéro de téléphone"
     )
-    email = models.EmailField()
     address = models.CharField(max_length=50, verbose_name="Adresse")
     entreprise = models.CharField(max_length=50, null=True, blank=True, verbose_name="Entreprise")
     mail = models.EmailField(verbose_name="Mail")
