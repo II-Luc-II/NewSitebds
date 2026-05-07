@@ -42,7 +42,7 @@
 
 	</section><!-- End Hero -->
 
-	 {% include 'partials/pop-over.html' %}
+	{% include 'partials/pop-over.html' %}
 
 	<main id="main">
 		<section class="why-us section-bg" data-aos="fade-up" data-aos-delay="200">
@@ -56,10 +56,9 @@
 									loop
 									muted
 									playsinline
-									class="small-video text-center"
-									onclick="window.open('https://www.youtube.com/watch?v=NYtjNY0lM1k', '_blank');"
-									style="cursor: pointer;">
-								<source src="{% static 'vidéos/JudoAdminstrator-BDS.mp4' %}">
+									preload="metadata"
+									class="small-video text-center">
+								<source src="{% static 'vidéos/JudoAdminstrator-BDS.mp4' %}" type="video/mp4">
 							</video>
 						</a>
 					</div>
@@ -71,6 +70,7 @@
 									<div class="icon-a-la-une">
 										<a href="{% url 'blog_single' blog_id=2 %}">
 											<img src="{% static 'images/Logo-Judo-Administrator-2.png' %}"
+											     loading="lazy"
 											     alt="{{ a_la_une.title }}"
 											     width="80px"
 											>
@@ -352,7 +352,10 @@
 			<div class="container">
 				<div class="row content">
 					<div class="col-md-4" data-aos="fade-right">
-						<img src="{% static 'images/img-accueil/image-techno.png' %}" class="img-fluid" alt="">
+						<img src="{% static 'images/img-accueil/image-techno.png' %}"
+						     class="img-fluid"
+						     loading="lazy"
+						     alt="image-techno">
 					</div>
 					<div class="col-md-8 pt-4" data-aos="fade-up">
 						<h3>Les avantages de Travailler avec Nos Technologies.</h3>
@@ -387,7 +390,10 @@
 
 				<div class="row content">
 					<div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
-						<img src="{% static 'images/img-accueil/Back-end.2.jpg' %}" class="img-fluid" alt="back-end">
+						<img src="{% static 'images/img-accueil/Back-end.2.jpg' %}"
+						     class="img-fluid"
+						     alt="back-end"
+						     loading="lazy">
 						<h3 class='text-center'>Backend</h3>
 					</div>
 					<div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
@@ -427,7 +433,10 @@
 
 				<div class="row content">
 					<div class="col-md-4" data-aos="fade-right">
-						<img src="{% static 'images/img-accueil/image-django.png' %}" class="img-fluid" alt="django">
+						<img src="{% static 'images/img-accueil/image-django.png' %}"
+						     class="img-fluid"
+						     alt="django"
+						     loading="lazy">
 					</div>
 					<div class="col-md-8 pt-5" data-aos="fade-up">
 						<h3>Développement Web avec Django : Rapidité, Robustesse, Fiabilité.</h3>
@@ -461,7 +470,9 @@
 				<div class="row content">
 					<div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
 						<img src="{% static 'images/img-accueil/business_promotion_isometric_illustration-06.jpg' %}"
-						     class="img-fluid" alt="illustration-4">
+						     class="img-fluid"
+						     alt="illustration-4"
+						     loading="lazy">
 					</div>
 					<div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
 						<h3>Le front-end</h3>
@@ -514,7 +525,9 @@
 							<div class="col-lg-3 col-md-4 rounded m-4">
 							<div class="gallery-item  shadow" data-aos="zoom-in" data-aos-delay="100">
 								<a href="{% url 'gallery_single' gallery.id %}">
-									<img src="{{ gallery.image.url }}" alt="" class="img-fluid rounded"
+									<img src="{{ gallery.image.url }}" alt=""
+									     class="img-fluid rounded"
+									     loading="lazy"
 									     style=" height: 200px; width: 100%">
 								</a>
 							</div>
@@ -533,7 +546,10 @@
 					{% for testimonials in testimonials %}
 						{% if testimonials.is_published %}
 							<div class="testimonial-item">
-								<img src="{{ testimonials.image.url }}" class="testimonial-img" alt="">
+								<img src="{{ testimonials.image.url }}"
+								     class="testimonial-img"
+								     alt="image-user"
+								     loading="lazy">
 								<h3>{{ testimonials.name }}</h3>
 								<h4>{{ testimonials.job }}</h4>
 								<p>
@@ -564,7 +580,10 @@
 							{% if team.is_published %}
 								<div class="member" data-aos="zoom-in" data-aos-delay="100">
 									<div class="pic" style="min-height: 300px">
-										<img src="{{ team.image.url }}" class="img-fluid" alt="team">
+										<img src="{{ team.image.url }}"
+										     class="img-fluid"
+										     alt="team"
+										     loading="lazy">
 									</div>
 									<div class="member-info">
 										<h4>{{ team.name }}</h4>
