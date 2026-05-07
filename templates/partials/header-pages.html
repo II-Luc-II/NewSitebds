@@ -102,7 +102,7 @@
 				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
 					<a href="{% url 'news' %}">Les news</a>
 				</li>
-				<li>
+				<li class="{% if request.resolver_match.view_name == 'contact' %} active {% endif %}">
 					<a href="{% url "contact" %}">Contact</a>
 				</li>
 				{% if user.is_authenticated and request.user.is_superuser %}
@@ -148,61 +148,78 @@
 					</ul>
 				</li>
 
-				<li class="drop-down">
-					<a href="{% url "account" %}"><i class="bi bi-person-circle"></i> Mon compte </a>
+				<li class="drop-down {% if request.resolver_match.view_name == 'account' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'account_logout' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'account_change_password' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'customer:edit_profil_customer' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'account_login' %} active {% endif %}
+					{% if request.resolver_match.view_name == 'account_account_signup' %} active {% endif %}
+					">
+					<a href="#"><i class="bi bi-person-circle"></i> Mon compte </a>
 					<ul class="dropdown-menu">
+						<li class="{% if request.resolver_match.view_name == 'account' %} active {% endif %}">
+							<!-- User logout -->
+							<a href="{% url 'account' %}"
+							   class="dropdown-item"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="left"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Accéder à votre compte : {{ user.username }}">
+								Mon compte
+							</a>
+						</li>
 						{% if user.is_authenticated %}
-						<li>
+						<li class="{% if request.resolver_match.view_name == 'account_logout' %} active {% endif %}">
 							<!-- User logout -->
 							<a href="{% url 'account_logout' %}"
 							   class="dropdown-item"
 							   data-bs-toggle="tooltip"
-							   data-bs-placement="bottom"
+							   data-bs-placement="left"
 							   data-bs-custom-class="custom-tooltip"
 							   data-bs-title="Déconnexion: {{ user.username }}">
 								Déconnexion
 							</a>
 						</li>
-						<li>
+						<li class="{% if request.resolver_match.view_name == 'customer:edit_profil_customer' %} active {% endif %}">
 							<!-- User change profile -->
-							<a href="#"
+							<a href="{% url 'customer:edit_profil_customer' user.id %}"
 							   class="dropdown-item"
 							   data-bs-toggle="tooltip"
-							   data-bs-placement="bottom"
+							   data-bs-placement="left"
 							   data-bs-custom-class="custom-tooltip"
-							   data-bs-title="Inscription">
+							   data-bs-title="Modifier Les informations de votre compte client">
 								Modifier mon compte
 							</a>
 						</li>
-						<li>
+						<li class="{% if request.resolver_match.view_name == 'account_change_password' %} active {% endif %}">
 							<!-- User Change password -->
 							<a href="{% url 'account_change_password' %}"
 							   class="dropdown-item"
 							   data-bs-toggle="tooltip"
-							   data-bs-placement="bottom"
+							   data-bs-placement="left"
 							   data-bs-custom-class="custom-tooltip"
 							   data-bs-title="Changer son mot de passe">
-								Changer de mot de passe
+								Changer votre mot de passe
 							</a>
 						</li>
 					{% else %}
-						<li>
+						<li class="{% if request.resolver_match.view_name == 'account_login' %} active {% endif %}">
 							<!-- User login -->
 							<a href="{% url 'account_login' %}"
 							   class="dropdown-item"
 							   data-bs-toggle="tooltip"
-							   data-bs-placement="bottom"
+							   data-bs-placement="left"
 							   data-bs-custom-class="custom-tooltip"
 							   data-bs-title="Connexion">
 								Connexion
 							</a>
 						</li>
-						<li>
+						<li class="{% if request.resolver_match.view_name == 'account_signup' %} active {% endif %}">
 							<!-- User member signup -->
 							<a href="{% url 'account_signup' %}"
 							   class="dropdown-item"
 							   data-bs-toggle="tooltip"
-							   data-bs-placement="bottom"
+							   data-bs-placement="left"
 							   data-bs-custom-class="custom-tooltip"
 							   data-bs-title="Inscription">
 								Créer son compte

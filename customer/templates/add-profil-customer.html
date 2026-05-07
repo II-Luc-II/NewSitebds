@@ -1,10 +1,9 @@
 {% extends 'base-pages.html' %}
-{% load widget_tweaks %}
 {% load static %}
 {% load custom_filter_form %}
-{% load custom_filters %}
+{% load widget_tweaks %}
 
-{% block title %} Case {% endblock %}
+{% block title %} Mon profil {% endblock %}
 
 {% block content %}
 	<section id="hero">
@@ -25,232 +24,221 @@
 		</svg>
 	</section>
 	<!-- End Hero -->
-	<section id="config" class="config min-vh-100 centrage-col-form">
-		<div class="row d-flex justify-content-center align-items-center mt-3">
-			<div class="text-center py-2">
-				<h1 class="title-color">Profile Utilisateur</h1>
-				<div class="divider"></div>
-				<div class="mt-4">
-					<h4>Je complète mon profil utilisateur</h4>
-					<div class="row p-5">
-						<form method="POST" enctype="multipart/form-data"
-						      action="{% url 'customer:add_profil_customer' %}">
-							{% csrf_token %}
-							<div class="row">
-								<div class="col-lg-8 col-md-10 col-sm-12 centrage-col-image">
-									<!-- Form image -->
-									<div class="form-group text-center">
-										{% if customer.image %}
-											<img src="{{ customer.image.url }}" alt="image user" width="200">
-											<br>
-										{% else %}
-											<img src="{% static 'images/user-image.png' %}" alt="image user"
-											     width="200">
-											<br>
+	<div class="container-fluide">
+		<section id="config" class="config min-vh-100 centrage-col-form rounded">
+			<div class="row d-flex justify-content-center align-items-start p-3">
+				<div class="text-center mb-2">
+					<form method="POST" enctype="multipart/form-data" class="rounded"
+					      action="{% url 'customer:add_profil_customer' %}">
+						{% csrf_token %}
+							<div class="col-12 centrage-col-image rounded bg-form-customer mb-2 p-2">
+								<!-- Form image -->
+								<div class="form-group text-center py-4">
+									{% if customer.image %}
+										<img src="{{ customer.image.url }}" alt="image user" width="200">
+										<br>
+									{% else %}
+										<img src="{% static 'images/user-image.png' %}" alt="image user"
+										     width="200">
+										<br>
+									{% endif %}
+									<label for="image" class="fs-5">Photo</label>
+									{% if customers.image %}
+										{% if customers.image.url %}
+											<div class="text-center mb-3">
+												<img src="{{ customers.image.url }}" alt="photo-anim"
+												     width="200"
+												     class="rounded-circle">
+											</div>
 										{% endif %}
-										<label for="image" class="fs-4">Photo :</label>
-										{% if customers.image %}
-											{% if customers.image.url %}
-												<div class="text-center mb-3">
-													<img src="{{ customers.image.url }}" alt="photo-anim"
-													     width="200"
-													     class="rounded-circle">
-												</div>
-											{% endif %}
-										{% endif %}
-										<div class="form-group">
-											{{ form.image|add_class:"form-control" }}
-										</div>
+									{% endif %}
+									<div class="form-group">
+										{{ form.image|add_class:"form-control" }}
 									</div>
 								</div>
 							</div>
-							<div class="row py-2">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form Nom -->
-										<div class="form-group text-start">
-										<span class="identify">
-										 <i class="bi bi-person-exclamation">
-											 <span class="fs-4"> Nom</span>
-										 </i>
-									 </span>
-											<label for="last_name"></label>
-											{{ form.last_name }}
-											{% for error in form.last_name.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form Prénom -->
-										<div class="form-group text-start">
-										<span class="identify">
-										 <i class="bi bi-person-exclamation">
-											 <span class="fs-4"> Prénom</span>
-										 </i>
-									 </span>
-											<label for="first_name"></label>
-											{{ form.first_name }}
-											{% for error in form.first_name.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										</div>
+						<div class="row rounded bg-form-customer p-3">
+							<div class="col-lg-6 col-md-6 col-sm-12 py-3">
+								<div class="form-account">
+									<!-- Form Nom -->
+									<div class="form-group text-start">
+												<span class="identify">
+												 <i class="bi bi-person-exclamation fs-5">
+													 Nom*
+												 </i>
+									            </span>
+										<label for="last_name"></label>
+										{{ form.last_name }}
+										{% for error in form.last_name.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
 									</div>
 								</div>
 							</div>
-							<div class="row py-2">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form Entreprise -->
-										<div class="form-group text-start">
-											<span class="entreprise">
-											    <i class="bi bi-buildings">
-													 <span class="fs-4"> Entreprise</span>
-											    </i>
-										    </span>
-											<label for="entreprise"></label>
-											{{ form.entreprise }}
-											{% for error in form.entreprise.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										</div>
+							<div class="col-lg-6 col-md-6 col-sm-12 py-3">
+								<div class="form-account">
+									<!-- Form Prénom -->
+									<div class="form-group text-start">
+											<span class="identify">
+											 <i class="bi bi-person-exclamation fs-5">
+												 Prénom*
+											 </i>
+								            </span>
+										<label for="first_name"></label>
+										{{ form.first_name }}
+										{% for error in form.first_name.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
 									</div>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form Mail -->
-										<div class="form-group text-start">
+							</div>
+						</div>
+						<div class="row rounded bg-form-customer p-3 mt-2">
+							<div class="col-lg-4 col-md-6 col-sm-12 py-2">
+								<div class="form-account">
+									<!-- Form Mail -->
+									<div class="form-group text-start">
 											<span class="identify-geo-tel">
-												 <i class="bi bi-envelope-at">
-													 <span class="fs-4"> Email</span>
+												 <i class="bi bi-envelope-at fs-5">
+													 Email*
 												</i>
 											</span>
-											<label for="mail"></label>
-											{{ form.mail }}
-											{% for error in form.mail.errors %}
+										<label for="mail"></label>
+										{{ form.mail }}
+										{% for error in form.mail.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-sm-12 py-2">
+								<div class="form-account">
+									<!-- Form Entreprise -->
+									<div class="form-group text-start">
+											<span class="entreprise">
+											    <i class="bi bi-buildings fs-5">
+													  Entreprise
+											    </i>
+										    </span>
+										<label for="entreprise"></label>
+										{{ form.entreprise }}
+										{% for error in form.entreprise.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-sm-12 py-2">
+								<!-- Form Téléphone -->
+								<div class="form-account">
+									<div class="form-group">
+										<div class="form-group text-start">
+														<span class="identify-geo-tel">
+															 <i class="bi bi-telephone fs-5">
+																 Téléphone*
+															</i>
+														 </span>
+											<label for="phone"></label>
+											{{ form.phone }}
+											{% for error in form.phone.errors %}
 												<span class="text-danger">{{ error }}</span>
 											{% endfor %}
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="row py-2">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<!-- Form Téléphone -->
-									<div class="form-account">
-										<div class="form-group mt-3">
-											<div class="form-group text-start">
-												<span class="identify-geo-tel">
-													 <i class="bi bi-telephone">
-														 <span class="fs-4"> Téléphone</span>
-													</i>
-											    </span>
-												<label for="phone"></label>
-												{{ form.phone }}
-												{% for error in form.phone.errors %}
-													<span class="text-danger">{{ error }}</span>
-												{% endfor %}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row py-2">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<!-- Form Adresse -->
-									<div class="form-account">
-										<div class="form-group">
-											<div class="form-group text-start position-relative">
+						</div>
+						<div class="row rounded bg-form-customer p-3 mt-2">
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<!-- Form Adresse -->
+								<div class="form-account">
+									<div class="form-group py-2">
+										<div class="form-group text-start position-relative">
                                                 <span class="identify-geo">
-                                                  <i class="bi bi-geo">
-                                                    <span class="fs-4"> Adresse</span>
+                                                  <i class="bi bi-geo fs-5">
+                                                     Adresse*
                                                   </i>
                                                 </span>
-												<label for="address" class="visually-hidden">Adresse</label>
-												{{ form.address|attr:"id:address"|add_class:"form-control" }}
-												<!-- Liste des suggestions -->
-												<ul id="address-suggestions" class="list-group"
-												    style="position:absolute;top:100%;left:0;right:0;z-index:1050;"></ul>
-												{% for error in form.address.errors %}
-													<span class="text-danger">{{ error }}</span>
-												{% endfor %}
-											</div>
+											<label for="address" class="visually-hidden">Adresse</label>
+											{{ form.address|attr:"id:address"|add_class:"form-control" }}
+											<!-- Liste des suggestions -->
+											<ul id="address-suggestions" class="list-group"
+											    style="position:absolute;top:100%;left:0;right:0;z-index:1050;"></ul>
+											{% for error in form.address.errors %}
+												<span class="text-danger">{{ error }}</span>
+											{% endfor %}
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form complement address -->
-										<div class="form-group text-start">
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-account">
+									<!-- Form complement address -->
+									<div class="form-group text-start py-2">
 											<span class="identify-geo">
-                                              <i class="bi bi-geo">
-                                                <span class="fs-4"> Complément d'adresse</span>
+                                              <i class="bi bi-geo fs-5">
+                                                Complément d'adresse
                                               </i>
                                             </span>
 
-											<label for="complement_address" class="visually-hidden">Complément
-												d'adresse</label>
-											{{ form.complement_address|attr:"id:complement_address"|add_class:"form-control" }}
-											{% for error in form.complement_address.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form Ville -->
-										<div class="form-group text-start">
-										    <span class="identify-geo">
-                                              <i class="bi bi-geo">
-                                                <span class="fs-4"> Ville</span>
-                                              </i>
-                                            </span>
-											<label for="city" class="visually-hidden">Ville</label>
-											{{ form.city|attr:"id:city"|add_class:"form-control" }}
-											{% for error in form.city.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="form-account">
-										<!-- Form Code Postal -->
-										<div class="form-group text-start">
-										    <span class="identify-geo">
-                                              <i class="bi bi-geo">
-                                                <span class="fs-4"> CP</span>
-                                              </i>
-                                            </span>
-											<label for="zip_code" class="visually-hidden">Code postal</label>
-											{{ form.zip_code|attr:"id:zip_code"|add_class:"form-control" }}
-											{% for error in form.zip_code.errors %}
-												<span class="text-danger">{{ error }}</span>
-											{% endfor %}
-										</div>
+										<label for="complement_address" class="visually-hidden">Complément
+											d'adresse*</label>
+										{{ form.complement_address|attr:"id:complement_address"|add_class:"form-control" }}
+										{% for error in form.complement_address.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
 									</div>
 								</div>
 							</div>
-							<!-- Bouton -->
-							<div class="text-center mt-4">
-								<button type="submit" class="btn-general btn-block">
-									Enregistrer
-								</button>
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-account">
+									<!-- Form Ville -->
+									<div class="form-group text-start py-2">
+										    <span class="identify-geo">
+                                              <i class="bi bi-geo fs-5">
+                                                 Ville
+                                              </i>
+                                            </span>
+										<label for="city" class="visually-hidden">Ville</label>
+										{{ form.city|attr:"id:city"|add_class:"form-control" }}
+										{% for error in form.city.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
+									</div>
+								</div>
 							</div>
-						</form>
-					</div>
-
-					<div class="row py-5 text-gray text-center">
-						<p>{{ info_legacy.description | safe }}</p>
-					</div>
-
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-account">
+									<!-- Form Code Postal -->
+									<div class="form-group text-start py-2">
+										    <span class="identify-geo">
+                                              <i class="bi bi-geo fs-5">
+                                                  CP
+                                              </i>
+                                            </span>
+										<label for="zip_code" class="visually-hidden">Code postal</label>
+										{{ form.zip_code|attr:"id:zip_code"|add_class:"form-control" }}
+										{% for error in form.zip_code.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Bouton -->
+						<div class="text-center mt-5">
+							<button type="submit" class="btn-general btn-block">
+								Enregistrer
+							</button>
+						</div>
+					</form>
+				</div>
+				<div class="row mb-5 text-gray text-center">
+					<p>{{ info_legacy.description | safe }}</p>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</div>
 
 	<script>
         document.addEventListener('DOMContentLoaded', () => {
