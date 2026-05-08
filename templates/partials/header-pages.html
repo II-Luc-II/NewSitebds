@@ -202,7 +202,7 @@
 								Changer votre mot de passe
 							</a>
 						</li>
-					{% else %}
+						{% else %}
 						<li class="{% if request.resolver_match.view_name == 'account_login' %} active {% endif %}">
 							<!-- User login -->
 							<a href="{% url 'account_login' %}"
