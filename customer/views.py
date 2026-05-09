@@ -326,22 +326,21 @@ def details_project(request, project_id):
 
 
 @user_passes_test(is_superuser)
+@require_POST
 def delete_project(request, project_id):
     project = get_object_or_404(MyProject, id=project_id)
 
-    if request.method == "POST":
-        try:
-            project.delete()
-            messages.success(request, "Le projet a bien été supprimé.")
-        except ProtectedError:
-            messages.error(
-                request,
-                "Impossible de supprimer cet projet."
-            )
-
+    try:
+        project.delete()
+        messages.success(request, "Le projet a bien été supprimé.")
         return redirect("customer:administration")
 
-    return redirect("customer:details_project", project_id)
+    except ProtectedError:
+        messages.error(
+            request,
+            "Impossible de supprimer ce projet : il contient encore des fonctions liées."
+        )
+        return redirect("customer:details_project", project_id)
 
 
 # ----------------- Ajout doc clients----------------------

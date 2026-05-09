@@ -61,10 +61,23 @@
 						<td class="align-middle text-center">{{ project.maintenance_contract }}</td>
 						<td class="align-middle text-center">{{ project.server }}</td>
 						<td class="align-middle text-center">
-							<a class="btn btn-primary"
+							<a class="btn btn-primary btn-sm"
 							   href="{% url 'customer:project_edit' project.id %}">
 								<i class="bi bi-arrow-repeat"></i> Modifier
 							</a>
+						</td>
+						<td>
+							{% if project.id %}
+								<form method="post"
+								      action="{% url 'customer:delete_project' project.id %}">
+									{% csrf_token %}
+
+									<button type="submit" class="btn btn-danger btn-sm"
+									        onclick="return confirm('Confirmer la suppression du projet  ?')">
+										<i class="bi bi-trash"></i> Supprimer
+									</button>
+								</form>
+							{% endif %}
 						</td>
 					</tr>
 				{% empty %}

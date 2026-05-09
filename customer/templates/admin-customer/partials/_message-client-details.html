@@ -44,7 +44,8 @@
 	</button>
 
 	<form method="post"
-	      action="{% url 'customer:delete_message' message_client.id %}">
+	      action="{% url 'customer:delete_message' message_client.id %}"
+	      onclick="return confirm('Confirmer la suppression du message ?')">
 		{% csrf_token %}
 
 		<button type="submit" class="btn btn-danger">

@@ -19,8 +19,6 @@
 				<th class="align-middle">Téléphone</th>
 				<th class="align-middle">Reçu le</th>
 				<th class="align-middle">Besoins</th>
-				<th class="align-middle">Budget</th>
-				<th class="align-middle">Départ</th>
 				<th class="align-middle">Actions</th>
 			</tr>
 			</thead>
@@ -33,17 +31,15 @@
 					<td class="align-middle">{{ devi.telephone }}</td>
 					<td class="align-middle">{{ devi.created_at }}</td>
 					<td class="align-middle">{{ devi.questions_1 }}</td>
-					<td class="align-middle">{{ devi.questions_2 }}</td>
-					<td class="align-middle">{{ devi.questions_3 }}</td>
 					<td class="align-middle text-center">
 						<a
 								hx-get="{% url 'customer:devis_details_partial' devi.id %}"
 								hx-target="#devis-modal-body"
 								data-bs-toggle="modal"
 								data-bs-target="#devisModal"
-								class="btn btn-warning btn-sm"
+								class="btn btn-primary btn-sm"
 						>
-							Voir
+							<i class="bi bi-eye"></i> Voir
 						</a>
 					</td>
 				</tr>
