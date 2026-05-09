@@ -1,0 +1,108 @@
+{% extends "base-pages.html" %}
+{% load custom_filter_form %}
+{% load static %}
+
+{% block title %} Liste des clients {% endblock %}
+
+{% block content %}
+	<section id="hero">
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+	</section>
+	<!-- End Hero -->
+	<div class="container">
+		<div class="row min-vh-100 mx-0 g-3">
+			<div class="col-lg-3 col-md-3 col-12 mt-5">
+				<aside class="sidebar">
+					<ul
+							class="sidebar-menu"
+							hx-on:click="
+                          const btn = event.target.closest('button');
+                          if(!btn) return;
+                          document.querySelectorAll('.sidebar-menu button').forEach(b => b.classList.remove('active'));
+                          btn.classList.add('active');
+                        "
+					>
+						<li>
+							<button type="button" class="active"
+							        hx-get="{% url 'customer:dashboard' %}"
+							        hx-target="#adminContent"
+							        hx-swap="innerHTML"
+							>📊 Tableau de bord
+							</button>
+						</li>
+
+						<li>
+							<button type="button"
+							        hx-get="{% url 'customer:members' %}"
+							        hx-target="#adminContent"
+							        hx-swap="innerHTML"
+							>👤 Clients
+							</button>
+						</li>
+
+						<li>
+							<button type="button"
+							        hx-get="{% url 'customer:project' %}"
+							        hx-target="#adminContent"
+							        hx-swap="innerHTML"
+							>💻 Projets
+							</button>
+						</li>
+
+						<li>
+							<button type="button"
+							        hx-get="{% url 'customer:add_documents_clients_partial' %}"
+							        hx-target="#adminContent"
+							        hx-swap="innerHTML"
+							>📃 Ajout de documents
+							</button>
+						</li>
+
+						<li>
+							<button type="button"
+							        hx-get="{% url 'customer:messages_clients_partial' %}"
+							        hx-target="#adminContent"
+							        hx-swap="innerHTML"
+							>✉️ Messages <span class="badge text-bg-secondary">{{ messages_clients_count }}</span>
+							</button>
+						</li>
+
+						<li>
+							<button type="button"
+							        hx-get="{% url 'customer:devis_clients_partial' %}"
+							        hx-target="#adminContent"
+							        hx-swap="innerHTML"
+							>💶 Demande de devis <span class="badge text-bg-secondary">{{ devis_count }}</span>
+							</button>
+						</li>
+					</ul>
+				</aside>
+			</div>
+			<div class="col-lg-9 col-md-9 col-12 mt-5">
+				<main
+						class="content-area"
+						id="adminContent"
+						hx-get="{% url 'customer:dashboard' %}"
+						hx-trigger="load"
+						hx-swap="innerHTML"
+				></main>
+
+				<div id="modalHost"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

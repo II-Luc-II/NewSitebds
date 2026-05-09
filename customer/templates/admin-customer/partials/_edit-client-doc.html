@@ -1,0 +1,23 @@
+{% load custom_filter_form %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+<section id="documentModal" class="content-section">
+    <div class="section-header">
+        <h2>Documents clients</h2>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'customer:edit_documents_clients_partial' document.id %}">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary">
+                Enregistrer
+            </button>
+        </div>
+    </form>
+</section>

@@ -5,6 +5,8 @@ from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
 from django.db import models
 
+from yourproject.models import Question
+
 admin.site.site_header = 'SITE BDS Administration'
 
 
@@ -70,16 +72,23 @@ class TeamAdmin(admin.ModelAdmin):
         yes_icon = '<img src="/static/icons/oui.png" alt="True" style="width: 10px">'
 
         if team.is_published:
-            name = '<span style="color:gray"> &nbsp;' + team.name + '<span>'
+            name = f'<span style="color:gray">&nbsp;{team.name}</span>'
             return format_html(yes_icon + name)
         else:
-            name = '<span style="color:red"> &nbsp;' + team.name + '<span>'
+            name = f'<span style="color:red">&nbsp;{team.name}</span>'
             return format_html(no_icon + name)
 
-    def display_image(self, obj):
-        return format_html(f'<img src="{obj.image.url}" width="150" />')
+    display_name.short_description = "Nom"
 
-    display_image.short_description = 'image'
+    def display_image(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="150" style="border-radius:8px;" />',
+                obj.image.url
+            )
+        return "-"
+
+    display_image.short_description = 'Image'
 
     formfield_overrides = {
         models.TextField: {'widget': CKEditor5Widget}
@@ -92,15 +101,19 @@ class AskAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
 
     def display_name(self, ask):
-        no_icon = '<img src="/static/icons/non.png" alt="False" style="width: 20px">'
-        yes_icon = '<img src="/static/icons/oui.png" alt="True" style="width: 20px">'
 
-        if ask.is_published:
-            name = '<span style="color:gray"> &nbsp;' + ask.ask + '<span>'
-            return format_html(yes_icon + name)
-        else:
-            name = '<span style="color:red"> &nbsp;' + ask.ask + '<span>'
-            return format_html(no_icon + name)
+        icon = "oui.png" if ask.is_published else "non.png"
+        color = "gray" if ask.is_published else "red"
+
+        return format_html(
+            '<img src="/static/icons/{}" width="20" /> '
+            '<span style="color:{};">{}</span>',
+            icon,
+            color,
+            ask.ask
+        )
+
+    display_name.short_description = "Question"
 
     formfield_overrides = {
         models.TextField: {'widget': CKEditor5Widget}
@@ -214,7 +227,7 @@ class PolicyLegacyAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'created_at')
+    list_display = ('title', 'slug', 'created_at', 'display_image')
     list_display_links = ('title',)
 
     formfield_overrides = {
@@ -223,8 +236,12 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def display_image(self, obj):
         if obj.image:
-            return format_html(f'<img src="{obj.image.url}" width="150" />')
-        return ""
+            return format_html(
+                '<img src="{}" width="150" style="border-radius:8px;" />',
+                obj.image.url
+            )
+        return "-"
 
     display_image.short_description = 'Image'
+
 

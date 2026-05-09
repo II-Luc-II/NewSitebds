@@ -1,0 +1,122 @@
+{% extends 'base-pages.html' %}
+{% load static %}
+{% load custom_filter_form %}
+{% load widget_tweaks %}
+
+{% block title %} Compte client {% endblock %}
+
+{% block content %}
+	<section id="hero">
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+	</section>
+	<!-- End Hero -->
+	<div class="container min-vh-100">
+		<div class="row">
+			<div class="col-12">
+				<div class="p-4">
+					{% if customer.first_name and customer.last_name %}
+						<h5>
+							<i class="bi bi-person"></i> {{ customer.first_name }} {{ customer.last_name }}
+						</h5>
+					{% else %}
+						<p><i class="bi bi-person"></i> Nom et prénom : <span class="text-red"> A renseigner</span>
+						</p>
+					{% endif %}
+
+					{% if customer.address %}
+						<p>
+							<i class="bi bi-house"></i> {{ customer.address }}
+						</p>
+					{% else %}
+						<p>
+												<span class="text-red">
+													<i class="bi bi-geo"> Adresse à renseigner</i>
+												</span>
+						</p>
+					{% endif %}
+
+					{% if customer.mail %}
+						<p>
+							<i class="bi bi-envelope-at-fill"></i> {{ customer.mail }}
+						</p>
+					{% else %}
+						<p><i class="bi bi-envelope-at-fill"></i> {{ user.email }}
+						<a href="{% url 'account_email' %}">
+							<small>(Modifier)</small>
+						</a>
+					{% endif %}
+
+					{% if customer.phone %}
+						<p><i class="bi bi-telephone"></i> {{ customer.phone }}</p>
+					{% else %}
+						<p><i class="bi bi-telephone"></i> Téléphone : <span class="text-red"> A renseigner</span>
+						</p>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div>
+					<div class="row block-fields d-flex justify-content-between align-items-center mt-3">
+						<div style="overflow-x: auto;">
+							<table class="table table-bordered table-responsive rounded border overflow-hidden">
+								<thead class="thead-light">
+								<tr>
+									<th scope="col" class="align-middle bg-info">Référence</th>
+									<th scope="col" class="align-middle bg-info">Statut</th>
+									<th scope="col" class="align-middle bg-info">Nom du Projet</th>
+									<th scope="col" class="align-middle bg-info">Domaine</th>
+									<th scope="col" class="align-middle bg-info">Serveur</th>
+									<th scope="col" class="align-middle bg-info">
+										Type de projet
+									</th>
+									<th scope="col" class="align-middle bg-info">
+										Maintenance
+									</th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for project in projects %}
+									<tr class="align-items-center">
+										<td>
+											{{ project.ref }} <br>
+											<a href="{% url 'customer:details_project' project.id %}">
+												<i class="bi bi-eye"> Détail</i>
+											</a>
+										</td>
+										<td>{{ project.status }}</td>
+										<td>{{ project.project_name }}</td>
+										<td>{{ project.domaine }}</td>
+										<td>{{ project.server }}</td>
+										<td>{{ project.project_type }}</td>
+										<td>{{ project.maintenance_contract }}</td>
+									</tr>
+								{% empty %}
+									<h5 class="text-red">Aucun document pour le moment</h5>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

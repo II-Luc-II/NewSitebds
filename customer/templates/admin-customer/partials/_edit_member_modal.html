@@ -1,0 +1,140 @@
+{% load custom_filter_form %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+<div class="modal fade show" style="display:block;" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<form
+					hx-post="{% url 'customer:edit_members' customer.id %}"
+					hx-target="#modalHost"
+					hx-swap="innerHTML"
+			>
+				{% csrf_token %}
+				<div class="modal-header">
+					<h2 class="modal-title">Détails de {{ customer.name }} {{ customer.last_name }}</h2>
+					<button type="button" class="btn-close" aria-label="Close"
+					        hx-get="{% url 'customer:modal_close' %}"
+					        hx-target="#modalHost" hx-swap="innerHTML"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+								<div class="form-group text-center py-4">
+									{% if customer.image %}
+										<img src="{{ customer.image.url }}" alt="image user" width="200">
+										<br>
+									{% else %}
+										<img src="{% static 'images/user-image.png' %}" alt="image user"
+										     width="200">
+										<br>
+									{% endif %}
+									<label for="image" class="fs-5">Photo</label>
+									{% if customers.image %}
+										{% if customers.image.url %}
+											<div class="text-center mb-3">
+												<img src="{{ customers.image.url }}" alt="photo-anim"
+												     width="200"
+												     class="rounded-circle">
+											</div>
+										{% endif %}
+									{% endif %}
+									<div class="form-group">
+										{{ form.image|add_class:"form-control" }}
+									</div>
+								</div>
+							</div>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="user">User*</label>
+								{{ form.user }}
+								{% if form.user.errors %}
+									{% for error in form.user.errors %}
+										<span class="text-danger">{{ error }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="form-group">
+								<label for="first_name">Nom*</label>
+								{{ form.first_name }}
+								{% if form.first_name.errors %}
+									{% for error in form.first_name.errors %}
+										<span class="text-danger">{{ error }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="form-group">
+								<label for="last_name">Prénom*</label>
+								{{ form.last_name }}
+								{% if form.last_name.errors %}
+									{% for error in form.last_name.errors %}
+										<span class="text-danger">{{ error }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="phone">Téléphone*</label>
+								{{ form.phone }}
+								{% if form.phone.errors %}
+									{% for error in form.phone.errors %}
+										<span class="text-danger">{{ error }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="form-group">
+								<label for="mail">Mail*</label>
+								{{ form.mail }}
+								{% if form.mail.errors %}
+									{% for error in form.mail.errors %}
+										<span class="text-danger">{{ error }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group position-relative">
+								<label for="address">Adresse*</label>
+								{{ form.address }}
+								{% if form.address.errors %}
+									{% for error in form.address.errors %}
+										<span class="text-danger">{{ error }}</span>
+									{% endfor %}
+								{% endif %}
+								<ul id="address-suggestions" class="list-group mt-1"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+					        hx-get="{% url 'customer:modal_close' %}"
+					        hx-target="#modalHost" hx-swap="innerHTML">
+						Fermer
+					</button>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</div>
+			</form>
+
+			<div class="d-flex align-items-center justify-content-center">
+
+				<form method="post" action="{% url 'customer:delete_member' customer.id %}"
+				      onsubmit="return confirm('Supprimer définitivement cet adhérent ?');">
+					{% csrf_token %}
+					<br>
+					<button type="submit" class="btn btn-danger">
+						<i class="bi bi-trash"></i> Supprimer le client
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    window.initAddressAutocomplete(document.getElementById("modalHost"));
+</script>

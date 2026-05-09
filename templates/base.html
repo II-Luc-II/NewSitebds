@@ -1,10 +1,19 @@
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	{% include 'partials/head.html' %}
+	<title>{% block title %}{% endblock %}</title>
+</head>
+
 {% include "partials/header.html" %}
 {% include "components/messages.html" %}
 <span class="no-phone">
 	{% include 'partials/contact-partial.html' %}
 </span>
+<body data-bs-spy="scroll" data-bs-target=".nav-menu" data-bs-offset="50">
 
     {% block content %}
     {% endblock %}
@@ -12,4 +21,4 @@
     {% block footer %}
     {% endblock %}
 {% include "partials/footer.html" %}
-
+</body>

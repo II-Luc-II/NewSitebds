@@ -1,0 +1,69 @@
+<section id="dashboard" class="content-section active">
+	<div class="section-header">
+		<h2 class="py-4">Tableau de bord</h2>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-12 stat-card align-col mb-2">
+			<h3>Total clients</h3>
+			<div class="stat-number" id="totalMembers">{{ customers_count }}</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-12 stat-card align-col mb-2">
+			<h3>Total projets</h3>
+			<div class="stat-number" id="totalProject">{{ projects_count }}</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-12 stat-card align-col mb-2">
+			<h3>Documents</h3>
+			<div class="stat-number" id="totalDocuments">{{ documents_count }}</div>
+		</div>
+	</div>
+
+	<h3 class="py-4">Derniers projets</h3>
+	<div class="table-container">
+		<div class="table-container">
+			<table class="table table-secondary table-striped">
+				<thead>
+				<tr>
+					<th>User</th>
+					<th>Projet</th>
+					<th>Status</th>
+					<th>Type</th>
+					<th>Domaine</th>
+					<th>Maintenance</th>
+					<th>Serveur</th>
+					<th>Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for project in projects %}
+					<tr>
+
+						<td class="align-middle">{{ project.user }}</td>
+						<td class="align-middle">
+							<a href="{% url 'customer:details_project' project.id %}">
+								{{ project.project_name }}
+							</a>
+						</td>
+						<td class="align-middle">{{ project.status }}</td>
+						<td class="align-middle text-center">{{ project.project_type }}</td>
+						<td class="align-middle text-center">{{ project.domaine }}</td>
+						<td class="align-middle text-center">{{ project.maintenance_contract }}</td>
+						<td class="align-middle text-center">{{ project.server }}</td>
+						<td class="align-middle text-center">
+							<a class="btn btn-primary"
+							   href="{% url 'customer:project_edit' project.id %}">
+								Modifier
+							</a>
+						</td>
+					</tr>
+				{% empty %}
+					<tr>
+						<td colspan="11">Aucun projet.</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+

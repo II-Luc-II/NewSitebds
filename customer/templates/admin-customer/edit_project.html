@@ -1,0 +1,81 @@
+{% extends "base-pages.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Modifier {{ project.project_name }}{% endblock %}
+
+{% block content %}
+	<section id="hero">
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+	</section>
+	<!-- End Hero -->
+	<div class="container py-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h2 class="mb-0">Modifier {{ project.project_name }}</h2>
+			<a href="javascript:history.back()" class="btn btn-primary text-decoration-none">
+				← Retour
+			</a>
+		</div>
+
+		<div class="card shadow-sm border-0">
+			<div class="card-body">
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="row g-3">
+						<div class="col-md-4">
+							{{ form.user|as_crispy_field }}
+						</div>
+
+						<div class="col-md-4">
+							{{ form.project_type|as_crispy_field }}
+						</div>
+
+						<div class="col-md-4">
+							{{ form.project_name|as_crispy_field }}
+						</div>
+
+						<div class="col-md-3">
+							{{ form.status|as_crispy_field }}
+						</div>
+
+						<div class="col-md-3">
+							{{ form.domaine|as_crispy_field }}
+						</div>
+
+						<div class="col-md-3">
+							{{ form.server|as_crispy_field }}
+						</div>
+
+						<div class="col-3">
+							{{ form.maintenance_contract|as_crispy_field }}
+						</div>
+
+						<div class="col-12">
+							{{ form.description|as_crispy_field }}
+						</div>
+					</div>
+
+					<div class="d-flex gap-2 mt-3">
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
+						<a href="javascript:history.back()" class="btn btn-primary text-decoration-none">
+							← Retour
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load static %}
+{% for customer in customers %}
+	<tr>
+	{% if customer.image %}
+		<td class="align-middle">
+			<img src="{{ customer.image.url}}" alt="{{ customer.last_name }}"
+			height="50">
+		</td>
+	{% endif %}
+
+		<td class="align-middle">
+			<a href="{% url 'customer:details_client_admin' customer.id %}">
+				{{ customer.last_name }}
+			</a>
+
+		</td>
+		<td class="align-middle">{{ customer.first_name }}</td>
+		<td class="align-middle">{{ customer.mail }}</td>
+		<td class="align-middle text-center">{{ customer.phone }}</td>
+		<td class="align-middle">{{ customer.address }}</td>
+		<td class="align-middle text-center">
+			<a
+					href="#"
+					hx-get="{% url 'customer:edit_members' customer.id %}"
+					hx-target="#modalHost"
+					hx-swap="innerHTML"
+					data-bs-toggle="tooltip"
+					data-bs-placement="top"
+					title="Voir ou modifier le membre"
+			>
+				<i class="bi bi-eye fs-4"></i>
+			</a>
+		</td>
+	</tr>
+{% empty %}
+	<tr>
+		<td colspan="10" class="text-center text-muted py-4">
+			<div class="mb-2">👥</div>
+			<div>Aucun client enregistré</div>
+		</td>
+	</tr>
+{% endfor %}

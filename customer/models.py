@@ -23,14 +23,7 @@ class Customer(models.Model):
     address = models.CharField(max_length=50, verbose_name="Adresse")
     entreprise = models.CharField(max_length=50, null=True, blank=True, verbose_name="Entreprise")
     mail = models.EmailField(verbose_name="Mail")
-    complement_address = models.CharField(max_length=50, null=True, blank=True, verbose_name="Complément d'adresse")
-    city = models.CharField(max_length=50, verbose_name="Ville")
     created_at = models.DateTimeField(auto_now_add=True)
-    zip_code = models.CharField(
-        verbose_name="Code Postal",
-        max_length=5,
-        validators=[RegexValidator(r'^\d{5}$', "Entrez un code postal valide (5 chiffres).")]
-    )
     image = models.ImageField(upload_to='photos-customer', null=True, blank=True)
     register_web = models.BooleanField(default=False, verbose_name="Inscription web")
 
@@ -72,7 +65,7 @@ class MyProject(models.Model):
 
     user = models.ForeignKey(Customer, related_name="facilities", on_delete=models.CASCADE,
                              verbose_name="Utilisateur")
-    ref = models.CharField(max_length=100, verbose_name="Reférence")
+    ref = models.CharField(max_length=100, unique=True, editable=False, verbose_name="Reférence")
     project_type = models.CharField(max_length=60, choices=PROJECTS_TYPE_CHOICES, verbose_name="Type du projet")
     status = models.CharField(max_length=60, choices=STATUS_CHOICES, verbose_name="Statut")
     project_name = models.CharField(max_length=100, verbose_name="Nom du projet")
@@ -88,6 +81,22 @@ class MyProject(models.Model):
 
     def __str__(self):
         return self.project_name
+
+    def save(self, *args, **kwargs):
+        if not self.ref:
+            last_project = MyProject.objects.order_by('-id').first()
+
+            if last_project and last_project.ref:
+                try:
+                    last_number = int(last_project.ref.replace('PRJ-', ''))
+                except ValueError:
+                    last_number = 0
+            else:
+                last_number = 0
+
+            self.ref = f"PRJ-{last_number + 1:05d}"
+
+        super().save(*args, **kwargs)
 
 
 class Documents(models.Model):

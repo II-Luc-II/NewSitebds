@@ -1,0 +1,61 @@
+{% load custom_filter_form %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+<div class="modal-header">
+	<h5 class="modal-title">
+		Devis de {{ devi.author }}
+	</h5>
+
+	<button type="button"
+	        class="btn-close"
+	        data-bs-dismiss="modal"
+	        aria-label="Fermer">
+	</button>
+</div>
+
+<div class="modal-body">
+	<p><strong>Nom :</strong> {{ devi.author }}</p>
+	<p><strong>Entreprise :</strong> {{ devi.entreprise }}</p>
+	<p><strong>Email :</strong> {{ devi.email }}</p>
+	<p><strong>Email :</strong> {{ devi.telephone }}</p>
+	<p><strong>Date :</strong> {{ devi.created_at|date:"d/m/Y H:i" }}</p>
+
+	<hr>
+
+	<p><strong>Sujet :</strong> {{ devi.questions_1 }}</p>
+	<p><strong>Sujet :</strong> {{ devi.questions_2 }}</p>
+	<p><strong>Sujet :</strong> {{ devi.questions_3 }}</p>
+
+	<hr>
+
+	<p><strong>Message :</strong></p>
+	<div class="border rounded p-3 bg-light">
+		{{ devi.description|safe }}
+	</div>
+</div>
+
+<div class="modal-footer">
+	<a href="mailto:{{ devi.email }}"
+	   class="btn btn-primary">
+		Répondre
+	</a>
+
+
+	<button type="button"
+	        class="btn btn-secondary"
+	        data-bs-dismiss="modal">
+		Fermer
+	</button>
+
+	<form method="post"
+	      action="{% url 'customer:delete_devis' devi.id %}">
+		{% csrf_token %}
+
+		<button type="submit" class="btn btn-danger">
+			Supprimer
+		</button>
+	</form>
+</div>

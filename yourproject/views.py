@@ -36,7 +36,7 @@ def devis_message(request):
            <p>Bonjour Luc.</p>
            <p>Un nouveau devis vient d'être publié par : <br>
            {message.author}  {message.email} <br>
-           sur le site 'BDS' le {message.update_at}</p>
+           sur le site 'BDS' le {message.created_at}</p>
            <p>Le message : {message.description}</p>
            """
 

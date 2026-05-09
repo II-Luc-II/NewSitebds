@@ -191,5 +191,58 @@
 
 })(jQuery);
 
+// ===== SAISIE RECHERCHE ADRESSE =====
+window.initAddressAutocomplete = function (scope = document) {
+    const input = scope.querySelector('input[name="address"]');
+    const suggestionsList = scope.querySelector("#address-suggestions");
+
+    if (!input || !suggestionsList) {
+        console.log("Adresse introuvable", { input, suggestionsList });
+        return;
+    }
+
+    if (input.dataset.autocompleteInitialized === "true") return;
+    input.dataset.autocompleteInitialized = "true";
+
+    function closeSuggestions() {
+        suggestionsList.innerHTML = "";
+    }
+
+    input.addEventListener("input", function () {
+        const query = input.value.trim();
+        closeSuggestions();
+
+        if (query.length < 3) return;
+
+        fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.features.length) {
+                    suggestionsList.innerHTML = `<li class="list-group-item">Aucune adresse</li>`;
+                    return;
+                }
+
+                data.features.forEach(feature => {
+                    const li = document.createElement("li");
+                    li.textContent = feature.properties.label;
+                    li.className = "list-group-item list-group-item-action";
+                    li.style.cursor = "pointer";
+
+                    li.addEventListener("click", function () {
+                        input.value = feature.properties.label;
+                        closeSuggestions();
+                    });
+
+                    suggestionsList.appendChild(li);
+                });
+            });
+    });
+};
+
+document.addEventListener("shown.bs.modal", function (event) {
+    if (event.target.id === "adherentModal") {
+        initAddressAutocomplete();
+    }
+});
 
 

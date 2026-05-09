@@ -50,9 +50,11 @@
 					{% if customer.first_name %}
 						<h5>Bonjour {{ customer.first_name }}</h5>
 					{% else %}
-						<h5>Bonjour {{ user.username }} {% if customer.last_name %} {{ customer.last_name }} {{ endif }}
-
-						{% endif %} </h5>
+						<h5>Bonjour {{ user.username }}
+							{% if customer.last_name %}
+								{{ customer.last_name }} {{ endif }}
+							{% endif %}
+						</h5>
 					{% endif %}
 					{% if customer and customer.id %}
 						<a href="{% url 'customer:edit_profil_customer' customer.id %}">Modifier</a>
@@ -127,17 +129,14 @@
 										{% endif %}
 
 										{% if customer.address %}
-											<p><i class="bi bi-geo"> </i> {{ customer.address }}
-												{% if customer.complement_address %},
-													{{ customer.complement_address }}<br>
-												{% endif %}
-												<br>
-												<i class="bi bi-house"></i> {{ customer.zip_code }} {{ customer.city }}
+											<p>
+												<i class="bi bi-house"></i> {{ customer.address }}
 											</p>
 										{% else %}
 											<p>
-												<i class="bi bi-geo"> Adresse : </i>
-												<span class="text-red"> A renseigner</span>
+												<span class="text-red">
+													<i class="bi bi-geo"> Adresse à renseigner</i>
+												</span>
 											</p>
 										{% endif %}
 
@@ -261,7 +260,6 @@
 					</p>
 				</div>
 			</div>
-	</div>
-	</section>
+		</section>
 	</div>
 {% endblock %}

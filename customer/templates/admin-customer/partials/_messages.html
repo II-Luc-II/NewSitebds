@@ -1,0 +1,58 @@
+{% load custom_filter_form %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+<section id="messages_clients" class="content-section">
+	<div class="section-header mb-5">
+		<h2>Messages clients</h2>
+	</div>
+
+	<div class="table-container">
+		<table class="table table-secondary table-striped">
+			<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Mail</th>
+				<th>Date</th>
+				<th>Sujet</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for message_client in messages_clients %}
+				<tr>
+					<td class="align-middle">{{ message_client.name }}</td>
+					<td class="align-middle">{{ message_client.email }}</td>
+					<td class="align-middle">{{ message_client.created_at }}</td>
+					<td class="align-middle text-center">{{ message_client.subject }}</td>
+					<td class="align-middle text-center">
+						<a
+								hx-get="{% url 'customer:message_clients_details_partial' message_client.id %}"
+								hx-target="#message-modal-body"
+								data-bs-toggle="modal"
+								data-bs-target="#messageModal"
+								class="btn btn-warning btn-sm"
+						>
+							Voir
+						</a>
+					</td>
+
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="5">Aucun message.</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<div class="modal fade" id="messageModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" id="message-modal-body">
+        </div>
+    </div>
+</div>
