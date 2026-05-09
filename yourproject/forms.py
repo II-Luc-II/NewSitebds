@@ -1,9 +1,11 @@
 from django import forms
-
+from captcha.fields import CaptchaField
 from yourproject.models import Question
 
 
 class QuestionForm(forms.ModelForm):
+    captcha = CaptchaField()
+
     QUESTION_1_CHOICES = (
         ('---------------', '---------------'),
         ('Application web', 'Application web'),

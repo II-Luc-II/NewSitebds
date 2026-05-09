@@ -133,6 +133,17 @@
 								{% endfor %}
 							{% endif %}
 						</div>
+					</div>
+						<div class="form-group mt-3">
+							{% if form.captcha.errors %}
+								{% for error in form.captcha.errors %}
+									<span class="text-danger">{{ error }}</span>
+								{% endfor %}
+							{% endif %}
+							<label for="captcha">{{ form.captcha }} <br>Code de Vérification (Saisir le code de
+								validation) </label>
+
+						</div>
 						<div class="button-form py-4" data-aos="fade-up">
 							<div class="text-center">
 								<button class="btn btn-info" type="submit">
