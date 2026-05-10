@@ -1,18 +1,17 @@
 {% load static %}
 {% for customer in customers %}
 	<tr>
-	{% if customer.image %}
 		<td class="align-middle">
-			<img src="{{ customer.image.url}}" alt="{{ customer.last_name }}"
-			height="50">
+			{% if customer.image %}
+				<img src="{{ customer.image.url }}" alt="{{ customer.last_name }}" height="50">
+			{% else %}
+				<img src="{% static 'images/user-image.png' %}" alt="Image-user" height="50">
+			{% endif %}
 		</td>
-	{% endif %}
-
 		<td class="align-middle">
 			<a href="{% url 'customer:details_client_admin' customer.id %}">
 				{{ customer.last_name }}
 			</a>
-
 		</td>
 		<td class="align-middle">{{ customer.first_name }}</td>
 		<td class="align-middle">{{ customer.mail }}</td>

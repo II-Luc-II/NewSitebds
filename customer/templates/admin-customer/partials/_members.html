@@ -132,6 +132,15 @@
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
+									<label for="entreprise">Entreprise*</label>
+									{{ form.entreprise }}
+									{% if form.entreprise.errors %}
+										{% for error in form.entreprise.errors %}
+											<span class="text-danger">{{ error }}</span>
+										{% endfor %}
+									{% endif %}
+								</div>
+								<div class="form-group">
 									<label for="phone">Téléphone*</label>
 									{{ form.phone }}
 									{% if form.phone.errors %}

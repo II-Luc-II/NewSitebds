@@ -26,14 +26,25 @@
 	<!-- End Hero -->
 	<div class="container min-vh-100">
 		<div class="row">
-			<div class="col-12">
+			<div class="col-4 col-md-4 col-sm-12 text-start">
+				{% if customer.image %}
+					<img src="{{ customer.image.url }}" alt="{{ customer.last_name }}" height="180">
+				{% else %}
+					<img src="{% static 'images/user-image.png' %}" alt="Image-user" height="180">
+				{% endif %}
+			</div>
+			<div class="col-4 col-md-4 col-sm-12 d-flex justify-content-center align-items-center">
+				<h1>{{ customer.entreprise }}</h1>
+			</div>
+			<div class="col-4 col-md-4 col-sm-12 text-end">
 				<div class="p-4">
 					{% if customer.first_name and customer.last_name %}
-						<h5>
+						<h5 class="mb-3">
 							<i class="bi bi-person"></i> {{ customer.first_name }} {{ customer.last_name }}
 						</h5>
 					{% else %}
-						<p><i class="bi bi-person"></i> Nom et prénom : <span class="text-red"> A renseigner</span>
+						<p>
+							<i class="bi bi-person"></i> Nom et prénom : <span class="text-red"> A renseigner</span>
 						</p>
 					{% endif %}
 

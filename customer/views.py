@@ -202,6 +202,8 @@ def edit_members_partial(request, customer_id):
         form = CustomerAdminForm(request.POST, request.FILES, instance=customer)
         if form.is_valid():
             form.save()
+            messages.success(request, "Le membre a bien été modifié.")
+
             resp = HttpResponse("")
             resp["HX-Trigger"] = "memberUpdated"
             return resp
