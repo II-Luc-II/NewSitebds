@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
+from pylint.pyreverse.inspector import Project
 
 from customer.models import Customer, MyProject, Documents, Fonctions, TicketMessage, Ticket
 
@@ -167,6 +168,18 @@ class TicketAdmin(admin.ModelAdmin):
         )
 
     status_badge.short_description = "Statut"
+
+    list_max_show_all = 50
+    list_per_page = 30
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
+
+
+@admin.register(TicketMessage)
+class TicketMessageAdmin(admin.ModelAdmin):
+    list_display = ('ticket', 'author', 'created_at')
 
     list_max_show_all = 50
     list_per_page = 30
