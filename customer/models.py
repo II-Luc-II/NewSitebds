@@ -256,8 +256,137 @@ class Fonctions(models.Model):
         return f"{self.project} — {self.frameworks}"
 
 
+class Ticket(models.Model):
+    OPEN = "Ouvert"
+    IN_PROGRESS = "En cours"
+    WAITING_CLIENT = "En attente client"
+    RESOLVED = "Résolu"
+    CLOSED = "Fermé"
+
+    STATUS_CHOICES = [
+        (OPEN, "Ouvert"),
+        (IN_PROGRESS, "En cours"),
+        (WAITING_CLIENT, "En attente client"),
+        (RESOLVED, "Résolu"),
+        (CLOSED, "Fermé"),
+    ]
+
+    LOW = "Basse"
+    MEDIUM = "Moyenne"
+    HIGH = "Haute"
+    URGENT = "Urgente"
+
+    PRIORITY_CHOICES = [
+        (LOW, "Basse"),
+        (MEDIUM, "Moyenne"),
+        (HIGH, "Haute"),
+        (URGENT, "Urgente"),
+    ]
+
+    BUG = "Bug"
+    FEATURE = "Demande d'évolution"
+    SUPPORT = "Support"
+    MAINTENANCE = "Maintenance"
+    OTHER = "Autre"
+
+    TYPE_CHOICES = [
+        (BUG, "Bug"),
+        (FEATURE, "Demande d'évolution"),
+        (SUPPORT, "Support"),
+        (MAINTENANCE, "Maintenance"),
+        (OTHER, "Autre"),
+    ]
+
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.PROTECT,
+        related_name="tickets",
+        verbose_name="Client"
+    )
+
+    project = models.ForeignKey(
+        MyProject,
+        on_delete=models.PROTECT,
+        related_name="tickets",
+        verbose_name="Projet",
+        blank=True,
+        null=True
+    )
+
+    title = models.CharField(max_length=150, verbose_name="Titre")
+    description = models.TextField(verbose_name="Description")
+
+    ticket_type = models.CharField(
+        max_length=30,
+        choices=TYPE_CHOICES,
+        default=SUPPORT,
+        verbose_name="Type"
+    )
+
+    priority = models.CharField(
+        max_length=20,
+        choices=PRIORITY_CHOICES,
+        default=MEDIUM,
+        verbose_name="Priorité"
+    )
+
+    status = models.CharField(
+        max_length=30,
+        choices=STATUS_CHOICES,
+        default=OPEN,
+        verbose_name="Statut"
+    )
+
+    attachment = models.FileField(
+        upload_to="tickets/",
+        blank=True,
+        null=True,
+        verbose_name="Pièce jointe"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Dernière modification")
+    closed_at = models.DateTimeField(blank=True, null=True, verbose_name="Date de fermeture")
+
+    class Meta:
+        verbose_name = "Ticket"
+        verbose_name_plural = "Tickets"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.title} - {self.customer}"
 
 
+class TicketMessage(models.Model):
+    ticket = models.ForeignKey(
+        Ticket,
+        on_delete=models.CASCADE,
+        related_name="messages",
+        verbose_name="Ticket"
+    )
 
+    author = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        verbose_name="Auteur"
+    )
 
+    message = models.TextField(verbose_name="Message")
+
+    attachment = models.FileField(
+        upload_to="tickets/messages/",
+        blank=True,
+        null=True,
+        verbose_name="Pièce jointe"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date")
+
+    class Meta:
+        verbose_name = "Message de ticket"
+        verbose_name_plural = "Messages de tickets"
+        ordering = ["created_at"]
+
+    def __str__(self):
+        return f"Réponse ticket #{self.ticket.id}"
 

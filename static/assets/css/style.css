@@ -19,6 +19,28 @@ a {
     text-decoration: none;
 }
 
+.ck-editor__editable {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    min-height: 180px;
+}
+
+.ck-editor__editable p {
+    color: #111111 !important;
+}
+
+.ck.ck-editor__main > .ck-editor__editable {
+    background: #ffffff !important;
+}
+
+.divider {
+    width: 200px;
+    height: 2px;
+    background-color: #d82c2e;
+    margin: 0 auto 20px;
+}
+
+
 .modal h3, h4 {
     color: #1d2945eb;
 }
@@ -526,7 +548,32 @@ h1, h2, h3, h4, h5, h6 {
 
 .color-tab-pane {
     background-color: #bcc5dc !important;
+    border: solid 1px #1d2945ed !important;
+    color: #1d2945ed !important;
+    transition: 0.3s;
 }
+
+.color-tab-pane:hover {
+    background-color: #1d2945ed !important;
+    border: solid 1px #bcc5dc !important;
+    color: whitesmoke !important;
+}
+
+.color-tab-pane.active {
+    background-color: #1d2945ed !important;
+    color: white !important;
+    border-color: #1d2945ed !important;
+}
+
+.dark-blue {
+    background: #1d2945ed !important;
+    color: whitesmoke !important;
+}
+
+.color-tab-pane i {
+    color: inherit !important;
+}
+
 
 /*--------------------------------------------------------------
 # Policy
@@ -2735,11 +2782,11 @@ input[name="honeypot"] {
 
 .sidebar-menu button:hover {
     background: #edf2f7;
-    color: #667eea;
+    color: #1d2945ed;
 }
 
 .sidebar-menu button.active {
-    background: #667eea;
+    background: #1d2945ed;
     color: white;
 }
 
@@ -2948,7 +2995,7 @@ select:focus {
 }
 
 .stat-card {
-    background: #2c5282;
+    background: #1d2945ed;
     padding: 30px;
     border-radius: 15px;
     margin-right: auto;

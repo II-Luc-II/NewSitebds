@@ -10,7 +10,8 @@ import logging
 
 from django.utils.html import strip_tags
 
-from customer.models import Customer, MyProject, Documents, Fonctions
+from customer.forms import TicketClientForm, TicketMessageForm
+from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article
@@ -67,7 +68,8 @@ def index(request):
 @login_required(login_url='account_login')
 def account(request):
     user = request.user
-    customer = Customer.objects.filter(user=user).first()  # ✅ un seul objet (ou None)
+    customer = Customer.objects.filter(user=user).first()
+    tickets = Ticket.objects.filter(customer=customer)
 
     if not customer:
         messages.error(request, '⬅︎ Merci de compléter votre profil.')
@@ -78,11 +80,30 @@ def account(request):
 
     documents_dict = {doc.document_name: doc for doc in documents}
 
+    if request.method == "POST":
+        form = TicketClientForm(request.POST, request.FILES)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+
+            ticket.customer = request.user.customer
+            ticket.status = Ticket.OPEN
+
+            ticket.save()
+
+            messages.success(request, 'Votre ticket est bien enregistré')
+            return redirect('page-success-client')
+        else:
+            messages.error(request, 'Validation impossible, merci de vérifier le formulaire.')
+    else:
+        form = TicketClientForm()
+
     context = {
         "customer": customer,
         "projects": projects,
         "documents_dict": documents_dict,
-        "DOCS_CHOICES": dict(Documents.DOCS_CHOICES)
+        "DOCS_CHOICES": dict(Documents.DOCS_CHOICES),
+        "form": form,
+        'tickets': tickets,
     }
     return render(request, "site/account.html", context)
 

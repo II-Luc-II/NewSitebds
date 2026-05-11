@@ -1,16 +1,20 @@
 import os
 
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from django.db.models import Q, ProtectedError
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
 from django.utils.timezone import now
 from django.views.decorators.http import require_POST
 
-from customer.forms import CustomerForm, CustomerAdminForm, ProjectForm, DocumentsForm
-from customer.models import Customer, MyProject, Documents, Fonctions
+from customer.forms import CustomerForm, CustomerAdminForm, ProjectForm, DocumentsForm, TicketMessageForm
+from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
 from site_bds.models import Contact
 from site_bds.views import is_superuser
 from yourproject.models import Question
@@ -94,10 +98,18 @@ def edit_profil_customer(request, customer_id):
 
 @user_passes_test(is_superuser)
 def administration(request):
-    messages_clients = Contact.objects.filter(checked=False)
+    messages_clients = Contact.objects.filter(checked=False).order_by('-created_at')
+    messages_clients_checked = Contact.objects.all().order_by('-created_at')
     messages_clients_count = messages_clients.count()
+    messages_clients_checked_count = messages_clients_checked.count()
 
-    devis = Question.objects.all().order_by('-created_at')
+    tickets = Ticket.objects.all().order_by('-created_at')
+    tickets_count = Ticket.objects.filter(
+        status=Ticket.IN_PROGRESS
+    ).count()
+
+    devis = Question.objects.filter(checked=False).order_by('-created_at')
+    devis_checked = Question.objects.all().order_by('-created_at')
     devis_count = devis.count()
 
     context = {
@@ -105,6 +117,11 @@ def administration(request):
         'messages_clients_count': messages_clients_count,
         'devis': devis,
         'devis_count': devis_count,
+        'messages_clients_checked': messages_clients_checked,
+        'messages_clients_checked_count': messages_clients_checked_count,
+        'devis_checked': devis_checked,
+        'tickets': tickets,
+        'tickets_count': tickets_count,
     }
     return render(request, "admin-customer/administration.html", context)
 
@@ -116,13 +133,16 @@ def dashboard_partial(request):
     customers = Customer.objects.all().order_by('last_name')
     customers_count = customers.count()
 
+    messages_clients = Contact.objects.filter(checked=False)
+    messages_clients_checked = Contact.objects.all().order_by('-created_at')
+    messages_clients_count = messages_clients.count()
+    messages_clients_checked_count = messages_clients_checked.count()
+
     projects = MyProject.objects.all().order_by('-created_at')[:5]
     projects_count = projects.count()
 
     documents = Documents.objects.all().order_by('-created_at')
     documents_count = documents.count()
-
-    messages_clients = Contact.objects.filter(checked=False)
 
     context = {
         'customers_count': customers_count,
@@ -135,6 +155,9 @@ def dashboard_partial(request):
         'documents_count': documents_count,
 
         'messages_clients': messages_clients,
+        'messages_clients_count': messages_clients_count,
+        'messages_clients_checked': messages_clients_checked,
+        'messages_clients_checked_count': messages_clients_checked_count,
     }
     return render(request, "admin-customer/partials/_dashboard.html", context)
 
@@ -415,9 +438,11 @@ def delete_document(request, document_id):
 @user_passes_test(is_superuser)
 def messages_clients_partial(request):
     messages_clients = Contact.objects.filter(checked=False)
+    messages_clients_checked = Contact.objects.all().order_by('-created_at')
 
     context = {
         "messages_clients": messages_clients,
+        "messages_clients_checked": messages_clients_checked,
     }
     return render(request, 'admin-customer/partials/_messages.html', context)
 
@@ -441,7 +466,20 @@ def delete_message(request, message_client_id):
 
     messages.success(request, "Le message a bien été supprimé.")
 
-    return redirect("customer:administration")
+    return redirect(reverse("customer:administration") + "?section=messages")
+
+
+@user_passes_test(is_superuser)
+@require_POST
+def checked_message(request, message_client_id):
+    message_client = get_object_or_404(Contact, id=message_client_id)
+
+    message_client.checked = request.POST.get("checked") == "on"
+    message_client.save()
+
+    messages.success(request, "Le statut du message a bien été mis à jour.")
+
+    return redirect(reverse("customer:administration") + "?section=messages")
 
 # ----------------- Devis clients----------------------
 
@@ -475,3 +513,153 @@ def delete_devis(request, devi_id):
     messages.success(request, "Le devi a bien été supprimé.")
 
     return redirect("customer:administration")
+
+
+@user_passes_test(is_superuser)
+@require_POST
+def checked_devis(request, devi_id):
+    devi = get_object_or_404(Question, id=devi_id)
+
+    devi.checked = request.POST.get("checked") == "on"
+    devi.save()
+
+    messages.success(request, "Le statut du devis a bien été mis à jour.")
+
+    return redirect(reverse("customer:administration") + "?section=devis")
+
+
+# ----------------- Projects for dmin ----------------------
+
+@user_passes_test(is_superuser)
+def tickets_partial(request):
+    tickets = Ticket.objects.all().order_by('-created_at')
+    tickets_count = Ticket.objects.filter(
+        status=Ticket.IN_PROGRESS
+    ).count()
+
+    context = {
+        "tickets": tickets,
+        'tickets_count': tickets_count,
+    }
+
+    return render(request, "admin-customer/partials/_ticket.html", context)
+
+
+@login_required(login_url='sign_in')
+def tickets_details(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    messages_ticket = ticket.messages.all()
+    message_form = TicketMessageForm()
+
+    context = {
+        "ticket": ticket,
+        "messages_ticket": messages_ticket,
+        "message_form": message_form,
+    }
+
+    return render(request, "admin-customer/details-ticket.html", context)
+
+@login_required
+def add_ticket_message(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == "POST":
+        form = TicketMessageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.ticket = ticket
+            msg.author = request.user
+            msg.save()
+
+            # Statut automatique
+            if request.user.is_superuser:
+                ticket.status = Ticket.WAITING_CLIENT
+            else:
+                ticket.status = Ticket.IN_PROGRESS
+
+            ticket.save()
+
+            # Notification mail simple
+            if request.user.is_superuser:
+                recipient = ticket.customer.mail
+            else:
+                recipient = "contact@bds38.com"
+
+            if recipient:
+                EmailMessage(
+                    subject=f"Nouvelle réponse ticket : {ticket.title}",
+                    body=f"Une nouvelle réponse a été ajoutée au ticket : {ticket.title}",
+                    from_email="BDS <contact@bds38.com>",
+                    to=[recipient],
+                ).send(fail_silently=True)
+
+            messages_ticket = ticket.messages.all()
+
+            html = render_to_string(
+                "admin-customer/partials/_ticket-conversation.html",
+                {
+                    "ticket": ticket,
+                    "messages_ticket": messages_ticket,
+                    "message_form": TicketMessageForm(),
+                },
+                request=request
+            )
+
+            return HttpResponse(html)
+
+    messages_ticket = ticket.messages.all()
+
+    html = render_to_string(
+        "admin-customer/partials/_ticket-conversation.html",
+        {
+            "ticket": ticket,
+            "messages_ticket": messages_ticket,
+            "message_form": form,
+        },
+        request=request
+    )
+
+    return HttpResponse(html)
+
+
+@login_required
+@require_POST
+def close_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    # sécurité client
+    if not request.user.is_superuser:
+        customer = get_object_or_404(Customer, user=request.user)
+        if ticket.customer != customer:
+            return HttpResponseForbidden()
+
+    ticket.status = Ticket.CLOSED
+    ticket.closed_at = timezone.now()
+    ticket.save()
+
+    messages.success(request, "Le ticket a bien été clôturé.")
+
+    return redirect("customer:tickets_details", ticket.id)
+
+
+@login_required
+@require_POST
+def delete_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    # sécurité client
+    if not request.user.is_superuser:
+        customer = get_object_or_404(Customer, user=request.user)
+
+        if ticket.customer != customer:
+            return HttpResponseForbidden()
+
+    ticket.delete()
+
+    messages.success(request, "Le ticket a bien été supprimé.")
+
+    if request.user.is_superuser:
+        return redirect("customer:administration")
+
+    return redirect("customer:tickets_client")

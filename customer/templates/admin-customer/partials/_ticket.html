@@ -1,0 +1,132 @@
+{% load static %}
+{% load crispy_forms_filters %}
+
+<!-- tickets -->
+<section
+		id="tickets"
+		class="content-section"
+		hx-get="{% url 'customer:tickets_partial' %}"
+		hx-trigger="ticketsUpdated from:body"
+		hx-swap="outerHTML"
+>
+	<div class="section-header">
+		<div class="row">
+			<div class="col-lg-10 col-md-10 col-sm-12 py-2">
+				<h2>Tickets</h2>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-12 py-2">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ticketModal">
+					+ Ajouter un Ticket
+				</button>
+			</div>
+			>
+		</div>
+		<div class="table-container">
+			<table class="table table-secondary table-striped">
+				<thead>
+				<tr>
+					<th>User</th>
+					<th>Projet</th>
+					<th>Titre</th>
+					<th>Type</th>
+					<th>Status</th>
+					<th>Priorité</th>
+					<th>Créer le</th>
+					<th>Modifier le</th>
+					<th>Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for ticket in tickets %}
+					<tr>
+
+						<td class="align-middle">{{ ticket.customer }}</td>
+						<td class="align-middle">
+							<a href="#">
+								{{ ticket.project.project_name }}
+							</a>
+						</td>
+						<td class="align-middle">{{ ticket.title }}</td>
+						<td class="align-middle text-center">{{ ticket.ticket_type }}</td>
+						<td class="align-middle text-center">
+							{{ ticket.status }}
+							{% if tickets_count %}
+							<span class="badge text-bg-danger">
+                                {{ tickets_count }}
+							</span>
+							{% endif %}
+						</td>
+						<td class="align-middle text-center">{{ ticket.priority }}</td>
+						<td class="align-middle text-center">{{ ticket.created_at }}</td>
+						<td class="align-middle text-center">{{ ticket.updated_at }}</td>
+						<td class="align-middle text-center">
+							{% if ticket.id %}
+								<a href="{% url 'customer:tickets_details' ticket.id %}"
+								   class="btn btn-primary btn-sm">
+									<i class="bi bi-eye"></i> Voir
+								</a>
+							{% endif %}
+						</td>
+					</tr>
+				{% empty %}
+					<tr>
+						<td colspan="10">Aucun ticket.</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+
+</section>
+<!-- Ticket Modal add -->
+<div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+
+			<form method="post" action="{% url 'customer:project' %}">
+				{% csrf_token %}
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="ticketModalLabel">📦 Ajouter un ticket</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="row g-3">
+						<div class="col-md-4">#</div>
+						<div class="col-md-4">#</div>
+						<div class="col-md-4">#</div>
+						<div class="col-md-4">#</div>
+						<div class="col-md-4">#</div>
+						<div class="col-md-4">#</div>
+						<div class="col-12">#</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<script>
+    function filterProject() {
+        const input = document.getElementById('projectSearch');
+        const filter = input.value.toLowerCase();
+
+        const table = document.querySelector('#project table tbody');
+        if (!table) return;
+
+        const rows = table.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    }
+</script>

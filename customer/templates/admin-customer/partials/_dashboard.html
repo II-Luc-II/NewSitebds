@@ -13,8 +13,12 @@
 			<div class="stat-number" id="totalProject">{{ projects_count }}</div>
 		</div>
 		<div class="col-lg-3 col-md-3 col-sm-12 stat-card align-col mb-2">
-			<h3>Documents</h3>
-			<div class="stat-number" id="totalDocuments">{{ documents_count }}</div>
+			{% if messages_clients_checked_count <= 1%}
+				<h3>Message</h3>
+			{% else %}
+				<h3>Messages</h3>
+			{% endif %}
+			<div class="stat-number" id="totalMessages">{{ messages_clients_checked_count}}</div>
 		</div>
 	</div>
 

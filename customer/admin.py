@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
 
-from customer.models import Customer, MyProject, Documents, Fonctions
+from customer.models import Customer, MyProject, Documents, Fonctions, TicketMessage, Ticket
 
 
 class CustomerAdmin(admin.StackedInline):
@@ -62,3 +63,121 @@ class FonctionsAdmin(admin.ModelAdmin):
     search_fields = ('project__project_name',)
     list_max_show_all = 50
     list_per_page = 30
+
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "title",
+        "customer",
+        "project",
+        "ticket_type",
+        "priority_badge",
+        "status_badge",
+        "created_at",
+        "updated_at",
+        "status",
+    )
+
+    list_filter = (
+        "status",
+        "priority",
+        "ticket_type",
+        "created_at",
+        "project",
+    )
+
+    search_fields = (
+        "title",
+        "description",
+        "customer__last_name",
+        "customer__first_name",
+        "customer__mail",
+        "project__project_name",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "closed_at",
+    )
+
+    list_editable = (
+        "status",
+    )
+
+    ordering = ("-created_at",)
+
+    fieldsets = (
+        ("Client / Projet", {
+            "fields": (
+                "customer",
+                "project",
+            )
+        }),
+        ("Ticket", {
+            "fields": (
+                "title",
+                "description",
+                "ticket_type",
+                "priority",
+                "status",
+                "attachment",
+            )
+        }),
+        ("Dates", {
+            "fields": (
+                "created_at",
+                "updated_at",
+                "closed_at",
+            )
+        }),
+    )
+
+    def priority_badge(self, obj):
+        colors = {
+            "low": "secondary",
+            "medium": "primary",
+            "high": "warning",
+            "urgent": "danger",
+        }
+
+        return format_html(
+            '<span class="badge text-bg-{}">{}</span>',
+            colors.get(obj.priority, "secondary"),
+            obj.get_priority_display()
+        )
+
+    priority_badge.short_description = "Priorité"
+
+    def status_badge(self, obj):
+        colors = {
+            "open": "success",
+            "in_progress": "primary",
+            "waiting_client": "warning",
+            "resolved": "info",
+            "closed": "secondary",
+        }
+
+        return format_html(
+            '<span class="badge text-bg-{}">{}</span>',
+            colors.get(obj.status, "secondary"),
+            obj.get_status_display()
+        )
+
+    status_badge.short_description = "Statut"
+
+    list_max_show_all = 50
+    list_per_page = 30
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
+
+
+
+
+
+
+

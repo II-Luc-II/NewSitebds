@@ -10,6 +10,7 @@ class Question(models.Model):
     entreprise =models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField()
     telephone = models.CharField(max_length=255)
+    checked = models.BooleanField(default=False, verbose_name='Traité')
     created_at = models.DateTimeField(auto_now=True, verbose_name='Création Date')
 
     def __str__(self):

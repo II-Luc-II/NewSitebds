@@ -21,13 +21,16 @@
 	<p><strong>Email :</strong> {{ message_client.email }}</p>
 	<p><strong>Date :</strong> {{ message_client.created_at|date:"d/m/Y H:i" }}</p>
 	<p><strong>Sujet :</strong> {{ message_client.subject }}</p>
+	<div>
 
+	</div>
 	<hr>
 
 	<p><strong>Message :</strong></p>
 	<div class="border rounded p-3 bg-light">
 		{{ message_client.message|safe }}
 	</div>
+
 </div>
 
 <div class="modal-footer">
@@ -52,4 +55,5 @@
 			Supprimer
 		</button>
 	</form>
+
 </div>

@@ -1,7 +1,7 @@
 from django import forms
 from pylint.pyreverse.inspector import Project
 
-from customer.models import Customer, MyProject, Documents
+from customer.models import Customer, MyProject, Documents, Ticket, TicketMessage
 
 
 class CustomerForm(forms.ModelForm):
@@ -56,3 +56,44 @@ class DocumentsForm(forms.ModelForm):
     class Meta:
         model = Documents
         fields = '__all__'
+
+
+class TicketClientForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = [
+            "project",
+            "title",
+            "description",
+            "ticket_type",
+            "priority",
+            "attachment",
+        ]
+
+        widgets = {
+            "description": forms.Textarea(attrs={
+                "rows": 5,
+                "placeholder": "Décrivez votre demande..."
+            }),
+        }
+
+    def __init__(self, *args, customer=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if customer:
+            self.fields["project"].queryset = MyProject.objects.filter(user=customer)
+
+        self.fields["project"].required = False
+
+
+class TicketMessageForm(forms.ModelForm):
+    class Meta:
+        model = TicketMessage
+        fields = ["message", "attachment"]
+
+        widgets = {
+            "message": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": "Écrire une réponse..."
+            }),
+        }

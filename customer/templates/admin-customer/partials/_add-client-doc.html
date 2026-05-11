@@ -5,20 +5,26 @@
 {% load crispy_forms_tags %}
 
 <section id="client-documents" class="content-section">
-    <div class="section-header mb-5">
-        <h2>Documents clients</h2>
-    </div>
+	<div class="row d-flex justify-content-center">
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'customer:add_documents_clients_partial' %}">
-        {% csrf_token %}
+		<div class="col-md-6 col-lg-6 col-sm-12">
+			<div class="section-header mb-5">
+				<h2>Documents clients</h2>
+			</div>
+			<form method="post" enctype="multipart/form-data"
+			      action="{% url 'customer:add_documents_clients_partial' %}">
+				{% csrf_token %}
 
-        {{ form|crispy }}
+				{{ form|crispy }}
 
-        <div class="text-end mt-3">
-            <button type="submit" class="btn btn-primary">
-                Enregistrer
-            </button>
-        </div>
-    </form>
+				<div class="text-end mt-3">
+					<button type="submit" class="btn btn-primary">
+						Enregistrer
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 </section>
 

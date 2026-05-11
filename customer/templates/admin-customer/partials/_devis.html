@@ -25,6 +25,27 @@
 			<tbody>
 			{% for devi in devis %}
 				<tr>
+					<td class="align-middle text-center">
+						<form method="post"
+						      action="{% url 'customer:checked_devis' devi.id %}"
+						      class="d-flex justify-content-between align-items-center gap-2">
+							{% csrf_token %}
+
+							<span class="badge {% if devi.checked %}text-bg-success{% else %}text-bg-danger{% endif %}">
+                                {{ devi.checked|yesno:"Traité,En attente" }}
+                            </span>
+
+							<div class="form-check form-switch m-0">
+								<input class="form-check-input fs-5"
+								       type="checkbox"
+								       role="switch"
+								       name="checked"
+								       onchange="this.form.submit()"
+								       {% if devi.checked %}checked{% endif %}>
+							</div>
+						</form>
+
+					</td>
 					<td class="align-middle">{{ devi.author }}</td>
 					<td class="align-middle">{{ devi.entreprise }}</td>
 					<td class="align-middle">{{ devi.email }}</td>

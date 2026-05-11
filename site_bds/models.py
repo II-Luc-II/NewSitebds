@@ -69,12 +69,16 @@ class Contact(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=255, verbose_name="Sujet")
     message = models.TextField()
-    checked = models.BooleanField(default=False)
+    checked = models.BooleanField(default=False, verbose_name="Traité")
     no_robot = models.BooleanField(default=False, verbose_name="Robot")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Créé le")
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Messages'
+        verbose_name = 'Message'
 
 
 class Newsletter(models.Model):

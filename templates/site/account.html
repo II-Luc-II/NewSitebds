@@ -1,4 +1,5 @@
 {% extends 'base-pages.html' %}
+{% load crispy_forms_filters %}
 {% load custom_filters %}
 {% load static %}
 
@@ -26,14 +27,14 @@
 	<!-- Start: Contact coordonnées-->
 	<div class="container min-vh-100">
 		<section id="account" class="account bg-light">
-			<div class="text-center py-5">
-				<h1 class="title-color">Mon espace client</h1>
-				<div class="divider"></div>
+			<div class="section-title mt-5" data-aos="fade-down">
+				<h2>Compte</h2>
+				<p>Mon Espace Client</p>
 			</div>
 			<!-- Profile user -->
 			<div class="row">
 				<!-- colonne 1 -->
-				<div class="col-lg-3 col-md-3 col-12 text-center p-2">
+				<div class="col-lg-3 col-md-3 col-12 text-center p-2" data-aos="fade-right">
 					{% if customer.image %}
 						<div class="p-2">
 							<img src="{{ customer.image.url }}" alt="user"
@@ -65,12 +66,14 @@
 					{% endif %}
 				</div>
 				<!-- colonne 2 -->
-				<div class="col-lg-9 md-10 col-12">
+				<div class="col-lg-9 md-10 col-12" data-aos="fade-left">
 					<nav>
 						<ul class="nav nav-tabs" role="tablist">
 							<!-- Mes informations personnelles -->
 							<li class="nav-item" role="presentation">
-								<a class="nav-link color-tab-pane" data-bs-toggle="pill" data-bs-target="#tab1"
+								<a class="nav-link color-tab-pane active"
+								   data-bs-toggle="pill"
+								   data-bs-target="#tab1"
 								   role="tab">
 									<i class="bi bi-person-exclamation"
 									   data-bs-toggle="tooltip"
@@ -111,11 +114,37 @@
 									</span>
 								</a>
 							</li>
+							<!-- Mes tickets -->
+							<li class="nav-item" role="presentation">
+								<a class="nav-link color-tab-pane" data-bs-toggle="pill" data-bs-target="#tab4"
+								   role="tab">
+									<i class="bi bi-ticket"
+									   data-bs-toggle="tooltip"
+									   data-bs-placement="bottom"
+									   data-bs-custom-class="custom-tooltip"
+									   data-bs-title="Liste des tickets déposés (problème, évolution, etc..)">
+										Mes tickets
+									</i>
+								</a>
+							</li>
+							<!-- Mes tickets -->
+							<li class="nav-item" role="presentation">
+								<a class="nav-link color-tab-pane" data-bs-toggle="pill" data-bs-target="#tab5"
+								   role="tab">
+									<i class="bi bi-ticket-detailed"
+									   data-bs-toggle="tooltip"
+									   data-bs-placement="bottom"
+									   data-bs-custom-class="custom-tooltip"
+									   data-bs-title="Déposer un ticket (problème, évolution, etc..)">
+										Nouveau ticket
+									</i>
+								</a>
+							</li>
 						</ul>
 					</nav>
 					<div class="tab-content">
 						<!-- Mes informations personnelles -->
-						<div class="tab-pane fade" id="tab1" role="tabpanel">
+						<div class="tab-pane fade show active" id="tab1" role="tabpanel">
 							<div class="row">
 								<div class="col-12">
 									<div class="p-4">
@@ -172,37 +201,59 @@
 												<table class="table table-bordered table-responsive rounded border overflow-hidden">
 													<thead class="thead-light">
 													<tr>
-														<th scope="col" class="align-middle bg-info">Référence</th>
-														<th scope="col" class="align-middle bg-info">Statut</th>
-														<th scope="col" class="align-middle bg-info">Nom du Projet</th>
-														<th scope="col" class="align-middle bg-info">Domaine</th>
-														<th scope="col" class="align-middle bg-info">Serveur</th>
-														<th scope="col" class="align-middle bg-info">
+														<th scope="col" class="align-middle dark-blue">Référence</th>
+														<th scope="col" class="align-middle dark-blue">Statut</th>
+														<th scope="col" class="align-middle dark-blue">Nom du Projet</th>
+														<th scope="col" class="align-middle dark-blue">Domaine</th>
+														<th scope="col" class="align-middle dark-blue">Serveur</th>
+														<th scope="col" class="align-middle dark-blue">
 															Type de projet
 														</th>
-														<th scope="col" class="align-middle bg-info">
+														<th scope="col" class="align-middle dark-blue">
 															Maintenance
 														</th>
+														<th scope="col" class="align-middle dark-blue">Action</th>
 													</tr>
 													</thead>
 													<tbody>
 													{% for project in projects %}
 														<tr class="align-items-center">
-															<td>
-																{{ project.ref }} <br>
-																<a href="{% url 'details_my_project' project.id %}">
-																	<i class="bi bi-eye"> Détail</i>
-																</a>
+															<td class="alin-middle text-center">
+																{{ project.ref }}
 															</td>
-															<td>{{ project.status }}</td>
-															<td>{{ project.project_name }}</td>
-															<td>{{ project.domaine }}</td>
-															<td>{{ project.server }}</td>
-															<td>{{ project.project_type }}</td>
-															<td>{{ project.maintenance_contract }}</td>
+															<td class="alin-middle text-center">
+																{{ project.status }}
+															</td>
+															<td class="alin-middle text-center">
+																{{ project.project_name }}
+															</td>
+															<td class="alin-middle text-center">
+																{{ project.domaine }}
+															</td>
+															<td class="alin-middle text-center">
+																{{ project.server }}
+															</td>
+															<td class="alin-middle text-center">
+																{{ project.project_type }}
+															</td>
+															<td class="alin-middle text-center">
+																{{ project.maintenance_contract }}
+															</td>
+															<td class="alin-middle text-center">
+																{% if project.id %}
+																	<a href="{% url 'details_my_project' project.id %}"
+																	   class="btn btn-primary btn-sm">
+																		<i class="bi bi-eye"> Détail</i>
+																	</a>
+																{% endif %}
+															</td>
 														</tr>
 													{% empty %}
-														<h5 class="text-red">Aucun document pour le moment</h5>
+														<tr>
+															<td colspan="10" class="text-center text-muted py-4">
+																<div>Aucun document enregistré</div>
+															</td>
+														</tr>
 													{% endfor %}
 												</table>
 											</div>
@@ -238,6 +289,100 @@
 								</div>
 							</div>
 						</div>
+						<!-- Mes tickets -->
+						<div class="tab-pane fade" id="tab4" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<div>
+										<div class="row block-fields d-flex justify-content-between align-items-center mt-3">
+
+											<div style="overflow-x: auto;">
+												<table class="table table-bordered table-responsive rounded border overflow-hidden">
+													<thead class="thead-light">
+													<tr>
+														<th class="dark-blue align-middle text-center">Projet</th>
+														<th class="dark-blue align-middle text-center">Titre</th>
+														<th class="dark-blue align-middle text-center">Type</th>
+														<th class="dark-blue align-middle text-center">Status</th>
+														<th class="dark-blue align-middle text-center">Priorité</th>
+														<th class="dark-blue align-middle text-center">Créer le</th>
+														<th class="dark-blue align-middle text-center">Modifier le</th>
+														<th class="dark-blue align-middle text-center">Action</th>
+													</tr>
+													</thead>
+
+													<tbody>
+													{% for ticket in tickets %}
+														<tr>
+															<td class="align-middle">
+																{% if ticket.project.project_name %}
+																	{{ ticket.project.project_name }}
+																{% else %}
+																	Aucune
+																{% endif %}
+															</td>
+															<td class="align-middle">{{ ticket.title }}</td>
+															<td class="align-middle text-center">
+																{{ ticket.ticket_type }}
+															</td>
+															<td class="align-middle text-center">
+																{{ ticket.status }}
+															</td>
+															<td class="align-middle text-center">
+																{{ ticket.priority }}
+															</td>
+															<td class="align-middle text-center">
+																{{ ticket.created_at }}</td>
+															<td class="align-middle text-center">{{ ticket.updated_at }}
+															</td>
+															<td>
+																{% if ticket.id %}
+																	<a href="{% url 'customer:tickets_details' ticket.id %}"
+																	   class="btn btn-primary btn-sm">
+																		<i class="bi bi-eye"></i> Voir
+																	</a>
+																{% endif %}
+															</td>
+														</tr>
+													{% empty %}
+														<tr>
+															<td colspan="8" class="text-center text-danger">
+																<i class="bi bi-ticket-detailed">
+																	Aucun ticket enregistré
+																</i>
+															</td>
+														</tr>
+													{% endfor %}
+													</tbody>
+
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Déposer un ticket -->
+						<div class="tab-pane fade" id="tab5" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<div>
+										<div class="row block-fields d-flex justify-content-between align-items-center mt-3 p-3">
+											<div class="col-lg-10 col-md-10 col-sm-12 dark-blue rounded p-3">
+												<form action="{% url 'account' %}" method="post" id="color-input"
+												      enctype="multipart/form-data">
+													{% csrf_token %}
+													{{ form|crispy }}
+													<div class="text-end">
+														<button type="submit" class="btn btn-general">Valider</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="py-5 p-4 text-start">
@@ -250,7 +395,8 @@
 										{{ message }}
 									</div>
 									<button type="button" class="btn-close btn-close-white me-2 m-auto"
-									        data-bs-dismiss="toast"></button>
+									        data-bs-dismiss="toast">
+									</button>
 								</div>
 							</div>
 						{% endif %}
