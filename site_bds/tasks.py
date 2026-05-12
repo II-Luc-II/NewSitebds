@@ -8,7 +8,7 @@ from django.utils import timezone
 from datetime import timedelta
 import logging
 
-
+from django.db.models import Q
 
 logger = logging.getLogger(__name__)
 
@@ -54,52 +54,33 @@ def send_mail_batch(self, subject, html_message, plain_message, recipient_batch,
         raise
 
 
-@shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, max_retries=3)
-def cleanup_unconfirmed_allauth_accounts(self, days=None):
-    """
-    Supprime les adresses e-mail allauth non confirmées trop anciennes.
-    Supprime aussi les utilisateurs qui n'ont plus aucune adresse e-mail confirmée.
-
-    Par défaut, utilise ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS, sinon 3 jours.
-    """
-
-    expire_days = days or getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 3)
-    cutoff = timezone.now() - timedelta(days=expire_days)
-
+@shared_task(bind=True)
+def cleanup_unconfirmed_allauth_accounts(self):
     User = get_user_model()
 
-    # Utilisateurs ayant une adresse non vérifiée ancienne
-    unverified_emails = EmailAddress.objects.filter(
-        verified=False,
-        user__date_joined__lt=cutoff,
-    ).select_related("user")
+    expire_days = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 3)
+    cutoff = timezone.now() - timedelta(days=expire_days)
 
-    user_ids = list(
-        unverified_emails.values_list("user_id", flat=True).distinct()
-    )
+    users_to_delete = User.objects.filter(
+        date_joined__lt=cutoff
+    ).filter(
+        Q(emailaddress__verified=False) | Q(emailaddress__isnull=True)
+    ).exclude(
+        emailaddress__verified=True
+    ).distinct()
 
-    deleted_email_count, _ = unverified_emails.delete()
+    deleted_users_count = users_to_delete.count()
+    deleted_users_ids = list(users_to_delete.values_list("id", flat=True))
 
-    deleted_user_count = 0
+    deleted_result = users_to_delete.delete()
 
-    for user in User.objects.filter(id__in=user_ids):
-        has_verified_email = EmailAddress.objects.filter(
-            user=user,
-            verified=True,
-        ).exists()
-
-        if not has_verified_email:
-            user.delete()
-            deleted_user_count += 1
-
-    logger.info(
-        "Nettoyage allauth terminé: %s adresse(s) non confirmée(s), %s utilisateur(s) supprimé(s).",
-        deleted_email_count,
-        deleted_user_count,
-    )
+    deleted_emails_count, _ = EmailAddress.objects.filter(
+        verified=False
+    ).delete()
 
     return {
-        "deleted_unverified_emails": deleted_email_count,
-        "deleted_users": deleted_user_count,
-        "expire_days": expire_days,
+        "deleted_users_count": deleted_users_count,
+        "deleted_users_ids": deleted_users_ids,
+        "delete_result": deleted_result,
+        "deleted_unverified_emails_count": deleted_emails_count,
     }
