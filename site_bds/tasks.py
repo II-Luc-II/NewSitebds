@@ -56,31 +56,39 @@ def send_mail_batch(self, subject, html_message, plain_message, recipient_batch,
 
 @shared_task(bind=True)
 def cleanup_unconfirmed_allauth_accounts(self):
+
     User = get_user_model()
 
-    expire_days = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 3)
+    expire_days = getattr(
+        settings,
+        "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS",
+        3
+    )
+
     cutoff = timezone.now() - timedelta(days=expire_days)
 
-    users_to_delete = User.objects.filter(
-        date_joined__lt=cutoff
+    # IDs des users confirmés
+    verified_user_ids = EmailAddress.objects.filter(
+        verified=True
+    ).values_list("user_id", flat=True)
+
+    # Users anciens sans email vérifié
+    users_to_delete = User.objects.exclude(
+        id__in=verified_user_ids
     ).filter(
-        Q(emailaddress__verified=False) | Q(emailaddress__isnull=True)
-    ).exclude(
-        emailaddress__verified=True
-    ).distinct()
+        date_joined__lt=cutoff
+    )
 
     deleted_users_count = users_to_delete.count()
-    deleted_users_ids = list(users_to_delete.values_list("id", flat=True))
 
-    deleted_result = users_to_delete.delete()
+    deleted_users_ids = list(
+        users_to_delete.values_list("id", flat=True)
+    )
 
-    deleted_emails_count, _ = EmailAddress.objects.filter(
-        verified=False
-    ).delete()
+    delete_result = users_to_delete.delete()
 
     return {
         "deleted_users_count": deleted_users_count,
         "deleted_users_ids": deleted_users_ids,
-        "delete_result": deleted_result,
-        "deleted_unverified_emails_count": deleted_emails_count,
+        "delete_result": delete_result,
     }
