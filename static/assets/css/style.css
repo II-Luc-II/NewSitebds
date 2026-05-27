@@ -174,6 +174,36 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #587B9F !important;
 }
 
+.custom-tooltip {
+    --bs-tooltip-bg: #fff;
+    --bs-tooltip-color: #1d2945;
+}
+
+.custom-tooltip .tooltip-inner {
+    background-color: #fff !important;
+    color: #1d2945 !important;
+}
+
+/* TOP */
+.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #fff !important;
+}
+
+/* BOTTOM */
+.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #fff !important;
+}
+
+/* LEFT */
+.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: #fff !important;
+}
+
+/* RIGHT */
+.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: #fff !important;
+}
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/

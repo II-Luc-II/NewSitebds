@@ -4,6 +4,7 @@
 <header id="header" class="fixed-top d-flex align-items-center header-transparent">
 
 	<div class="container d-flex align-items-center">
+	  <!-- Logo -->
 		<div class="logo-bds">
 			<a href="{% url 'index' %}">
 				<img src="{% static 'images/img-accueil/BLANC-ICON.svg' %}"
@@ -11,14 +12,17 @@
 				     class="img-fluid">
 			</a>
 		</div>
+		<!-- BDS -->
 		<div class="logo mr-auto">
 			<h1 class="text-light"><a href="{% url 'index' %}"><span>B.D.S</span></a></h1>
 		</div>
+		<!-- Nav menu -->
 		<nav class="nav-menu d-none d-lg-block">
 			<ul>
+				<!-- Menu Qui sommes-nous ? -->
 				<li class="nav-item dropdown anim-link">
 					<a class="nav-link" href="{% url 'index' %}">Qui sommes-nous ?</a>
-
+					<!-- Items sommes-nous ? -->
 					<ul class="dropdown-menu">
 						<li>
 							<a class="dropdown-item" href="{% url 'index' %}#about">A-propos</a>
@@ -37,6 +41,7 @@
 						</li>
 					</ul>
 				</li>
+				<!-- Menu Projet -->
 				<li class="nav-item anim-link">
 					<a href="{% url 'your-project' %}" class="nav-link"
 					   data-bs-toggle="tooltip"
@@ -46,12 +51,13 @@
 						Un projet ?
 					</a>
 				</li>
-				<!-- Menu actualité -->
+				<!-- Menu applications -->
 				<li class="nav-item dropdown anim-link">
 					<a class="nav-link"
 					   href="{% url 'news' %}">
 						Les applications
 					</a>
+					<!-- Items sommes-nous ? -->
 					<ul class="dropdown-menu">
 						<li>
 							<a class="dropdown-item" href="{% url 'news' %}#blog-{{ blogs.id }}"
@@ -74,12 +80,15 @@
 						{% endfor %}
 					</ul>
 				</li>
+				<!-- Menu Contact -->
 				<li class="nav-item anim-link">
 					<a href="{% url "contact" %}" class="nav-link">Contact</a>
 				</li>
+				<!-- Menu Gestion -->
 				{% if user.is_superuser %}
 					<li class="nav-item dropdown anim-link">
 						<a class="nav-link" href="#">Gestion</a>
+						<!-- Items Gestion -->
 						<ul class="dropdown-menu">
 							<li>
 								<a class="dropdown-item" href="{% url 'site_list' %}">Liste des sites</a>
@@ -99,9 +108,10 @@
 						</ul>
 					</li>
 				{% endif %}
-
-				<li class="drop-down">
-					<a href="">Réseaux sociaux</a>
+				<!-- Menu Réseaux sociaux -->
+				<li class="nav-item dropdown anim-link">
+					 <a class="nav-link" href="#">Réseaux sociaux</a>
+					<!-- Items Réseaux sociaux -->
 					<ul class="dropdown-menu">
 						<li>
 							<a href="https://www.facebook.com/BDS.EI/" class="facebook" target="_blank"
@@ -135,10 +145,13 @@
 						</li>
 					</ul>
 				</li>
+				<!-- Menu Mon compte -->
 				<li class="nav-item dropdown anim-link">
-					<a href="#"><i class="bi bi-person-circle"></i> Mon compte </a>
+					<a class="nav-link" href="#">
+						<i class="bi bi-person-circle"></i> Espace client </a>
+					<!-- item Mon compte -->
 					<ul class="dropdown-menu">
-						<li class="nav-item dropdown anim-link">
+						<li>
 							<!-- User logout -->
 							<a href="{% url 'account' %}"
 							   class="dropdown-item"
@@ -210,7 +223,9 @@
 					</ul>
 				</li>
 			</ul>
-		</nav><!-- .nav-menu -->
+		</nav>
+		<!-- .nav-menu -->
 	</div>
-</header><!-- End Header -->
+</header>
+<!-- End Header -->
 
