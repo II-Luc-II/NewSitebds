@@ -46,14 +46,33 @@
 						Un projet ?
 					</a>
 				</li>
-				<li class="nav-item anim-link">
-					<a href="{% url 'news' %}" class="nav-link"
-					   data-bs-toggle="tooltip"
-					   data-bs-placement="left"
-					   data-bs-custom-class="custom-tooltip"
-					   data-bs-title="Voir les applications et les dernières nouvelles">
-						Les news
+				<!-- Menu actualité -->
+				<li class="nav-item dropdown anim-link">
+					<a class="nav-link"
+					   href="{% url 'news' %}">
+						Les applications
 					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="dropdown-item" href="{% url 'news' %}#blog-{{ blogs.id }}"
+							   data-bs-toggle="tooltip"
+							   data-bs-placement="left"
+							   data-bs-custom-class="custom-tooltip"
+							   data-bs-title="Voir les applications proposées et les articles">
+								Tous les articles
+							</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						{% for blog in blogs %}
+							<li class="cache">
+								<a class="dropdown-item" href="{% url 'news' %}#blog-{{ blog.id }}">
+									{{ blog.title }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
 				</li>
 				<li class="nav-item anim-link">
 					<a href="{% url "contact" %}" class="nav-link">Contact</a>
