@@ -1,4 +1,4 @@
-{% extends "base-pages.html" %}
+{% extends "base.html" %}
 {% load custom_filter_form %}
 {% load static %}
 
@@ -31,7 +31,7 @@
 					Développeur de sites web, applications et de toutes solutions numériques</h1>
 			</div>
 			<div class="section-title" data-aos="fade-up">
-				<h2>Contact</h2>
+				<h2>BDS Contact</h2>
 				<p>Contact</p>
 			</div>
 
@@ -69,8 +69,8 @@
 					{% endif %}
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
-						<div class="form-row">
-							<div class="col-12 ">
+						<div class="row">
+							<div class="col-6">
 								<div class="form-group mb-2">
 									<label for="name"><i class="bi bi-person"></i> Nom*</label>
 									{{ form.name }}
@@ -82,6 +82,8 @@
 										{% endfor %}
 									{% endif %}
 								</div>
+							</div>
+							<div class="col-6">
 								<div class="form-group mb-2">
 									<label for="email"><i class="bi bi-envelope"></i> Email*</label>
 									{{ form.email }}
@@ -93,6 +95,8 @@
 										{% endfor %}
 									{% endif %}
 								</div>
+							</div>
+							<div class="col-6">
 								<div class="form-group mb-2">
 									<label for="subject"><i class="bi bi-pen"></i> Sujet</label>
 									{{ form.subject }}
@@ -104,6 +108,8 @@
 										{% endfor %}
 									{% endif %}
 								</div>
+							</div>
+							<div class="col-12">
 								<div class="form-group mb-2">
 									<label for="message"><i class="bi bi-chat-dots"></i> Message</label>
 									{{ form.message }}
@@ -121,12 +127,13 @@
 											<span class="text-danger">{{ error }}</span>
 										{% endfor %}
 									{% endif %}
-									<label for="captcha">{{ form.captcha }} <br>Code de Vérification (Saisir le code de validation) </label>
+									<label for="captcha">{{ form.captcha }} <br>Code de Vérification (Saisir le code de
+										validation) </label>
 
 								</div>
 
 								<div class="php-email-form">
-									<div class="text-center">
+									<div class="text-end">
 										<button class="btn btn-general" type="submit">
 											Envoyer
 										</button>
@@ -140,4 +147,5 @@
 			</div>
 		</div>
 	</section><!-- End Contact Section -->
+	{{ form.media }}
 {% endblock content %}

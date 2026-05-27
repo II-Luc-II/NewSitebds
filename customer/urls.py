@@ -8,7 +8,7 @@ urlpatterns = [
     # ----------------------------Ajout et modif client#-------------------------
 
     path('add-profil-customer', views.add_profil_customer, name='add_profil_customer'),
-    path('edit-profil-customer/<int:customer_id>/', views.edit_profil_customer, name='edit_profil_customer'),
+    path('edit-profil-customer/<int:user_id>/', views.edit_profil_customer, name='edit_profil_customer'),
     # administration bds
     path('administration', views.administration, name='administration'),
 

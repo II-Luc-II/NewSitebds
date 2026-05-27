@@ -53,8 +53,9 @@ def add_profil_customer(request):
 
 
 @login_required(login_url='sign_in')
-def edit_profil_customer(request, customer_id):
+def edit_profil_customer(request, user_id):
     user = request.user
+    customer_id = user.customer.id
     try:
         customer = Customer.objects.get(id=customer_id, user=user)
     except Customer.DoesNotExist:

@@ -1,4 +1,5 @@
 from django import forms
+from django_ckeditor_5.widgets import CKEditor5Widget
 from pylint.pyreverse.inspector import Project
 
 from customer.models import Customer, MyProject, Documents, Ticket, TicketMessage
@@ -50,6 +51,36 @@ class ProjectForm(forms.ModelForm):
             "maintenance_contract",
             "description",
         ]
+
+        widgets = {
+            "user": forms.Select(attrs={
+                "class": "form-control custom-text-input"
+            }),
+            "project_name": forms.TextInput(attrs={
+                "class": "form-control custom-text-input"
+            }),
+            "project_type": forms.Select(attrs={
+                "class": "form-control custom-text-input"
+            }),
+            "status": forms.Select(attrs={
+                "class": "form-control custom-text-input"
+            }),
+            "domaine": forms.TextInput(attrs={
+                "class": "form-control custom-text-input"
+            }),
+            "server": forms.TextInput(attrs={
+                "class": "form-control custom-text-input"
+            }),
+            "maintenance_contract": forms.CheckboxInput(attrs={
+                "class": "form-check-input"
+            }),
+            "description": CKEditor5Widget(
+                attrs={
+                    "class": "django_ckeditor_5"
+                },
+                config_name="default"
+            ),
+        }
 
 
 class DocumentsForm(forms.ModelForm):

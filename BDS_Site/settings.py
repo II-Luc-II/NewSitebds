@@ -175,51 +175,65 @@ DEFAULT_FROM_EMAIL = 'contact@bds38.com'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
 
-
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 
-
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"
 customColorPalette = [
-        {
-            'color': 'hsl(4, 90%, 58%)',
-            'label': 'Red'
-        },
-        {
-            'color': 'hsl(340, 82%, 52%)',
-            'label': 'Pink'
-        },
-        {
-            'color': 'hsl(291, 64%, 42%)',
-            'label': 'Purple'
-        },
-        {
-            'color': 'hsl(262, 52%, 47%)',
-            'label': 'Deep Purple'
-        },
-        {
-            'color': 'hsl(231, 48%, 48%)',
-            'label': 'Indigo'
-        },
-        {
-            'color': 'hsl(207, 90%, 54%)',
-            'label': 'Blue'
-        },
-        {
-            'color': 'rgba(33, 150, 243, 0.5)',  # Exemple de couleur bleue avec 50% de transparence
-            'label': 'Transparent (100% transparent)'
-        },
-    ]
+    {
+        'color': 'hsl(4, 90%, 58%)',
+        'label': 'Red'
+    },
+    {
+        'color': 'hsl(340, 82%, 52%)',
+        'label': 'Pink'
+    },
+    {
+        'color': 'hsl(291, 64%, 42%)',
+        'label': 'Purple'
+    },
+    {
+        'color': 'hsl(262, 52%, 47%)',
+        'label': 'Deep Purple'
+    },
+    {
+        'color': 'hsl(231, 48%, 48%)',
+        'label': 'Indigo'
+    },
+    {
+        'color': 'hsl(207, 90%, 54%)',
+        'label': 'Blue'
+    },
+    {
+        'color': 'rgba(33, 150, 243, 0.5)',  # Exemple de couleur bleue avec 50% de transparence
+        'label': 'Transparent (100% transparent)'
+    },
+]
 
 CKEDITOR_5_CONFIGS = {
-
     'default': {
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-                    'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-                    'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
-                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable'],
-        'contentsCss': '/static/assets/css/custom-ckeditor.css',  # Spécifiez votre fichier CSS personnalisé ici
-
+        'toolbar': [
+            'heading', '|',
+            'outdent', 'indent', '|',
+            'bold', 'italic', 'link', 'underline', 'strikethrough',
+            'code', 'subscript', 'superscript', 'highlight', '|',
+            'codeBlock', 'sourceEditing', '|',
+            'bulletedList', 'numberedList', 'todoList', '|',
+            'blockQuote', '|',
+            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+            'mediaEmbed', 'removeFormat', 'insertTable'
+        ],
+        'removePlugins': [
+            'Image',
+            'ImageToolbar',
+            'ImageCaption',
+            'ImageStyle',
+            'ImageUpload',
+            'ImageInsert',
+            'EasyImage',
+            'CKBox',
+            'CKFinder',
+        ],
+        'contentsCss': '/static/assets/css/custom-ckeditor.css',
     },
 
     'extends': {
@@ -230,26 +244,22 @@ CKEDITOR_5_CONFIGS = {
             '|',
             'blockQuote',
         ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-                    'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-                    'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
-                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable', ],
-        'image': {
-            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
-                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side', '|'],
-            'styles': [
-                'full',
-                'side',
-                'alignLeft',
-                'alignRight',
-                'alignCenter',
-            ]
-
-        },
+        'toolbar': [
+            'heading', '|',
+            'outdent', 'indent', '|',
+            'bold', 'italic', 'link', 'underline', 'strikethrough',
+            'code', 'subscript', 'superscript', 'highlight', '|',
+            'codeBlock', 'sourceEditing', '|',
+            'bulletedList', 'numberedList', 'todoList', '|',
+            'blockQuote', '|',
+            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+            'mediaEmbed', 'removeFormat', 'insertTable'
+        ],
         'table': {
-            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
-                               'tableProperties', 'tableCellProperties'],
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells',
+                'tableProperties', 'tableCellProperties'
+            ],
             'tableProperties': {
                 'borderColors': customColorPalette,
                 'backgroundColors': customColorPalette
@@ -261,22 +271,34 @@ CKEDITOR_5_CONFIGS = {
         },
         'heading': {
             'options': [
-                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
-                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
-                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
-                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
+                {'model': 'paragraph', 'title': 'Paragraphe', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Titre 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Titre 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Titre 3', 'class': 'ck-heading_heading3'}
             ]
         }
+    ,
+'removePlugins': [
+    'Image',
+    'ImageToolbar',
+    'ImageCaption',
+    'ImageStyle',
+    'ImageUpload',
+    'ImageInsert',
+    'EasyImage',
+    'CKBox',
+    'CKFinder',
+],
     },
+
     'list': {
         'properties': {
-            'styles': 'true',
-            'startIndex': 'true',
-            'reversed': 'true',
+            'styles': True,
+            'startIndex': True,
+            'reversed': True,
         }
     }
 }
-
 
 LOGGING = {
     'version': 1,
@@ -303,7 +325,6 @@ LOGGING = {
     },
 }
 
-
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Auth classique Django
     'allauth.account.auth_backends.AuthenticationBackend',  # Auth allauth
@@ -313,8 +334,8 @@ ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Force la confirmation d'email
-ACCOUNT_EMAIL_CONFIRMATION_HMAC = True # Désactive le token de confirmation
-ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False # Active la vérification par code
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = True  # Désactive le token de confirmation
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False  # Active la vérification par code
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # Activation de la vérification par email
 
@@ -324,7 +345,6 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
-
 
 CELERY_BEAT_SCHEDULE = {
     "cleanup-unconfirmed-allauth-accounts-every-midnight": {

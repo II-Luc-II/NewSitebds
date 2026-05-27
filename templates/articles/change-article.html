@@ -36,7 +36,7 @@
 				{% csrf_token %}
 				<div class="col-12 centrage-création-session p-4">
 					<div class="form-group text-start">
-						<label for="title">Titre :</label>
+						<label for="title"><strong>Titre</strong></label>
 						{{ form.title }}
 						{% if form.title.errors %}
 							{% for error in form.title.errors %}
@@ -45,7 +45,7 @@
 						{% endif %}
 					</div>
 					<div class="form-group text-start">
-						<label for="content">Article :</label>
+						<label for="content" class="mt-2"><strong>Article</strong></label>
 						{{ form.content }}
 						{% if form.content.errors %}
 							{% for error in form.content.errors %}
@@ -54,7 +54,7 @@
 						{% endif %}
 					</div>
 					<div class="form-group mt-2 text-center">
-						{{ form.image.label_tag }}
+						<strong>{{ form.image.label_tag }}</strong>
 						{% if articles.image and articles.image.url %}
 							<div class="text-center">
 								<img src="{{ articles.image.url }}" alt="photo-anim"
@@ -73,4 +73,5 @@
 			</form>
 		</div>
 	</div>
+	{{ form.media }}
 {% endblock %}

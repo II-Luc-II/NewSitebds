@@ -5,6 +5,7 @@ from crispy_forms.helper import FormHelper
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.html import strip_tags
+from django_ckeditor_5.widgets import CKEditor5Widget
 from langdetect import detect, LangDetectException
 
 from .models import Contact, Newsletter
@@ -20,7 +21,7 @@ class ContactForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
-            'message': forms.Textarea(attrs={'class': 'form-control'}),
+            'message': CKEditor5Widget(config_name='default'),
         }
 
     def clean_honeypot(self):
@@ -93,7 +94,7 @@ class ContactFormPopUp(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Votre nom'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Votre email'}),
             'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sujet'}),
-            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Votre message'}),
+            'message': CKEditor5Widget(config_name='default'),
         }
 
     def __init__(self, *args, **kwargs):

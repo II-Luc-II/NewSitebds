@@ -13,46 +13,69 @@
 		</div>
 		<div class="logo mr-auto">
 			<h1 class="text-light"><a href="{% url 'index' %}"><span>B.D.S</span></a></h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 		</div>
 		<nav class="nav-menu d-none d-lg-block">
 			<ul>
-				<li class="{% if request.resolver_match.view_name == 'index' %} active {% endif %}">
-					<a href="/">Accueil</a>
+				<li class="nav-item dropdown anim-link">
+					<a class="nav-link" href="{% url 'index' %}">Qui sommes-nous ?</a>
+
+					<ul class="dropdown-menu">
+						<li>
+							<a class="dropdown-item" href="{% url 'index' %}#about">A-propos</a>
+						</li>
+
+						<li>
+							<a class="dropdown-item" href="{% url 'index' %}#features">Les solutions</a>
+						</li>
+
+						<li>
+							<a class="dropdown-item" href="{% url 'index' %}#gallery">Portfolio</a>
+						</li>
+
+						<li>
+							<a class="dropdown-item" href="{% url 'index' %}#team">L'équipe</a>
+						</li>
+					</ul>
 				</li>
-				<li><a href="#about" data-target="about">A-propos</a></li>
-				<li><a href="#features" data-target="features">Les solutions</a></li>
-				<li><a href="#gallery" data-target="gallery">Portfolio</a></li>
-				<li><a href="#team" data-target="team">L'équipe</a></li>
-				<li class="{% if request.resolver_match.view_name == 'news' %} active {% endif %}">
-					<a href="{% url 'news' %}">Les news</a>
+				<li class="nav-item anim-link">
+					<a href="{% url 'your-project' %}" class="nav-link"
+					   data-bs-toggle="tooltip"
+					   data-bs-placement="left"
+					   data-bs-custom-class="custom-tooltip"
+					   data-bs-title="Faire une demande de projet ou un devis">
+						Un projet ?
+					</a>
 				</li>
-				<li>
-					<a href="{% url "contact" %}">Contact</a>
+				<li class="nav-item anim-link">
+					<a href="{% url 'news' %}" class="nav-link"
+					   data-bs-toggle="tooltip"
+					   data-bs-placement="left"
+					   data-bs-custom-class="custom-tooltip"
+					   data-bs-title="Voir les applications et les dernières nouvelles">
+						Les news
+					</a>
 				</li>
-				{% if user.is_authenticated and request.user.is_superuser %}
-					<li class="drop-down {% if request.resolver_match.view_name == 'add_article' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'customer:administration' %} active {% endif %}
-					">
-						<a href="#">Gestion</a>
+				<li class="nav-item anim-link">
+					<a href="{% url "contact" %}" class="nav-link">Contact</a>
+				</li>
+				{% if user.is_superuser %}
+					<li class="nav-item dropdown anim-link">
+						<a class="nav-link" href="#">Gestion</a>
 						<ul class="dropdown-menu">
-							<li class="{% if request.resolver_match.view_name == 'site_list' %} active {% endif %}">
-								<a href="{% url 'site_list' %}">Liste des sites</a>
+							<li>
+								<a class="dropdown-item" href="{% url 'site_list' %}">Liste des sites</a>
 							</li>
-							<li class="{% if request.resolver_match.view_name == 'customer:administration' %} active {% endif %}">
-								<a href="{% url "customer:administration" %}">Tableau de bord</a>
+							<li>
+								<a class="dropdown-item" href="{% url "customer:administration" %}">Tableau de bord</a>
 							</li>
-							<li class="{% if request.resolver_match.view_name == 'snack_game' %} active {% endif %}">
-								<a href="{% url 'snack_game' %}">Le jeu du serpent</a>
+							<li>
+								<a class="dropdown-item" href="{% url 'snack_game' %}">Le jeu du serpent</a>
 							</li>
-							<li class="{% if request.resolver_match.view_name == 'admin:index' %} active {% endif %}">
-								<a href="{% url 'admin:index' %}">Admin</a>
+							<li>
+								<a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
 							</li>
-							<li class="{% if request.resolver_match.view_name == 'add_article' %} active {% endif %}">
-								<a href="{% url 'add_article' %}">News letter</a>
+							<li>
+								<a class="dropdown-item" href="{% url 'add_article' %}">News letter</a>
 							</li>
 						</ul>
 					</li>
@@ -61,33 +84,42 @@
 				<li class="drop-down">
 					<a href="">Réseaux sociaux</a>
 					<ul class="dropdown-menu">
-						<li><a href="https://www.facebook.com/BDS.EI/" class="facebook" target="_blank"
-						       rel="noopener noreferrer">
-							<i class="bx bxl-facebook"></i> - Facebook</a></li>
-						<li><a href="https://www.instagram.com/luc.belier/" class="instagram" target="_blank"
-						       rel="noopener noreferrer">
-							<i class="bx bxl-instagram"></i> - Instagram</a></li>
-						<li><a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin" target="_blank"
-						       rel="noopener noreferrer">
-							<i class="bx bxl-linkedin"></i> - Linkedin</a></li>
-						<li><a href="https://github.com/II-Luc-II/" class="github" target="_blank"
-						       rel="noopener noreferrer">
-							<i class="bx bxl-github"></i> - Github</a></li>
-						<li><a href="https://discord.com/channels/1235925566432215111/1235925566964764723"
-						       class="discord" target="_blank" rel="noopener noreferrer">
-							<i class="bx bxl-discord"></i> - Discord</a></li>
+						<li>
+							<a href="https://www.facebook.com/BDS.EI/" class="facebook" target="_blank"
+							   rel="noopener noreferrer">
+								<i class="bx bxl-facebook"></i> - Facebook
+							</a>
+						</li>
+						<li>
+							<a href="https://www.instagram.com/luc.belier/" class="instagram" target="_blank"
+							   rel="noopener noreferrer">
+								<i class="bx bxl-instagram"></i> - Instagram
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/luc-belier-4a582828b/" class="linkedin" target="_blank"
+							   rel="noopener noreferrer">
+								<i class="bx bxl-linkedin"></i> - Linkedin
+							</a>
+						</li>
+						<li>
+							<a href="https://github.com/II-Luc-II/" class="github" target="_blank"
+							   rel="noopener noreferrer">
+								<i class="bx bxl-github"></i> - Github
+							</a>
+						</li>
+						<li>
+							<a href="https://discord.com/channels/1235925566432215111/1235925566964764723"
+							   class="discord" target="_blank" rel="noopener noreferrer">
+								<i class="bx bxl-discord"></i> - Discord
+							</a>
+						</li>
 					</ul>
 				</li>
-			    <li class="drop-down {% if request.resolver_match.view_name == 'account' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'account_logout' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'account_change_password' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'customer:edit_profil_customer' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'account_login' %} active {% endif %}
-					{% if request.resolver_match.view_name == 'account_account_signup' %} active {% endif %}
-					">
+				<li class="nav-item dropdown anim-link">
 					<a href="#"><i class="bi bi-person-circle"></i> Mon compte </a>
 					<ul class="dropdown-menu">
-						<li class="{% if request.resolver_match.view_name == 'account' %} active {% endif %}">
+						<li class="nav-item dropdown anim-link">
 							<!-- User logout -->
 							<a href="{% url 'account' %}"
 							   class="dropdown-item"
@@ -99,63 +131,63 @@
 							</a>
 						</li>
 						{% if user.is_authenticated %}
-						<li class="{% if request.resolver_match.view_name == 'account_logout' %} active {% endif %}">
-							<!-- User logout -->
-							<a href="{% url 'account_logout' %}"
-							   class="dropdown-item"
-							   data-bs-toggle="tooltip"
-							   data-bs-placement="left"
-							   data-bs-custom-class="custom-tooltip"
-							   data-bs-title="Déconnexion: {{ user.username }}">
-								Déconnexion
-							</a>
-						</li>
-						<li class="{% if request.resolver_match.view_name == 'customer:edit_profil_customer' %} active {% endif %}">
-							<!-- User change profile -->
-							<a href="{% url 'customer:edit_profil_customer' user.id %}"
-							   class="dropdown-item"
-							   data-bs-toggle="tooltip"
-							   data-bs-placement="left"
-							   data-bs-custom-class="custom-tooltip"
-							   data-bs-title="Modifier Les informations de votre compte client">
-								Modifier mon compte
-							</a>
-						</li>
-						<li class="{% if request.resolver_match.view_name == 'account_change_password' %} active {% endif %}">
-							<!-- User Change password -->
-							<a href="{% url 'account_change_password' %}"
-							   class="dropdown-item"
-							   data-bs-toggle="tooltip"
-							   data-bs-placement="left"
-							   data-bs-custom-class="custom-tooltip"
-							   data-bs-title="Changer son mot de passe">
-								Changer votre mot de passe
-							</a>
-						</li>
+							<li>
+								<!-- User logout -->
+								<a href="{% url 'account_logout' %}"
+								   class="dropdown-item"
+								   data-bs-toggle="tooltip"
+								   data-bs-placement="left"
+								   data-bs-custom-class="custom-tooltip"
+								   data-bs-title="Déconnexion: {{ user.username }}">
+									Déconnexion
+								</a>
+							</li>
+							<li>
+								<!-- User change profile -->
+								<a href="{% url 'customer:edit_profil_customer' user.id %}"
+								   class="dropdown-item"
+								   data-bs-toggle="tooltip"
+								   data-bs-placement="left"
+								   data-bs-custom-class="custom-tooltip"
+								   data-bs-title="Modifier Les informations de votre compte client">
+									Modifier mon compte
+								</a>
+							</li>
+							<li>
+								<!-- User Change password -->
+								<a href="{% url 'account_change_password' %}"
+								   class="dropdown-item"
+								   data-bs-toggle="tooltip"
+								   data-bs-placement="left"
+								   data-bs-custom-class="custom-tooltip"
+								   data-bs-title="Changer son mot de passe">
+									Changer votre mot de passe
+								</a>
+							</li>
 						{% else %}
-						<li class="{% if request.resolver_match.view_name == 'account_login' %} active {% endif %}">
-							<!-- User login -->
-							<a href="{% url 'account_login' %}"
-							   class="dropdown-item"
-							   data-bs-toggle="tooltip"
-							   data-bs-placement="left"
-							   data-bs-custom-class="custom-tooltip"
-							   data-bs-title="Connexion">
-								Connexion
-							</a>
-						</li>
-						<li class="{% if request.resolver_match.view_name == 'account_signup' %} active {% endif %}">
-							<!-- User member signup -->
-							<a href="{% url 'account_signup' %}"
-							   class="dropdown-item"
-							   data-bs-toggle="tooltip"
-							   data-bs-placement="left"
-							   data-bs-custom-class="custom-tooltip"
-							   data-bs-title="Inscription">
-								Créer son compte
-							</a>
-						</li>
-					{% endif %}
+							<li>
+								<!-- User login -->
+								<a href="{% url 'account_login' %}"
+								   class="dropdown-item"
+								   data-bs-toggle="tooltip"
+								   data-bs-placement="left"
+								   data-bs-custom-class="custom-tooltip"
+								   data-bs-title="Connexion">
+									Connexion
+								</a>
+							</li>
+							<li>
+								<!-- User member signup -->
+								<a href="{% url 'account_signup' %}"
+								   class="dropdown-item"
+								   data-bs-toggle="tooltip"
+								   data-bs-placement="left"
+								   data-bs-custom-class="custom-tooltip"
+								   data-bs-title="Inscription">
+									Créer son compte
+								</a>
+							</li>
+						{% endif %}
 					</ul>
 				</li>
 			</ul>
