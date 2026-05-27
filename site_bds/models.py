@@ -178,3 +178,50 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Videos(models.Model):
+    VIDEO_PROVIDER_CHOICES = [
+        ("youtube", "YouTube"),
+        ("vimeo", "Vimeo"),
+    ]
+
+    name = models.CharField(max_length=100, verbose_name='Nom')
+    content = models.TextField(verbose_name='Contenu', blank=True, null=True)
+
+    video_provider = models.CharField(
+        max_length=20,
+        choices=VIDEO_PROVIDER_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name="Plateforme vidéo"
+    )
+
+    video_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        verbose_name="ID vidéo"
+    )
+
+    on_line = models.BooleanField(default=False, verbose_name='En ligne')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Créée le')
+
+    class Meta:
+        verbose_name_plural = "Videos"
+        verbose_name = "Video"
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def embed_url(self):
+
+        if self.video_provider == "youtube":
+            return f"https://www.youtube.com/embed/{self.video_id}"
+
+        if self.video_provider == "vimeo":
+            return f"https://player.vimeo.com/video/{self.video_id}"
+
+        return ""

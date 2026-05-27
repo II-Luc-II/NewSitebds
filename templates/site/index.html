@@ -49,67 +49,68 @@
 	{% include 'partials/pop-over.html' %}
 
 	<main id="main">
-		<section class="why-us section-bg" data-aos="fade-up" data-aos-delay="200">
-			<div class="container">
+		{% if video %}
+			<section class="why-us section-bg" data-aos="fade-up" data-aos-delay="200">
+				<div class="container">
 
-				<div class="row">
-					<div class="col-lg-7 video-box m-0 p-2 pl-2">
-						<a href="url://www.youtu.be/NYtjNY0lM1k">
-							<video
-									autoplay
-									loop
-									muted
-									playsinline
-									preload="metadata"
-									class="small-video text-center">
-							</video>
-						</a>
-					</div>
+					<div class="row">
+						<div class="col-lg-7 video-box m-0 p-2 ps-2 rounded-4">
+							<div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+								<iframe
+										src="https://www.youtube.com/embed/{{ video.video_id }}"
+										title="{{ video.name }}"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+										referrerpolicy="strict-origin-when-cross-origin"
+										allowfullscreen>
+								</iframe>
+							</div>
+						</div>
 
-					<div class="col-lg-5 d-flex flex-column justify-content-center p-1">
-						{% if a_la_une.en_ligne %}
-							<div class="row">
-								<div class="col-3">
-									<div class="icon-a-la-une">
+						<div class="col-lg-5 d-flex flex-column justify-content-center p-1">
+							{% if a_la_une.en_ligne %}
+								<div class="row">
+									<div class="col-3">
+										<div class="icon-a-la-une">
+											<a href="{% url 'blog_single' blog_id=2 %}">
+												<img src="{% static 'images/Logo-Judo-Administrator-2.png' %}"
+												     loading="lazy"
+												     alt="{{ a_la_une.title }}"
+												     width="80px"
+												>
+											</a>
+										</div>
+									</div>
+									<div class="col-8">
 										<a href="{% url 'blog_single' blog_id=2 %}">
-											<img src="{% static 'images/Logo-Judo-Administrator-2.png' %}"
-											     loading="lazy"
-											     alt="{{ a_la_une.title }}"
-											     width="80px"
-											>
+											<h4 class="title">{{ a_la_une.title }}</h4>
 										</a>
+										<p class="description">{{ a_la_une.text | safe }}</p>
 									</div>
 								</div>
-								<div class="col-8">
-									<a href="{% url 'blog_single' blog_id=2 %}">
-										<h4 class="title">{{ a_la_une.title }}</h4>
-									</a>
-									<p class="description">{{ a_la_une.text | safe }}</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-3">
-									<div class="icon-a-la-une">
+								<div class="row">
+									<div class="col-3">
+										<div class="icon-a-la-une">
+											<a href="{% url 'blog_single' blog_id=2 %}">
+												<img src="{% static 'icons/inspection-94.png' %}"
+												     alt="{{ a_la_une.title_2 }}"
+												     width="80px"
+												>
+											</a>
+										</div>
+									</div>
+									<div class="col-8">
 										<a href="{% url 'blog_single' blog_id=2 %}">
-											<img src="{% static 'icons/inspection-94.png' %}"
-											     alt="{{ a_la_une.title_2 }}"
-											     width="80px"
-											>
+											<h4 class="title">{{ a_la_une.title_2 }}</h4>
 										</a>
+										<p class="description">{{ a_la_une.text_2|safe }}</p>
 									</div>
 								</div>
-								<div class="col-8">
-									<a href="{% url 'blog_single' blog_id=2 %}">
-										<h4 class="title">{{ a_la_une.title_2 }}</h4>
-									</a>
-									<p class="description">{{ a_la_une.text_2|safe }}</p>
-								</div>
-							</div>
-						{% endif %}
+							{% endif %}
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		{% endif %}
 		<!-- End Why Us Section -->
 
 		<!-- ======= About Section ======= -->

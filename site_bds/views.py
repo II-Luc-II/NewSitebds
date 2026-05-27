@@ -14,7 +14,7 @@ from customer.forms import TicketClientForm, TicketMessageForm
 from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article, Videos
 from site_bds.tasks import send_mail_batch
 
 # Initialise le logger
@@ -54,6 +54,7 @@ def index(request):
     team = Team.objects.all()
     ask = Ask.objects.all()
     a_la_une = ALaUne.objects.all().first()
+    video = Videos.objects.filter(on_line=True).first()
 
     context = {
         'gallery': gallery,
@@ -61,6 +62,7 @@ def index(request):
         'team': team,
         'ask': ask,
         'a_la_une': a_la_une,
+        'video': video,
     }
     return render(request, 'site/index.html', context)
 

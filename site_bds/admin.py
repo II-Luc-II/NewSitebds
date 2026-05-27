@@ -1,6 +1,6 @@
 from django.contrib import admin
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, PopUp, InfoLegacy, \
-    PolicyLegacy, Article
+    PolicyLegacy, Article, Videos
 from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
 from django.db import models
@@ -245,3 +245,14 @@ class ArticleAdmin(admin.ModelAdmin):
     display_image.short_description = 'Image'
 
 
+@admin.register(Videos)
+class VideoLessonsAdmin(admin.ModelAdmin):
+    list_display = ('name', "name", "on_line", "created_at")
+    list_filter = ("name", "on_line", "created_at")
+    list_editable = ("on_line",)
+    list_max_show_all = 50
+    list_per_page = 30
+
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget}
+    }
