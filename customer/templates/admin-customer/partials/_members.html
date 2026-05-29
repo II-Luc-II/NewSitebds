@@ -30,7 +30,8 @@
 				hx-get="{% url 'customer:members_table' %}"
 				hx-target="#membersTable"
 				hx-trigger="keyup changed delay:300ms"
-				hx-swap="innerHTML">
+				hx-swap="innerHTML"
+				hx-include="this">
 		<span class="search-icon">🔍</span>
 	</div>
 

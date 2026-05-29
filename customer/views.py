@@ -200,11 +200,11 @@ def members_table(request):
 
     if q:
         qs = qs.filter(
-            Q(user__name__icontains=q) |
             Q(first_name__icontains=q) |
             Q(last_name__icontains=q) |
             Q(mail__icontains=q) |
-            Q(phone__icontains=q)
+            Q(phone__icontains=q) |
+            Q(entreprise__icontains=q)
         )
 
     paginator = Paginator(qs, 10)

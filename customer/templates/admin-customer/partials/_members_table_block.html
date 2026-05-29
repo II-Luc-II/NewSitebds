@@ -9,7 +9,7 @@
             <button
               type="button"
               class="page-link"
-              hx-get="{% url 'admin-customer:members_table' %}?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q|urlencode }}{% endif %}"
+              hx-get="{% url 'customer:members_table' %}?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q|urlencode }}{% endif %}"
               hx-target="#membersTable"
               hx-swap="innerHTML"
             >Précédent</button>
@@ -29,7 +29,7 @@
             <button
               type="button"
               class="page-link"
-              hx-get="{% url 'admin-customer:members_table' %}?page={{ page_obj.next_page_number }}{% if q %}&q={{ q|urlencode }}{% endif %}"
+              hx-get="{% url 'customer:members_table' %}?page={{ page_obj.next_page_number }}{% if q %}&q={{ q|urlencode }}{% endif %}"
               hx-target="#membersTable"
               hx-swap="innerHTML"
             >Suivant</button>
