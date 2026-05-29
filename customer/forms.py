@@ -1,14 +1,21 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from pylint.pyreverse.inspector import Project
-
+from allauth.account.forms import SignupForm
 from customer.models import Customer, MyProject, Documents, Ticket, TicketMessage
 
 
 class CustomerForm(forms.ModelForm):
+    agree_terms = forms.BooleanField(
+        required=True,
+        label="J'accepte la politique de confidentialité (RGPD)",
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        })
+    )
     class Meta:
         model = Customer
-        fields = ('last_name', 'first_name', 'entreprise', 'mail', 'phone', 'address', 'image')
+        fields = ('last_name', 'first_name', 'entreprise', 'mail', 'phone', 'address', 'image', 'agree_terms',)
 
         widgets = {
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom'}),

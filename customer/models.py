@@ -26,6 +26,7 @@ class Customer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='photos-customer', null=True, blank=True)
     register_web = models.BooleanField(default=False, verbose_name="Inscription web")
+    agree_terms = models.BooleanField(default=False, verbose_name="Accept RGPD")
 
     class Meta:
         verbose_name = "Utilisateur"

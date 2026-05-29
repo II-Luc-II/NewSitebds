@@ -40,7 +40,7 @@
 						<li><i class="bx bx-chevron-right"></i> <a href="/#features">Les solutions</a></li>
 						<li><i class="bx bx-chevron-right"></i> <a href="{% url 'contact' %}">Contact</a></li>
 						<li><i class="bx bx-chevron-right"></i>
-							<a href="#polycy-Modal" data-bs-toggle="modal" data-bs-target="#polycy-Modal">Privacy
+							<a href="#" data-bs-toggle="modal" data-bs-target="#policy-Modal">Privacy
 								policy</a>
 						</li>
 					</ul>
@@ -94,9 +94,9 @@
 <!-- End Footer -->
 
 <!-- Modal -->
-<div class="modal fade" id="polycy-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="policy-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-xl" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Politique de confidentialité du Site BDS</h5>
@@ -112,10 +112,8 @@
 				<p>Dernière mise à jour : {{ policy.created_at }}</p>
 				<hr>
 			</footer>
-			<div class="modal-footer">
-				<a href="{% url "index" %}" class="btn btn-general">
-					Retour
-				</a>
+				<div class="modal-footer">
+				<button type="button" class="btn-get-started" data-bs-dismiss="modal">Fermer</button>
 			</div>
 		</div>
 	</div>

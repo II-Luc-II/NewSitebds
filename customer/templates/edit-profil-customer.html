@@ -152,9 +152,9 @@
 							<div class="col-12">
 								<div class="form-account">
 									<div class="form-group text-start position-relative py-2">
-                <span class="identify-geo">
-                    <i class="bi bi-geo fs-5">Adresse*</i>
-                </span>
+                                        <span class="identify-geo">
+                                            <i class="bi bi-geo fs-5">Adresse*</i>
+                                        </span>
 
 										<label for="address" class="visually-hidden">Adresse</label>
 										{{ form.address|attr:"name:address"|add_class:"form-control" }}
@@ -168,6 +168,24 @@
 								</div>
 							</div>
 						</div>
+						<div class="row rounded bg-form-customer p-3 mt-2">
+							<div class="col-lg-7 col-md-7 col-sm-12">
+								<div class="form-check text-center py-3">
+									{{ form.agree_terms }}
+									<label class="form-check-label" for="{{ form.agree_terms.id_for_label }}">
+										J'accepte la
+										<a href="#" data-bs-toggle="modal" data-bs-target="#policy-Modal">
+											politique de confidentialité
+										</a>
+										et le traitement de mes données personnelles.
+									</label>
+								</div>
+
+								{% for error in form.agree_terms.errors %}
+									<span class="text-danger d-block">{{ error }}</span>
+								{% endfor %}
+							</div>
+						</div>
 						<!-- Bouton -->
 						<div class="text-center mt-5">
 							<button type="submit" class="btn-general btn-block">
@@ -175,9 +193,6 @@
 							</button>
 						</div>
 					</form>
-				</div>
-				<div class="row mb-5 text-gray text-center">
-					<p>{{ info_legacy.description | safe }}</p>
 				</div>
 			</div>
 		</section>
