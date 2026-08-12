@@ -41,8 +41,10 @@ def robots_txt(request):
 def handle404(request, exception):
     return render(request, '404.html', status=404)
 
+
 def handle500(request):
     return render(request, '500.html', status=500)
+
 
 def handle502(request):
     return render(request, '502.html', status=502)
@@ -108,7 +110,6 @@ def account(request):
         'tickets': tickets,
     }
     return render(request, "site/account.html", context)
-
 
 
 @login_required(login_url='account_login')
@@ -444,4 +445,3 @@ def send_mail_article(request, slug):
 
     messages.success(request, f"L'email a été envoyé avec succès aux destinataires : {', '.join(recipient_list)}.")
     return redirect('article_detail', slug=article.slug)
-
