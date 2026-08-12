@@ -352,6 +352,6 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 CELERY_BEAT_SCHEDULE = {
     "cleanup-unconfirmed-allauth-accounts-every-midnight": {
         "task": "site_bds.tasks.cleanup_unconfirmed_allauth_accounts",
-        "schedule": crontab(minute="*/1"),
+        "schedule": crontab(hour=0, minute=0),
     },
 }
