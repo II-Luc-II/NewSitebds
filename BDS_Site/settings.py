@@ -334,8 +334,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 ACCOUNT_LOGIN_METHODS = {"email"}
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Force la confirmation d'email
 ACCOUNT_EMAIL_CONFIRMATION_HMAC = True  # Désactive le token de confirmation
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False  # Active la vérification par code
