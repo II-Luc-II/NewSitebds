@@ -1,5 +1,5 @@
 from django.contrib import admin
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, PopUp, InfoLegacy, \
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Blogs, ALaUne, PopUp, InfoLegacy, \
     PolicyLegacy, Article, Videos
 from django.utils.html import format_html
 from django_ckeditor_5.fields import CKEditor5Widget
@@ -139,11 +139,6 @@ class ContactAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': CKEditor5Widget}
     }
-
-
-@admin.register(Newsletter)
-class NewsletterAdmin(admin.ModelAdmin):
-    list_display = ("email", "created_at")
 
 
 @admin.register(Blogs)

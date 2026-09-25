@@ -1,0 +1,120 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+
+	<div style="max-width: 900px; margin: 0 auto;">
+
+		<div style="margin-bottom: 20px;">
+
+			<a
+					href="{% url 'admin:newsletter_newsletter_change' newsletter.pk %}"
+					class="button"
+			>
+				← Retour à la newsletter
+			</a>
+
+		</div>
+
+		<div
+				style="
+                    background: #f3f7f2;
+                    padding: 30px 15px;
+                    border-radius: 12px;
+                "
+		>
+
+			<div
+					style="
+                        max-width: 650px;
+                        margin: 0 auto;
+                        background: #ffffff;
+                        border-radius: 16px;
+                        overflow: hidden;
+                    "
+			>
+
+				<div
+						style="
+                            padding: 30px;
+                            background: #1D2945;
+                            color: #ffffff;
+                            text-align: center;
+                        "
+				>
+					<img
+							src="{% static 'images/img-accueil/BLANC-ICON.svg' %}"
+							alt="Logo"
+							style="
+                                display: block;
+                                max-width: 100px;
+                                height: auto;
+                                margin: 0 auto 15px auto;
+                                border-radius: 30px;
+                            "
+					>
+
+					<div
+							style="
+                                font-size: 16px;
+                                margin-bottom: 15px;
+                                font-weight: 500;
+                            "
+					>
+						Mon site BDS
+					</div>
+
+					<h1
+							style="
+                                margin: 0;
+                                font-size: 26px;
+                            "
+					>
+						{{ newsletter.subject }}
+					</h1>
+				</div>
+
+				<div
+						style="
+                            padding: 35px 30px;
+                            font-size: 16px;
+                            line-height: 1.7;
+                            color: #263328;
+                        "
+				>
+
+					{{ newsletter.content|safe }}
+
+				</div>
+
+				<div
+						style="
+                            padding: 25px 30px;
+                            background: rgba(29,41,69,0.44);
+                            border-top: 1px solid #eeeeee;
+                            font-size: 13px;
+                            color: #FFFFFF;
+                            text-align: center;
+                        "
+				>
+
+					<p style="margin: 0 0 10px 0;">
+						Vous recevez cet e-mail car vous êtes inscrit
+						à notre newsletter.
+					</p>
+
+					<p style="margin: 0;color: #FFFFFF;">
+						<a href="#">
+							Se désinscrire de la newsletter
+						</a>
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}

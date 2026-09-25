@@ -1,0 +1,13 @@
+Bonjour,
+
+Vous avez demandé à recevoir la newsletter de Bélier Développement Solution.
+
+Pour finaliser votre inscription, veuillez confirmer votre adresse e-mail en utilisant le lien suivant :
+
+{{ confirmation_url }}
+
+Si vous n'êtes pas à l'origine de cette demande, vous n'avez rien à faire.
+Votre inscription ne sera pas validée sans confirmation de votre part.
+
+
+Bélier Développement Solution

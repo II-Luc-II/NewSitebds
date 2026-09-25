@@ -13,8 +13,8 @@ from django.utils.html import strip_tags
 from customer.forms import TicketClientForm, TicketMessageForm
 from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
 from site_bds.ArticleForm import ArticleForm
-from site_bds.ContactForm import ContactForm, NewsLetterForm, ContactFormPopUp
-from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Newsletter, Blogs, ALaUne, Article, Videos
+from site_bds.ContactForm import ContactForm, ContactFormPopUp
+from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Blogs, ALaUne, Article, Videos
 from site_bds.tasks import send_mail_batch
 
 # Initialise le logger
@@ -335,113 +335,3 @@ def gallery_single(request, gallery_id):
 
     return render(request, 'site/gallery-single.html', context)
 
-
-# ------------ VIEWS ARTICLES -------------------
-
-@user_passes_test(is_superuser)
-def add_article(request):
-    articles = Article.objects.all()
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, request.FILES)
-        if form.is_valid():
-            article = form.save()
-            messages.success(request, "Article ajouté avec succès !")
-            return redirect('article_detail', slug=article.slug)
-    else:
-        form = ArticleForm()
-
-    context = {
-        'form': form,
-        'articles': articles
-    }
-
-    return render(request, 'articles/add-article.html', context)
-
-
-@user_passes_test(is_superuser)
-def change_article(request, slug):
-    articles = get_object_or_404(Article, slug=slug)
-
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, request.FILES, instance=articles)
-        if form.is_valid():
-            article = form.save()
-            messages.success(request, "Article modifié avec succès !")
-            return redirect('article_detail', slug=article.slug)
-    else:
-        form = ArticleForm(instance=articles)
-
-    context = {
-        'form': form,
-        'articles': articles
-    }
-
-    return render(request, 'articles/change-article.html', context)
-
-
-@user_passes_test(is_superuser)
-def article_detail(request, slug):
-    article = get_object_or_404(Article, slug=slug)
-    return render(request, 'articles/article_detail.html', {'article': article})
-
-
-@user_passes_test(is_superuser)
-def delete_article(request, slug):
-    article = get_object_or_404(Article, slug=slug)
-    if request.method == 'POST':
-        article.delete()
-        messages.success(request, "L'article est bien supprimé.")
-        return redirect('add_article')
-    else:
-        messages.error(request, "désolé, impossible de supprimer l'article.")
-
-    return render(request, 'articles/add-article.html')
-
-
-@user_passes_test(is_superuser)
-def send_mail_article(request, slug):
-    # Récupérer l'article
-    article = get_object_or_404(Article, slug=slug)
-
-    # Générer l'URL complète de l'image
-    image_url = request.build_absolute_uri(article.image.url) if article.image else None
-
-    # Récupérer tous les emails des responsables
-    responsables = Customer.objects.all()
-    recipient_list = [responsable.email for responsable in responsables]
-
-    # Vérifier qu'il y a des destinataires
-    if not recipient_list:
-        messages.error(request, "Aucun destinataire trouvé pour l'envoi.")
-        return redirect('article_detail', slug=article.slug)
-
-    # Générer le lien vers l'article
-    article_link = request.build_absolute_uri(
-        reverse('article_detail', kwargs={'slug': article.slug})
-    )
-
-    # Obtenir le domaine actuel
-    current_site = Site.objects.get_current().domain
-
-    # Contexte pour le template
-    context = {
-        "article": article,
-        "image_url": image_url,
-        "article_link": article_link,
-        "domain": current_site,
-    }
-
-    # Préparer l'email
-    subject = f"Nouveau post : {article.title}"
-    html_message = render_to_string('email_article.html', context)
-    plain_message = strip_tags(html_message)
-
-    # Diviser les destinataires en lots de 10
-    batch_size = 10
-    for i in range(0, len(recipient_list), batch_size):
-        batch = recipient_list[i:i + batch_size]
-        # Appeler la tâche Celery pour envoyer par lots
-        send_mail_batch.delay(subject, html_message, plain_message, batch, "BDS <contact@bds38.com>")
-
-    messages.success(request, f"L'email a été envoyé avec succès aux destinataires : {', '.join(recipient_list)}.")
-    return redirect('article_detail', slug=article.slug)

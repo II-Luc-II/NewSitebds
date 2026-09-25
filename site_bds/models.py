@@ -81,13 +81,6 @@ class Contact(models.Model):
         verbose_name = 'Message'
 
 
-class Newsletter(models.Model):
-    email = models.EmailField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.email
-
 
 class Blogs(models.Model):
     title = models.CharField(max_length=255, verbose_name="Titre", blank=True, null=True)

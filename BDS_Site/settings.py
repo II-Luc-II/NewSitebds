@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     'site_gadgetes',
     'django.contrib.sitemaps',
     'captcha',
-    "customer"
+    "customer",
+    "newsletter",
 
 ]
 
@@ -280,18 +281,18 @@ CKEDITOR_5_CONFIGS = {
                 {'model': 'heading3', 'view': 'h3', 'title': 'Titre 3', 'class': 'ck-heading_heading3'}
             ]
         }
-    ,
-'removePlugins': [
-    'Image',
-    'ImageToolbar',
-    'ImageCaption',
-    'ImageStyle',
-    'ImageUpload',
-    'ImageInsert',
-    'EasyImage',
-    'CKBox',
-    'CKFinder',
-],
+        ,
+        'removePlugins': [
+            'Image',
+            'ImageToolbar',
+            'ImageCaption',
+            'ImageStyle',
+            'ImageUpload',
+            'ImageInsert',
+            'EasyImage',
+            'CKBox',
+            'CKFinder',
+        ],
     },
 
     'list': {

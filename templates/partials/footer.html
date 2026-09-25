@@ -48,36 +48,55 @@
 
 
 				<div class="col-lg-4 col-md-6" id="newsletter">
-					<h4>La Newsletter</h4>
+					<h5>
+						Newsletter
+					</h5>
 
-					<form action="{% url 'add-news-letter' %}" method="post" novalidate id="newsletter-form"
-					      class="footer-info">
+					<p class="BDS-footer-brand-newsletter">
+						Recevez les actualités et nouveautés de notre service.
+					</p>
+
+					<form
+							method="post"
+							action="{% url 'newsletter:subscribe' %}"
+					>
+
 						{% csrf_token %}
 
-						<div class="mb-3">
-							{{ form_news.email.errors }}
-							<label for="{{ form.email.id_for_label }}" class="form-label text-white">Votre adresse
-								email</label>
-							{{ form_news.email|add_class:"form-control bg-light border-0 shadow-sm" }}
-						</div>
+						<div class="input-group">
 
-						<div class="mb-3 d-none" id="captcha-container">
-							{{ form_news.captcha.errors }}
-							<label for="{{ form.captcha.id_for_label }}" class="form-label text-white">
-								Merci de saisir les lettres ci-dessous
-							</label>
-							<div class="d-flex align-items-center gap-3">
-								{{ form_news.captcha }}
-							</div>
-						</div>
+							<input
+									type="email"
+									name="email"
+									class="form-control"
+									placeholder="Votre adresse e-mail"
+									autocomplete="email"
+									required
+							>
 
-						<div class="d-grid">
-							<button type="submit" class="btn btn-warning btn-sm">
-								<i class="bi bi-envelope-check me-1"></i>
+							<button
+									type="submit"
+									class="btn btn-genealogy"
+							>
 								S'inscrire
 							</button>
+
 						</div>
+
+						<input
+								type="hidden"
+								name="next"
+								value="{{ request.path }}"
+						>
+
+						<p class="genealogy-footer-brand-newsletter mt-2 mb-0">
+							En vous inscrivant, vous acceptez de recevoir
+							notre newsletter. Vous pourrez vous désinscrire
+							à tout moment.
+						</p>
+
 					</form>
+
 				</div>
 
 			</div>
@@ -100,10 +119,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Politique de confidentialité du Site BDS</h5>
+
 				 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<h1 class="text-start text-center">{{ policy.titre }}</h1>
+				<hr>
 
 			<div>{{ policy.description | safe }}</div>
 
@@ -113,7 +134,7 @@
 				<hr>
 			</footer>
 				<div class="modal-footer">
-				<button type="button" class="btn-get-started" data-bs-dismiss="modal">Fermer</button>
+				<button type="button" class="btn-general btn-block" data-bs-dismiss="modal">Fermer</button>
 			</div>
 		</div>
 	</div>
@@ -189,4 +210,3 @@
 <!-- End Google Tag Manager (noscript) -->
 </div>
 
-</html>

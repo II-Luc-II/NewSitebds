@@ -15,84 +15,349 @@ from django.views.decorators.http import require_POST
 
 from customer.forms import CustomerForm, CustomerAdminForm, ProjectForm, DocumentsForm, TicketMessageForm
 from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
+from newsletter.models import NewsletterSubscriber
+from newsletter.views import request_newsletter_subscription
 from site_bds.models import Contact
 from site_bds.views import is_superuser
 from yourproject.models import Question
 
 
-@login_required(login_url='sign_in')
+@login_required(login_url="sign_in")
 def add_profil_customer(request):
     user = request.user
 
+    # -------------------------------------------------
     # Vérifier si le profil existe déjà
+    # -------------------------------------------------
     if Customer.objects.filter(user=user).exists():
-        messages.warning(request, "Vous avez déjà un profil.")
-        return redirect('account')
+        messages.warning(
+            request,
+            "Vous avez déjà un profil.",
+        )
+        return redirect("account")
 
-    if request.method == 'POST':
-        form = CustomerForm(request.POST, request.FILES)
+    # -------------------------------------------------
+    # État actuel de la newsletter
+    # -------------------------------------------------
+    newsletter_subscriber = (
+        NewsletterSubscriber.objects
+        .filter(email__iexact=user.email)
+        .first()
+    )
+
+    newsletter_is_active = (
+        newsletter_subscriber is not None
+        and newsletter_subscriber.is_active
+        and newsletter_subscriber.is_confirmed
+    )
+
+    # -------------------------------------------------
+    # POST
+    # -------------------------------------------------
+    if request.method == "POST":
+        form = CustomerForm(
+            request.POST,
+            request.FILES,
+        )
+
         if form.is_valid():
+
+            # -------------------------------------------------
+            # Création du profil Customer
+            # -------------------------------------------------
             customer = form.save(commit=False)
+
             customer.user = user
             customer.email = user.email
             customer.register_web = True
-            user.last_name = form.cleaned_data['last_name']
-            user.first_name = form.cleaned_data['first_name']
-            user.save()
+
             customer.save()
 
-            messages.success(request, 'Votre profil a été créé avec succès.')
-            return redirect('account')
-        else:
-            messages.error(request, "Erreur dans le formulaire. Vérifiez vos informations.")
+            # -------------------------------------------------
+            # Mise à jour du User Django
+            # -------------------------------------------------
+            user.first_name = form.cleaned_data["first_name"]
+            user.last_name = form.cleaned_data["last_name"]
+
+            user.save(
+                update_fields=[
+                    "first_name",
+                    "last_name",
+                ]
+            )
+
+            # -------------------------------------------------
+            # Newsletter
+            # -------------------------------------------------
+            wants_newsletter = form.cleaned_data.get(
+                "newsletter",
+                False,
+            )
+
+            # -------------------------------------------------
+            # L'utilisateur souhaite s'inscrire
+            # -------------------------------------------------
+            if wants_newsletter:
+
+                # Déjà inscrit et confirmé :
+                # aucune action nécessaire.
+                if not (
+                    newsletter_subscriber
+                    and newsletter_subscriber.is_active
+                    and newsletter_subscriber.is_confirmed
+                ):
+                    (
+                        newsletter_subscriber,
+                        created,
+                        confirmation_sent,
+                    ) = request_newsletter_subscription(
+                        request,
+                        user.email,
+                    )
+
+                    if confirmation_sent:
+                        messages.info(
+                            request,
+                            "Un e-mail de confirmation vous a été "
+                            "envoyé pour valider votre inscription "
+                            "à la newsletter.",
+                        )
+
+            # -------------------------------------------------
+            # L'utilisateur ne souhaite pas être inscrit
+            # -------------------------------------------------
+            else:
+                if (
+                    newsletter_subscriber
+                    and newsletter_subscriber.is_active
+                ):
+                    newsletter_subscriber.unsubscribe()
+
+                    messages.info(
+                        request,
+                        "Vous avez été désinscrit de la newsletter.",
+                    )
+
+            # -------------------------------------------------
+            # Succès
+            # -------------------------------------------------
+            messages.success(
+                request,
+                "Votre profil a été créé avec succès.",
+            )
+
+            return redirect("account")
+
+        # -------------------------------------------------
+        # Formulaire invalide
+        # -------------------------------------------------
+        messages.error(
+            request,
+            "Erreur dans le formulaire. "
+            "Vérifiez vos informations.",
+        )
+
+    # -------------------------------------------------
+    # GET
+    # -------------------------------------------------
     else:
-        form = CustomerForm()
+        form = CustomerForm(
+            initial={
+                "newsletter": newsletter_is_active,
+            }
+        )
 
-    context = {'form': form}
-    return render(request, 'add-profil-customer.html', context)
+    # -------------------------------------------------
+    # Template
+    # -------------------------------------------------
+    context = {
+        "form": form,
+        "newsletter_subscriber": newsletter_subscriber,
+    }
+
+    return render(
+        request,
+        "add-profil-customer.html",
+        context,
+    )
 
 
-@login_required(login_url='sign_in')
+@login_required(login_url="sign_in")
 def edit_profil_customer(request, user_id):
     user = request.user
-    customer_id = user.customer.id
-    try:
-        customer = Customer.objects.get(id=customer_id, user=user)
-    except Customer.DoesNotExist:
-        raise Http404("Profil introuvable ou non autorisé.")
 
-    customer = get_object_or_404(Customer, id=customer_id)
-    old_image = customer.image.path if customer.image and customer.image.name else None
-    if request.method == 'POST':
-        form = CustomerForm(request.POST, request.FILES, instance=customer)
+    # -------------------------------------------------
+    # Récupération du profil de l'utilisateur connecté
+    # -------------------------------------------------
+    customer = get_object_or_404(
+        Customer,
+        user=user,
+    )
+
+    # -------------------------------------------------
+    # Newsletter
+    # -------------------------------------------------
+    newsletter_subscriber = (
+        NewsletterSubscriber.objects
+        .filter(email__iexact=user.email)
+        .first()
+    )
+
+    newsletter_is_active = (
+        newsletter_subscriber is not None
+        and newsletter_subscriber.is_active
+        and newsletter_subscriber.is_confirmed
+    )
+
+    # -------------------------------------------------
+    # Ancienne image
+    # -------------------------------------------------
+    old_image = (
+        customer.image.path
+        if customer.image and customer.image.name
+        else None
+    )
+
+    # -------------------------------------------------
+    # POST
+    # -------------------------------------------------
+    if request.method == "POST":
+        form = CustomerForm(
+            request.POST,
+            request.FILES,
+            instance=customer,
+        )
+
         if form.is_valid():
 
-            # Vérifier si une nouvelle image est uploadée et supprimer l'ancienne
-            if 'image' in request.FILES:
+            # -------------------------------------------------
+            # Suppression de l'ancienne image
+            # si une nouvelle est envoyée
+            # -------------------------------------------------
+            if "image" in request.FILES:
                 if old_image and os.path.exists(old_image):
                     os.remove(old_image)
 
-            user.last_name = form.cleaned_data['last_name']
-            user.first_name = form.cleaned_data['first_name']
+            # -------------------------------------------------
+            # Enregistrement du profil Customer
+            # -------------------------------------------------
+            customer = form.save(commit=False)
+
+            # L'e-mail vient du compte utilisateur
+            # et ne peut pas être modifié depuis le profil.
             customer.email = user.email
-            user.save()
+
             customer.save()
-            form.save()
 
-            messages.success(request, 'Votre profil a été modifié avec succès.')
-            return redirect('account')
-        else:
-            messages.error(request, "Erreur lors de la modification du profil.")
+            # -------------------------------------------------
+            # Mise à jour du User Django
+            # -------------------------------------------------
+            user.first_name = form.cleaned_data["first_name"]
+            user.last_name = form.cleaned_data["last_name"]
 
+            user.save(
+                update_fields=[
+                    "first_name",
+                    "last_name",
+                ]
+            )
+
+            # -------------------------------------------------
+            # Newsletter
+            # -------------------------------------------------
+            wants_newsletter = form.cleaned_data.get(
+                "newsletter",
+                False,
+            )
+
+            # -------------------------------------------------
+            # Inscription à la newsletter
+            # -------------------------------------------------
+            if wants_newsletter:
+
+                # Si l'inscription n'est pas déjà
+                # active ET confirmée
+                if not (
+                    newsletter_subscriber
+                    and newsletter_subscriber.is_active
+                    and newsletter_subscriber.is_confirmed
+                ):
+                    (
+                        newsletter_subscriber,
+                        created,
+                        confirmation_sent,
+                    ) = request_newsletter_subscription(
+                        request,
+                        user.email,
+                    )
+
+                    if confirmation_sent:
+                        messages.info(
+                            request,
+                            "Un e-mail de confirmation vous a été "
+                            "envoyé pour valider votre inscription "
+                            "à la newsletter.",
+                        )
+
+            # -------------------------------------------------
+            # Désinscription de la newsletter
+            # -------------------------------------------------
+            else:
+                if (
+                    newsletter_subscriber
+                    and newsletter_subscriber.is_active
+                ):
+                    newsletter_subscriber.unsubscribe()
+
+                    messages.info(
+                        request,
+                        "Vous avez été désinscrit de la newsletter.",
+                    )
+
+            # -------------------------------------------------
+            # Succès
+            # -------------------------------------------------
+            messages.success(
+                request,
+                "Votre profil a été modifié avec succès.",
+            )
+
+            return redirect("account")
+
+        # -------------------------------------------------
+        # Formulaire invalide
+        # -------------------------------------------------
+        messages.error(
+            request,
+            "Erreur lors de la modification du profil. "
+            "Vérifiez vos informations.",
+        )
+
+    # -------------------------------------------------
+    # GET
+    # -------------------------------------------------
     else:
-        form = CustomerForm(instance=customer)
+        form = CustomerForm(
+            instance=customer,
+            initial={
+                "newsletter": newsletter_is_active,
+            },
+        )
 
+    # -------------------------------------------------
+    # Template
+    # -------------------------------------------------
     context = {
-        'form': form,
-        'customer': customer
+        "form": form,
+        "customer": customer,
+        "newsletter_subscriber": newsletter_subscriber,
     }
 
-    return render(request, 'edit-profil-customer.html', context)
+    return render(
+        request,
+        "edit-profil-customer.html",
+        context,
+    )
 
 
 # ----------------- administration for dmin ----------------------
@@ -482,6 +747,7 @@ def checked_message(request, message_client_id):
 
     return redirect(reverse("customer:administration") + "?section=messages")
 
+
 # ----------------- Devis clients----------------------
 
 @user_passes_test(is_superuser)
@@ -559,6 +825,7 @@ def tickets_details(request, ticket_id):
     }
 
     return render(request, "admin-customer/details-ticket.html", context)
+
 
 @login_required
 def add_ticket_message(request, ticket_id):

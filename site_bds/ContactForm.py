@@ -8,7 +8,7 @@ from django.utils.html import strip_tags
 from django_ckeditor_5.widgets import CKEditor5Widget
 from langdetect import detect, LangDetectException
 
-from .models import Contact, Newsletter
+from .models import Contact
 
 
 class ContactForm(forms.ModelForm):
@@ -63,24 +63,6 @@ class ContactForm(forms.ModelForm):
 
         return message
 
-
-class NewsLetterForm(forms.ModelForm):
-    captcha = CaptchaField()
-
-    class Meta:
-        model = Newsletter
-        fields = ('email',)
-        widgets = {
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-        }
-
-    def clean_email(self):
-        email = self.cleaned_data.get("email", "").strip().lower()
-        bad_domains = [".ru", ".xyz", "tempmail", "10minutemail", "mailinator"]
-
-        if any(bad in email for bad in bad_domains):
-            raise ValidationError("Veuillez utiliser un email valide et non temporaire.")
-        return email
 
 
 class ContactFormPopUp(forms.ModelForm):

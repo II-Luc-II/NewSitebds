@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Désinscription de la newsletter | Mon arbre familiale
+{% endblock %}
+
+{% block meta_robots %}
+    noindex, nofollow
+{% endblock %}
+
+{% block content %}
+	<section class="app-page-header">
+
+		<div class="app-page-decoration app-page-decoration-left"></div>
+		<div class="app-page-decoration app-page-decoration-right"></div>
+		<div class="container py-5">
+
+			<div class="row justify-content-center min-vh-50">
+
+				<div class="col-lg-6 col-md-8">
+
+					<div class="confirmation-card shadow-sm border-0">
+
+						<div class="card-body p-4 p-md-5 text-center">
+
+							<h1 class="h3 mb-3">
+								Se désinscrire de la newsletter
+							</h1>
+
+							{% if subscriber.is_active %}
+
+								<p class="text-muted mb-4">
+									Vous êtes sur le point de désinscrire l'adresse
+									<strong>{{ subscriber.email }}</strong>
+									de notre newsletter.
+								</p>
+
+								<form method="post">
+
+									{% csrf_token %}
+
+									<button
+											type="submit"
+											class="btn btn-genealogy"
+									>
+										Confirmer la désinscription
+									</button>
+
+									<a
+											href="/"
+											class="btn btn-outline-genealogy ms-2"
+									>
+										Annuler
+									</a>
+
+								</form>
+
+							{% else %}
+								<p class="text-muted mb-4">
+									Cette adresse e-mail est déjà désinscrite
+									de la newsletter.
+								</p>
+
+								<a
+										href="/"
+										class="btn btn-genealogy"
+								>
+									Retour à l'accueil
+								</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

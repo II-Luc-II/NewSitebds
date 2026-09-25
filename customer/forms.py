@@ -13,6 +13,15 @@ class CustomerForm(forms.ModelForm):
             'class': 'form-check-input'
         })
     )
+    newsletter = forms.BooleanField(
+        required=False,
+        label="Je souhaite recevoir la newsletter",
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-check-input customer-match-checkbox",
+            }
+        ),
+    )
     class Meta:
         model = Customer
         fields = ('last_name', 'first_name', 'entreprise', 'mail', 'phone', 'address', 'image', 'agree_terms',)

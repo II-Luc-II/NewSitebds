@@ -1,12 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import redirect
 
-from site_bds.ContactForm import NewsLetterForm, ContactFormPopUp
+from site_bds.ContactForm import ContactFormPopUp
 from site_bds.models import Contact, PopUp, InfoLegacy, PolicyLegacy, Blogs
 
 
 def unread_bds(request):
-    form_news = NewsLetterForm()
     popups = PopUp.objects.filter(on_line=True).order_by("?")
     info_legacy = InfoLegacy.objects.all().first()
     policy = PolicyLegacy.objects.all().first()
@@ -14,7 +13,6 @@ def unread_bds(request):
 
 
     return {
-        'form_news': form_news,
         'popups': popups,
         'info_legacy': info_legacy,
         'policy': policy,
