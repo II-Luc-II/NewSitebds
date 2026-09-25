@@ -5,6 +5,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_http_methods
+from django.templatetags.static import static
 
 from .forms import NewsletterSubscriptionForm
 from .models import NewsletterSubscriber
@@ -48,12 +49,17 @@ def request_newsletter_subscription(request, email):
         )
     )
 
+    logo_url = request.build_absolute_uri(
+        static("assets/img/logo-bleu-bds.svg")
+    )
+
     # -------------------------------------------------
     # Contexte des templates e-mail
     # -------------------------------------------------
     context = {
         "confirmation_url": confirmation_url,
         "subscriber": subscriber,
+        "logo_url": logo_url,
     }
 
     # -------------------------------------------------
