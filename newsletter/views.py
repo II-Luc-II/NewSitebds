@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -83,6 +83,7 @@ def request_newsletter_subscription(request, email):
         body=text_message,
         from_email=settings.DEFAULT_FROM_EMAIL,
         to=[subscriber.email],
+        reply_to=[settings.DEFAULT_FROM_EMAIL],
     )
 
     # Version HTML
