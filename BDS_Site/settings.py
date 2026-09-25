@@ -333,14 +333,32 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',  # Auth allauth
 ]
 
-ACCOUNT_LOGIN_METHODS = {"email"}
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Force la confirmation d'email
-ACCOUNT_EMAIL_CONFIRMATION_HMAC = True  # Désactive le token de confirmation
-ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False  # Active la vérification par code
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-# Activation de la vérification par email
+# ============================================================
+# DJANGO ALLAUTH
+# ============================================================
 
+# Connexion uniquement avec l'adresse e-mail
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+# L'adresse e-mail est obligatoire
+ACCOUNT_EMAIL_REQUIRED = True
+
+# Pas de nom d'utilisateur demandé
+ACCOUNT_USERNAME_REQUIRED = False
+
+# Vérification obligatoire de l'adresse e-mail
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+# Confirmation par lien
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = False
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+ACCOUNT_SIGNUP_FIELDS = [
+    "email*",
+    "password1*",
+    "password2*",
+]
 
 # Configuration de celery
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
