@@ -174,7 +174,7 @@ ANYMAIL = {
     "FROM_EMAIL": env("ENV_BREVO_FROM_EMAIL"),
 }
 
-DEFAULT_FROM_EMAIL = 'contact@bds38.com'
+DEFAULT_FROM_EMAIL = 'BDS contact@bds38.com'
 
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')  # Ajout de bruit
 CAPTCHA_FONT_SIZE = 32
