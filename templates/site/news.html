@@ -47,7 +47,7 @@
 								</div>
 								<div class="d-flex justify-content-center">
 									<img src="{{ blogs.image.url }}" alt="{{ blogs.title }}"
-									     class="img-fluid rounded mb-1"
+									     class="news-article-image "
 									>
 								</div>
 								<div class="entry-content mt-3">
@@ -55,11 +55,16 @@
 										{{ blogs.text|safe }}
 									</p>
 									<div class="read-more">
-										<a class="btn-get-started" style="border-radius: 30px" href="{% url 'blog_single' blog_id=blogs.id %}">Voir plus</a>
+										<a class="btn-get-started"
+										   style="border-radius: 30px"
+										   href="{% url 'blog_single' blog_id=blogs.id %}">
+											Voir plus..
+										</a>
 									</div>
 								</div>
 
-							</article><!-- End blog entry -->
+							</article>
+							<!-- End blog entry -->
 						{% endif %}
 
 					{% endfor %}
@@ -69,7 +74,7 @@
 					<div class="sidebar">
 						<div class="sidebar-item">
 							<img src="{% static 'images/54-Grande.jpeg' %}" alt="image-judoAdministrator"
-							     class="rounded" height="200" width="270">
+							     class="rounded" height="200" width="100%">
 						</div>
 
 						<h3 class="sidebar-title">Toutes les news</h3>
@@ -78,7 +83,9 @@
 								{% if blog.en_ligne %}
 									<div class="post-item clearfix">
 										<img src="{{ blog.image.url }}" alt="{{ blog.title }}">
-										<h4><a href="#blog-{{ blog.id }}">{{ blog.title }}</a></h4>
+										<h4>
+											<a href="#blog-{{ blog.id }}">{{ blog.title }}</a>
+										</h4>
 										<time datetime="2020-01-01">{{ blog.created_at }}</time>
 									</div>
 								{% endif %}
@@ -89,8 +96,7 @@
 				</div><!-- End blog sidebar -->
 			</div><!-- End .row -->
 		</div><!-- End .container -->
-	</section><!-- End Blog Section -->
-
-	</main><!-- End #main -->
+	</section>
+	<!-- End Blog Section -->
 
 {% endblock content %}
