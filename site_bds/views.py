@@ -12,6 +12,7 @@ from django.utils.html import strip_tags
 
 from customer.forms import TicketClientForm, TicketMessageForm
 from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
+from newsletter.models import Newsletter
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, ContactFormPopUp
 from site_bds.models import Gallery, Testimonials, Team, Ask, Contact, Blogs, ALaUne, Article, Videos
@@ -312,13 +313,12 @@ def news(request):
 
 
 def blog_single(request, blog_id):
-    blogs = Blogs.objects.get(id=blog_id)
-    blog_all = Blogs.objects.all()
+    blog = get_object_or_404(Blogs, id=blog_id)
+    blog_all = Blogs.objects.all().order_by('-created_at')
 
     context = {
-        'blogs': blogs,
-        "blog_all": blog_all,
-        'blog_single': blog_single,
+        'blog': blog,
+        'blog_all': blog_all,
     }
 
     return render(request, 'site/blog-single.html', context)

@@ -338,6 +338,7 @@ AUTHENTICATION_BACKENDS = [
 # DJANGO ALLAUTH
 # ============================================================
 
+
 # Connexion uniquement avec l'adresse e-mail
 ACCOUNT_LOGIN_METHODS = {"email"}
 
