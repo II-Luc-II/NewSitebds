@@ -39,16 +39,18 @@
 				<div class="col-lg-8 entries">
 
 					<article class="entry entry-single">
+						<!-- Image entêté de l'article -->
 						<div class="d-flex justify-content-center">
-							<img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="img-fluid rounded shadow">
+							<img src="{{ blog.image.url }}"
+							     alt="{{ blog.title }}"
+							     class="rounded-4 mb-4 news-article-image"
+							>
 						</div>
-
+						<!-- Titre de l'article -->
 						<h2 class="entry-title mt-3">
-							<a href="{% url 'blog_single' blog_id=blog.id %}">
-								{{ blog.title }}
-							</a>
+							{{ blog.title }}
 						</h2>
-
+						<!-- date affichée -->
 						<div class="entry-meta">
 							<ul>
 								<li class="d-flex align-items-center">
@@ -59,49 +61,66 @@
 								</li>
 							</ul>
 						</div>
-
+						<!-- Premier texte -->
 						<div class="entry-content">
 							<div>
 								<p>
 									{{ blog.text|safe }}
 								</p>
 							</div>
+							<!-- Image du Premier texte -->
 							<div class="m-5">
 								<img src="{{ blog.image_2.url }}" alt="{{ blog.title }}"
-								     class="img-fluid rounded shadow">
+								     class="rounded-4 mb-4 news-article-image"
+								>
 							</div>
+							<!-- Deuxième texte -->
 							<div>
 								<p>
 									{{ blog.text_details|safe }}
 								</p>
 							</div>
+							<!-- Image du deuxième texte -->
+							<div class="m-5">
+								<img src="{{ blog.image_3.url }}" alt="{{ blog.title }}"
+								     class="rounded-4 mb-4 news-article-image"
+								>
+							</div>
+							<!-- Troisième texte texte -->
+							<div>
+								<p>
+									{{ blog.text_details_2|safe }}
+								</p>
+							</div>
 						</div>
 
-						<div class="m-5">
-							<img src="{{ blog.image_3.url }}" alt="{{ blog.title }}" class="img-fluid rounded shadow">
-						</div>
-						<p>
-							{{ blog.text_details_2|safe }}
-						</p>
-					</article><!-- End blog entry -->
-				</div><!-- End blog entries list -->
+					</article>
+					<!-- End blog entry -->
+				</div>
+				<!-- End blog entries list -->
 
+				<!-- Colonne Sidebar-->
 				<div class="col-lg-4">
 					<div class="sidebar">
-
+						<!-- Image Sidebar-->
 						<div class="sidebar-item search-form">
 							<img src="{% static 'images/54-Grande.jpeg' %}" alt="logo-BDS"
-							     class="rounded" height="200" width="270">
-						</div><!-- End sidebar search form-->
+							     class="rounded" height="200" width="100%">
+						</div>
 
-						<h3 class="sidebar-title">Toutes les news</h3>
+						<!-- Titre Sidebar-->
+						<h3 class="sidebar-title">
+							Toutes les news
+						</h3>
+
 						<hr>
+						<!-- Articles Sidebar-->
 						<div class="sidebar-item recent-posts">
 							{% for blog_all in blog_all %}
 
 								<div class="post-item clearfix">
 									<img src="{{ blog_all.image.url }}" alt="{{ blog_all.title }}"
-									     height="50"
+									     height="auto"
 									     width="80"
 									     class="rounded"
 									>
@@ -123,7 +142,5 @@
 		</div><!-- End container -->
 
 	</section><!-- End Blog Section -->
-
-	</main><!-- End #main -->
 
 {% endblock %}
