@@ -72,16 +72,23 @@
 			<div class="sidebar">
 
 				<div class="sidebar-item search-form">
-					<img src="{% static 'images/54-Grande.jpeg'  %}" alt="Logo-Miguet-Menuiserie"
-					     class="rounded" height="200" width="270">
+					<img src="{% static 'images/54-Grande.jpeg'  %}" alt="Logo-bds"
+					     class="rounded" height="200" width="100%">
 				</div><!-- End sidebar search form-->
 
 				<h3 class="sidebar-title">Toutes les commandes</h3>
 				<div class="sidebar-item recent-posts">
 					{% for gallery_all in gallery_all %}
 						<div class="post-item clearfix">
-							<img src="{{ gallery_all.image.url }}" alt="{{ gallery_all.title }}" height="50" width="80">
-							<h4><a href="{% url 'gallery_single' gallery_id=gallery_all.id %}">{{ gallery_all.name }}</a></h4>
+							<img src="{{ gallery_all.image.url }}"
+							     alt="{{ gallery_all.title }}"
+							     height="100%"
+							     width="80">
+							<h4>
+								<a href="{% url 'gallery_single' gallery_id=gallery_all.id %}">
+									{{ gallery_all.name }}
+								</a>
+							</h4>
 							<time datetime="2020-01-01">{{ gallery.created_at }}</time>
 						</div>
 					{% endfor %}
@@ -98,6 +105,5 @@
 
     </section><!-- End Blog Section -->
 
-  </main><!-- End #main -->
 
 {% endblock %}
