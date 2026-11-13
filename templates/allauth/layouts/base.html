@@ -1,27 +1,31 @@
+
 {% load static %}
 {% load i18n %}
-{% load crispy_forms_tags %}
 {% load socialaccount %}
 
 <!doctype html>
 <html lang="fr">
 <head>
-	{% include 'partials/head.html' %}
-	<script src="https://unpkg.com/htmx.org@1.9.12"></script>
-	<title>{% block title %}{% endblock %}</title>
-	{% block link %}<link href="/static/assets/css/account.css" rel="stylesheet">{% endblock %}
+    {% include "partials/head.html" %}
+
+    <title>
+        {% block title %}Espace personnel{% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/account.css' %}">
+
+    {% block link %}{% endblock %}
 </head>
 
-<!-- Up-pages  -->
+<body class="account-page">
+
 <div id="up-pages"></div>
 
-<!-- Navbar  -->
 {% include "partials/header.html" %}
 
-
-<!-- Messages  -->
 {% block body %}
-	<section id="hero">
+<!-- HERO -->
+    <section id="hero">
 		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 		     viewBox="0 24 150 28 " preserveAspectRatio="none">
 			<defs>
@@ -37,143 +41,223 @@
 				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
 			</g>
 		</svg>
+	</section><!-- End Hero -->
 
-	</section>
-	{% if messages %}
-		<div class="toast align-items-center text-white bg-success bg-border-0 show" role="alert">
-			<div class="d-flex">
-				<strong>{% trans "Messages:" %}</strong>
-				<ul>
-					{% for message in messages %}
-						<li>{{ message }}</li>{% endfor %}
-				</ul>
-			</div>
-		</div>
-	{% endif %}
+<main class="account-main">
 
-	<div class="container min-vh-100">
-	<div class="text-center mt-5 p-2">
-	<div>
-		<strong>{% trans "Menu:" %}</strong>
-		<ul>
-			<li>
-				<!-- Logo  -->
-				{% if logo.image.url %}
-					<img src="{{ logo.image.url }}" alt="logo" width="80">
-				{% endif %}
-			</li>
-			{% if user.is_authenticated %}
-				{% url 'account_email' as email_url_ %}
-				{% if email_url_ %}
-					<li><a href="{{ email_url_ }}">{% trans "Change Email" %}</a></li>
-				{% endif %}
+    <div class="container">
 
-				{% url 'account_change_password' as change_password_url_ %}
-				{% if change_password_url_ %}
-					<li><a href="{{ change_password_url_ }}">{% trans "Change Password" %}</a></li>
-				{% endif %}
+        <!-- En-tête de l'espace personnel -->
+        <div class="account-header text-center">
 
-				{% url 'socialaccount_connections' as connections_url_ %}
-				{% if connections_url_ %}
-					<li><a href="{{ connections_url_ }}">{% trans "Account Connections" %}</a></li>
-				{% endif %}
+            {% if logo.image %}
+                <a href="/" class="account-logo">
+                    <img src="{{ logo.image.url }}"
+                         alt="Logo"
+                         class="img-fluid">
+                </a>
+            {% endif %}
 
-				{% url 'account_logout' as logout_url_ %}
-				{% if logout_url_ %}
-					<li><a href="{{ logout_url_ }}">{% trans "Sign Out" %}</a></li>
-				{% endif %}
-			{% else %}
-				{% url 'account_login' as login_url_ %}
-				{% if login_url_ %}
-					<li><a href="{{ login_url_ }}">{% trans "Sign In" %}</a></li>
-				{% endif %}
+            <div class="account-heading">
+                <span class="account-eyebrow">
+                    <i class="bi bi-shield-check"></i>
+                    Espace sécurisé
+                </span>
 
-				{% url 'account_signup' as signup_url_ %}
-				{% if signup_url_ %}
-					<li><a href="{{ signup_url_ }}">{% trans "Sign Up" %}</a></li>
-				{% endif %}
+                <h1>Mon espace personnel</h1>
 
-				<a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark w-25 mb-3">
-					<i class="bi bi-google"></i> Se connecter avec Google
-				</a>
-			{% endif %}
-		</ul>
-	</div>
-	<div class="card p-5 rounded-1 col-md-6 offset-md-3 account-card shadow">
-	{% block content %}
-		{% block inner_content %}{% endblock %}
-	{% endblock content %}
+                <p>
+                    Gérez votre compte et accédez à vos services
+                    en toute simplicité.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Navigation Allauth -->
+        <nav class="account-navigation"
+             aria-label="Navigation du compte">
+
+            {% if user.is_authenticated %}
+
+                {% url 'account_email' as email_url_ %}
+                {% if email_url_ %}
+                    <a href="{{ email_url_ }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Adresse e-mail</span>
+                    </a>
+                {% endif %}
+
+                {% url 'account_change_password' as change_password_url_ %}
+                {% if change_password_url_ %}
+                    <a href="{{ change_password_url_ }}">
+                        <i class="bi bi-key"></i>
+                        <span>Mot de passe</span>
+                    </a>
+                {% endif %}
+
+                {% url 'socialaccount_connections' as connections_url_ %}
+                {% if connections_url_ %}
+                    <a href="{{ connections_url_ }}">
+                        <i class="bi bi-link-45deg"></i>
+                        <span>Comptes associés</span>
+                    </a>
+                {% endif %}
+
+                {% url 'account_logout' as logout_url_ %}
+                {% if logout_url_ %}
+                    <a href="{{ logout_url_ }}"
+                       class="account-nav-logout">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                {% endif %}
+
+            {% else %}
+
+                {% url 'account_login' as login_url_ %}
+                {% if login_url_ %}
+                    <a href="{{ login_url_ }}">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>Connexion</span>
+                    </a>
+                {% endif %}
+
+                {% url 'account_signup' as signup_url_ %}
+                {% if signup_url_ %}
+                    <a href="{{ signup_url_ }}">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Inscription</span>
+                    </a>
+                {% endif %}
+
+            {% endif %}
+
+        </nav>
+
+        <!-- Messages Django -->
+        {% if messages %}
+            <div class="account-messages"
+                 aria-live="polite">
+
+                {% for message in messages %}
+                    <div class="alert
+                        {% if message.tags == 'error' %}
+                            alert-danger
+                        {% elif message.tags == 'success' %}
+                            alert-success
+                        {% elif message.tags == 'warning' %}
+                            alert-warning
+                        {% else %}
+                            alert-info
+                        {% endif %}
+                        alert-dismissible fade show"
+                         role="alert">
+
+                        <i class="bi bi-info-circle me-2"></i>
+                        {{ message }}
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Fermer">
+                        </button>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+
+        <!-- Contenu Allauth -->
+        <div class="account-card-wrapper">
+
+            <div class="account-card">
+
+                {% block content %}
+                    {% block inner_content %}
+                    {% endblock %}
+                {% endblock %}
+
+            </div>
+
+        </div>
+
+        <!-- Informations -->
+        {% if info_legacy.description %}
+            <div class="account-footer-info">
+                {{ info_legacy.description|safe }}
+            </div>
+        {% endif %}
+
+    </div>
+
+</main>
+
 {% endblock body %}
-{% block extra_body %}
-{% endblock extra_body %}
-
-
-</div>
-<div class="row py-5 text-gray text-center">
-	<p>{{ info_legacy.description | safe }}</p>
-</div>
-<!-- Script eyes password  -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        function createPasswordToggle(passwordField) {
-            // Créer un conteneur pour le champ et l'icône
-            let wrapper = document.createElement("div");
-            wrapper.style.position = "relative";
-            wrapper.style.display = "inline-block";
-            wrapper.style.width = "100%";
-
-            // Insérer l'input dans le wrapper
-            passwordField.parentNode.insertBefore(wrapper, passwordField);
-            wrapper.appendChild(passwordField);
-
-            // Appliquer un style élargi à l'input
-            passwordField.style.width = "100%";
-            passwordField.style.paddingRight = "40px";
-            passwordField.style.boxSizing = "border-box";
-
-            // Créer l'icône Bootstrap
-            let toggleIcon = document.createElement("i");
-            toggleIcon.classList.add("bi", "bi-eye-slash"); // Icône de base
-            toggleIcon.style.position = "absolute";
-            toggleIcon.style.right = "10px";
-            toggleIcon.style.top = "50%";
-            toggleIcon.style.transform = "translateY(-50%)";
-            toggleIcon.style.cursor = "pointer";
-            toggleIcon.style.fontSize = "18px";
-            toggleIcon.style.color = "#555"; // Couleur de l'icône
-
-            // Ajouter l'icône dans le wrapper
-            wrapper.appendChild(toggleIcon);
-
-            // Gérer le clic pour afficher/masquer le mot de passe
-            toggleIcon.addEventListener("click", function () {
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    toggleIcon.classList.replace("bi-eye-slash", "bi-eye"); // Changer l'icône
-                } else {
-                    passwordField.type = "password";
-                    toggleIcon.classList.replace("bi-eye", "bi-eye-slash"); // Remettre l'icône initiale
-                }
-            });
-        }
-
-        // Appliquer la fonction aux deux champs
-        let passwordField = document.getElementById("id_password");
-        let password2Field = document.getElementById("id_password2");
-        let password1Field = document.getElementById("id_password1");
-        let passwordOldField = document.getElementById("id_oldpassword");
-
-        if (passwordField) createPasswordToggle(passwordField);
-        if (password2Field) createPasswordToggle(password2Field);
-        if (password1Field) createPasswordToggle(password1Field);
-        if (passwordOldField) createPasswordToggle(passwordOldField);
-    });
-</script>
-</div>
-</div>
 
 {% include "partials/footer.html" %}
 
 <script src="{% static 'assets/js/main.js' %}"></script>
+
+<!-- Afficher / masquer les mots de passe -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(
+        'input[type="password"]'
+    ).forEach(function (input) {
+
+        if (input.closest(".password-wrapper")) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "password-wrapper";
+
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "password-toggle";
+        button.setAttribute(
+            "aria-label",
+            "Afficher le mot de passe"
+        );
+        button.setAttribute("aria-pressed", "false");
+
+        button.innerHTML = '<i class="bi bi-eye"></i>';
+
+        wrapper.appendChild(button);
+
+        button.addEventListener("click", function () {
+
+            const visible = input.type === "text";
+
+            input.type = visible ? "password" : "text";
+
+            button.innerHTML = visible
+                ? '<i class="bi bi-eye"></i>'
+                : '<i class="bi bi-eye-slash"></i>';
+
+            button.setAttribute(
+                "aria-label",
+                visible
+                    ? "Afficher le mot de passe"
+                    : "Masquer le mot de passe"
+            );
+
+            button.setAttribute(
+                "aria-pressed",
+                String(!visible)
+            );
+
+        });
+
+    });
+
+});
+</script>
+
+{% block extra_body %}{% endblock %}
+
 </body>
 </html>
