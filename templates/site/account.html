@@ -203,7 +203,8 @@
 													<tr>
 														<th scope="col" class="align-middle dark-blue">Référence</th>
 														<th scope="col" class="align-middle dark-blue">Statut</th>
-														<th scope="col" class="align-middle dark-blue">Nom du Projet</th>
+														<th scope="col" class="align-middle dark-blue">Nom du Projet
+														</th>
 														<th scope="col" class="align-middle dark-blue">Domaine</th>
 														<th scope="col" class="align-middle dark-blue">Serveur</th>
 														<th scope="col" class="align-middle dark-blue">
@@ -269,21 +270,22 @@
 									<h4 class="py-2 mt-3">Vos documents à télécharger</h4>
 									<hr>
 									<div class="mt-2">
-										{% for doc_name, doc_label in DOCS_CHOICES.items %}
-											{% with documents_dict|get_dict_value:doc_name as document %}
-												{% if document %}
-													<p>{{ forloop.counter }}/ {{ doc_label }} 👉
-														<span class="bg-white text-blue p-1 rounded text-end">
-											<a href="{{ document.document.url }}" class="text-decoration-none">
-												<i class="bi bi-file-earmark-pdf-fill after-icons fs-5"></i>
-												{{ document.document_description }} | {{ document.document_name }}
-											</a>
-											</span>
-													</p>
-												{% else %}
-													<p>{{ forloop.counter }}/ {{ doc_label }} 👉 Aucun fichier</p>
-												{% endif %}
-											{% endwith %}
+										{% for document in documents %}
+											{% if document %}
+												<p>{{ document.name }}
+													<span class="bg-white text-blue p-1 rounded text-end">
+														<a href="{{ document.document.url }}"
+														   class="text-decoration-none">
+															<i class="bi bi-file-earmark-pdf-fill after-icons fs-5"></i>
+															{{ document.document_description }}
+															| {{ document.document_name }}
+														</a>
+														 | Ajoutée le {{ document.created_at }}
+													</span>
+												</p>
+											{% else %}
+												<p> Aucun fichier</p>
+											{% endif %}
 										{% endfor %}
 									</div>
 								</div>

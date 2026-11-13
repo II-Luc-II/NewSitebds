@@ -12,6 +12,7 @@ from django.utils.html import strip_tags
 
 from customer.forms import TicketClientForm, TicketMessageForm
 from customer.models import Customer, MyProject, Documents, Fonctions, Ticket
+from newsletter.forms import NewsletterSubscriptionForm
 from newsletter.models import Newsletter
 from site_bds.ArticleForm import ArticleForm
 from site_bds.ContactForm import ContactForm, ContactFormPopUp
@@ -83,7 +84,6 @@ def account(request):
     projects = MyProject.objects.filter(user=customer)
     documents = Documents.objects.filter(user=customer)
 
-    documents_dict = {doc.document_name: doc for doc in documents}
 
     if request.method == "POST":
         form = TicketClientForm(request.POST, request.FILES)
@@ -105,8 +105,7 @@ def account(request):
     context = {
         "customer": customer,
         "projects": projects,
-        "documents_dict": documents_dict,
-        "DOCS_CHOICES": dict(Documents.DOCS_CHOICES),
+        "documents": documents,
         "form": form,
         'tickets': tickets,
     }
@@ -118,14 +117,11 @@ def details_my_project(request, project_id):
     project = get_object_or_404(MyProject, id=project_id)
     # Organiser les documents sous forme de dictionnaire
     documents = Documents.objects.filter(user=project.user)
-    documents_dict = {doc.document_name: doc for doc in documents}
     functions = Fonctions.objects.filter(project=project)
 
     context = {
         'project': project,
         'documents': documents,
-        "documents_dict": documents_dict,
-        "DOCS_CHOICES": dict(Documents.DOCS_CHOICES),
         "functions": functions,
     }
 
@@ -234,7 +230,7 @@ def contact_message(request):
 
 def add_news_letter(request):
     if request.method == "POST":
-        form = NewsLetterForm(request.POST)
+        form = NewsletterSubscriptionForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data["email"]
             obj, created = Newsletter.objects.get_or_create(email=email)

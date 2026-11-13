@@ -118,6 +118,26 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
 }
 
+.btn-news-letter {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid #FFF;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 5px 30px;
+    border-radius: 30px;
+    transition: 0.5s;
+    color: #fff;
+    background: #587B9F;
+}
+
+.btn-news-letter:hover {
+    background: #1D2945;
+    color: #fff;
+    border: 2px solid #FFF !important;
+}
+
 .bg-popup {
     background: #1D2945 !important;
     border: solid 1px white;
@@ -2415,6 +2435,7 @@ section {
     margin-bottom: 15px;
     background: #1d2945ed;
     color: #fff;
+    border-radius: 10px;
     border-top: 4px solid #587B9F;
     text-align: center;
     padding: 30px 20px;
@@ -2438,7 +2459,7 @@ section {
 #footer .footer-top .social-links a {
     font-size: 18px;
     display: inline-block;
-    color: #fff;
+    color: #587B9F;
     line-height: 1;
     padding: 8px 0;
     margin-right: 4px;
@@ -3152,3 +3173,4 @@ select:focus {
     height: 300px;
     object-fit: cover;
 }
+

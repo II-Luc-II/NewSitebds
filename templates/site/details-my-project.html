@@ -146,29 +146,31 @@
 										<tr>
 											<th scope="col" class="text-center">#</th>
 											<th scope="col">Document</th>
+											<th scope="col">Description</th>
+											<th scope="col">Date</th>
 											<th scope="col">Fichier</th>
 										</tr>
 										</thead>
 										<tbody>
-										{% for doc_name, doc_label in DOCS_CHOICES.items %}
-											{% with documents_dict|get_dict_value:doc_name as document %}
-												<tr>
-													<td class="text-center fw-semibold">{{ forloop.counter }}</td>
-													<td>{{ doc_label }}</td>
-													<td>
-														{% if document %}
-															<a href="{{ document.document.url }}"
-															   class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2"
-															   target="_blank">
-																<i class="bi bi-file-earmark-pdf-fill fs-5"></i>
-																{{ document.document_description|default:"Document disponible" }}
-															</a>
-														{% else %}
-															<span class="text-muted fst-italic">Aucun fichier</span>
-														{% endif %}
-													</td>
-												</tr>
-											{% endwith %}
+										{% for document in documents %}
+											<tr>
+												<td class="text-center fw-semibold">{{ forloop.counter }}</td>
+												<td>{{ document.document_name }}</td>
+												<td>{{ document.document_description }}</td>
+												<td>{{ document.created_at }}</td>
+												<td>
+													{% if document %}
+														<a href="{{ document.document.url }}"
+														   class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2"
+														   target="_blank">
+															<i class="bi bi-file-earmark-pdf-fill fs-5"></i>
+															{{ document.document_description|default:"Document disponible" }}
+														</a>
+													{% else %}
+														<span class="text-muted fst-italic">Aucun fichier</span>
+													{% endif %}
+												</td>
+											</tr>
 										{% endfor %}
 										</tbody>
 									</table>
