@@ -1,0 +1,47 @@
+{% extends 'base-flechettes.html' %}
+{% load static %}
+
+{% block content %}
+	<div class="container min-vh-100 d-flex flex-column justify-content-center">
+		<!-- Section logo -->
+		 <div class="row justify-content-center align-items-center text-center w-100">
+			<div class="d-flex justify-content-center align-items-center" data-aos="flip-left" data-aos-duration="1000">
+				<img src="{% static 'flechettes/svg/logo-dark-zone.svg' %}" alt="logo" height="400" width="400">
+			</div>
+		</div>
+		<!-- Section row pour les colonnes -->
+		 <div class="row justify-content-center align-items-center text-center w-100">
+			<div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
+				<h2>
+					<img src="{% static 'flechettes/svg/flechette-rouge.svg' %}"
+					     alt="icon-flechette"
+					     height="40"
+					     width="40">
+					Apprendre à jouer
+				</h2>
+				{% for game in games %}
+					{% if game.in_line %}
+						<div class="py-2">
+							<a href="{% url 'flechettes:game_description' game.id %}"
+							   class="btn btn-primary index-btn">
+								{{ game.name }} {{ game.level }}
+							</a>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+
+			<div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
+				<h2><i class="bi bi-people text-primary"></i> Jouer</h2>
+				<div class="py-2">
+					<a href="{% url 'flechettes:game_selected_501' %}" class="btn btn-primary">Jouer au 501</a>
+				</div>
+				<div class="py-2">
+					<a href="{% url 'flechettes:game_selected_301' %}" class="btn btn-primary">Jouer au 301</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

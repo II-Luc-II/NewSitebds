@@ -1,0 +1,148 @@
+.text-black {
+    color: black;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-blue {
+    color: blue;
+}
+
+#loader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.logo-bds {
+    width: 70px;
+    margin: 15px;
+    padding: 0;
+    line-height: 20px;
+}
+
+/* --------  fonts -------------*/
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.lato-thin {
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.lato-light {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.lato-regular {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.lato-bold {
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.lato-black {
+    font-family: "Lato", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.lato-thin-italic {
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.lato-light-italic {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.lato-regular-italic {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.lato-bold-italic {
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.lato-black-italic {
+    font-family: "Lato", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+}
+
+/* -------- INDEX --------- */
+
+.index-btn {
+    width: 70%;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #203b62;
+    color: #fff;
+}
+
+/* -------- Game selected --------- */
+
+h1 {
+    margin-bottom: 10px;
+    color: #f1c40f;
+}
+
+
+
+#game-container {
+    position: relative;
+}
+
+canvas {
+    background-color: #333;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    cursor: crosshair;
+}
+
+#score-board {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    background: #2c3e50;
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: 2px solid #34495e;
+    text-align: center;
+    min-width: 250px;
+}
+
+#last-hit {
+    color: #e74c3c;
+    font-size: 18px;
+    margin-top: 5px;
+    height: 25px;
+}
+
+

@@ -4,106 +4,103 @@
 {% block title %}Galerie{% endblock %}
 
 
-{% block header %}
-	{% include "partials/header.html" %}
-{% endblock %}
-
-
 {% block content %}
 
+	<!-- Hero -->
 	<section id="hero">
-    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
-      <defs>
-        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-      </defs>
-      <g class="wave1">
-        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
-      </g>
-      <g class="wave2">
-        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
-      </g>
-      <g class="wave3">
-        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
-      </g>
-    </svg>
+		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		     viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+			</defs>
+			<g class="wave1">
+				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+			</g>
+			<g class="wave2">
+				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+			</g>
+			<g class="wave3">
+				<use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+			</g>
+		</svg>
+	</section>
+	<!-- End Hero -->
 
-  </section><!-- End Hero -->
+	<!-- ======= Blog Section ======= -->
+	<section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+		<div class="container">
 
-    <!-- ======= Blog Section ======= -->
-    <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-      <div class="container">
+			<div class="row">
 
-        <div class="row">
+				<div class="col-lg-8 entries">
 
-          <div class="col-lg-8 entries">
-
-            <article class="entry entry-single">
-	            <div>
-		            <h1>{{ gallery.name }}</h1>
-	            </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ gallery.image.url }}" alt="{{ gallery.title }}" class="img-fluid">
-              </div>
-
-              <h2 class="entry-title">
-                <a href="{% url 'gallery_single' gallery_id=gallery.id %}">{{ gallery.title }}</a>
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i>
-					<a href="{% url 'gallery_single' gallery_id=gallery.id %}">
-						<time datetime="2020-01-01">{{ gallery.created_at }}</time>
-					</a>
-                </ul>
-              </div>
-
-              <div class="entry-content">
-	              <div>
-		              <p>
-	                {{ gallery.description|safe }}
-                    </p>
-	              </div>
-              </div>
-            </article><!-- End blog entry -->
-          </div><!-- End blog entries list -->
-
-        <div class="col-lg-4">
-			<div class="sidebar">
-
-				<div class="sidebar-item search-form">
-					<img src="{% static 'images/54-Grande.jpeg'  %}" alt="Logo-bds"
-					     class="rounded" height="200" width="100%">
-				</div><!-- End sidebar search form-->
-
-				<h3 class="sidebar-title">Toutes les commandes</h3>
-				<div class="sidebar-item recent-posts">
-					{% for gallery_all in gallery_all %}
-						<div class="post-item clearfix">
-							<img src="{{ gallery_all.image.url }}"
-							     alt="{{ gallery_all.title }}"
-							     height="100%"
-							     width="80">
-							<h4>
-								<a href="{% url 'gallery_single' gallery_id=gallery_all.id %}">
-									{{ gallery_all.name }}
-								</a>
-							</h4>
-							<time datetime="2020-01-01">{{ gallery.created_at }}</time>
+					<article class="entry entry-single">
+						<div>
+							<h1>{{ gallery.name }}</h1>
 						</div>
-					{% endfor %}
-				</div>
-				<!-- End sidebar recent posts-->
+						<div class="d-flex justify-content-center">
+							<img src="{{ gallery.image.url }}" alt="{{ gallery.title }}" class="img-fluid">
+						</div>
 
-			</div><!-- End sidebar -->
+						<h2 class="entry-title">
+							<a href="{% url 'gallery_single' gallery_id=gallery.id %}">{{ gallery.title }}</a>
+						</h2>
 
-		</div><!-- End blog sidebar -->
+						<div class="entry-meta">
+							<ul>
+								<li class="d-flex align-items-center"><i class="icofont-wall-clock"></i>
+									<a href="{% url 'gallery_single' gallery_id=gallery.id %}">
+										<time datetime="2020-01-01">{{ gallery.created_at }}</time>
+									</a>
+							</ul>
+						</div>
 
-        </div><!-- End row -->
+						<div class="entry-content">
+							<div>
+								<p>
+									{{ gallery.description|safe }}
+								</p>
+							</div>
+						</div>
+					</article><!-- End blog entry -->
+				</div><!-- End blog entries list -->
 
-      </div><!-- End container -->
+				<div class="col-lg-4">
+					<div class="sidebar">
 
-    </section><!-- End Blog Section -->
+						<div class="sidebar-item search-form">
+							<img src="{% static 'images/54-Grande.jpeg' %}" alt="Logo-bds"
+							     class="rounded" height="200" width="100%">
+						</div><!-- End sidebar search form-->
+
+						<h3 class="sidebar-title">Toutes les commandes</h3>
+						<div class="sidebar-item recent-posts">
+							{% for gallery_all in gallery_all %}
+								<div class="post-item clearfix">
+									<img src="{{ gallery_all.image.url }}"
+									     alt="{{ gallery_all.title }}"
+									     height="100%"
+									     width="80">
+									<h4>
+										<a href="{% url 'gallery_single' gallery_id=gallery_all.id %}">
+											{{ gallery_all.name }}
+										</a>
+									</h4>
+									<time datetime="2020-01-01">{{ gallery.created_at }}</time>
+								</div>
+							{% endfor %}
+						</div>
+						<!-- End sidebar recent posts-->
+
+					</div><!-- End sidebar -->
+
+				</div><!-- End blog sidebar -->
+
+			</div><!-- End row -->
+
+		</div><!-- End container -->
+
+	</section><!-- End Blog Section -->
 
 
 {% endblock %}

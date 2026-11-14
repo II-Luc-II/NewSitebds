@@ -1,0 +1,425 @@
+{% extends "base-flechettes.html" %}
+{% load static %}
+{% block content %}
+	<div class="container min-vh-100 d-flex flex-column justify-content-center">
+
+        <div class="row justify-content-center align-items-center text-center w-100">
+			<div class="col-12">
+				<h1 class="text-warning mb-2">Jeu de Fléchettes - 501</h1>
+				<h2 class="text-white-50 mb-4 text-uppercase fs-5">Multi-joueurs</h2>
+			</div>
+
+			<!-- 1. ÉCRAN DE CONFIGURATION (Saisie du nombre de joueurs) -->
+			<div id="setup-container" class="card bg-dark text-white p-4 shadow mx-auto" style="max-width: 400px;">
+				<h5 class="mb-3">Paramètres de la partie</h5>
+				<div class="mb-3">
+					<label for="player-count" class="form-label">Nombre de joueurs (1-6) :</label>
+					<input type="number" id="player-count"
+					       class="form-control text-center bg-secondary text-white fw-bold"
+					       value="2"
+					       min="1"
+					       max="6"
+					>
+				</div>
+				<div class="mb-3">
+					<label for="player-name" class="form-label">
+						Nom des joueurs (séparés par une virgule) :
+					</label>
+					<!-- Ajout d'un placeholder d'exemple -->
+					<input type="text"
+					       id="player-name"
+					       class="form-control text-center bg-secondary text-white fw-bold"
+					       placeholder="Ex: Sofiane, Thomas, Julie"
+					       value="">
+				</div>
+				<button id="btn-start-game" class="btn btn-success w-100 fw-bold">
+					Lancer la partie
+				</button>
+			</div>
+
+			<!-- 2. ÉCRAN DE JEU (Masqué au départ, s'affiche via JS) -->
+			<div id="game-layout" class="row w-100 d-none align-items-center justify-content-center">
+				<!-- Colonne de la Cible (Gauche) -->
+				<div class="col-lg-6 col-md-12 d-flex justify-content-center mb-4">
+					<canvas id="dartboard" width="600" height="600" style="max-width: 100%; height: auto;"></canvas>
+				</div>
+
+				<!-- Colonne du Score (Droite) -->
+				<div class="col-lg-6 col-md-12">
+					<div id="score-board" class="shadow text-white p-4 rounded-3"
+					     style="background: #2c3e50; max-width: 400px; margin: auto;">
+						<!-- Nom du joueur actif -->
+						<h3 class="text-info mb-1" id="current-player-display">Joueur 1</h3>
+						<h4 class="mb-3">
+							Reste : <span id="remaining-score" class="text-danger fw-bold">501</span>
+						</h4>
+
+						<!-- Fléchettes du tour -->
+						<div class="row text-center bg-dark rounded p-2 mb-3 mx-1">
+							<div class="col border-end">
+								<small class="text-muted">F1</small>
+								<div id="dart-1" class="fw-bold">-</div>
+							</div>
+							<div class="col border-end">
+								<small class="text-muted">F2</small>
+								<div id="dart-2" class="fw-bold">-</div>
+							</div>
+							<div class="col">
+								<small class="text-muted">F3</small>
+								<div id="dart-3" class="fw-bold">-</div>
+							</div>
+						</div>
+
+						<div id="last-hit" class="text-warning fw-bold mb-3" style="min-height: 50px;">
+							Lancez vos fléchettes !
+						</div>
+
+						<button id="btn-next-turn" class="btn btn-primary w-100 d-none">
+							Valider et Joueur Suivant
+						</button>
+						<button id="btn-restart" class="btn btn-outline-warning w-100 mt-2 d-none">
+							Nouvelle partie
+						</button>
+
+						<!-- Suivi des scores de tous les joueurs -->
+						<div class="mt-4 border-top pt-3 text-start">
+							<h6 class="text-white mb-2">
+								Classement / Scores :
+							</h6>
+							<ul id="leaderboard" class="list-group list-group-flush bg-transparent">
+								<!-- Rempli en JS -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+        const canvas = document.getElementById('dartboard');
+
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+
+            // Sélecteurs d'écrans
+            const setupContainer = document.getElementById('setup-container');
+            const gameLayout = document.getElementById('game-layout');
+            const btnStartGame = document.getElementById('btn-start-game');
+            const playerCountInput = document.getElementById('player-count');
+            const playerNameInput = document.getElementById('player-name');
+
+            // Sélecteurs de l'interface de jeu
+            const currentPlayerDisplay = document.getElementById('current-player-display');
+            const remainingScoreEl = document.getElementById('remaining-score');
+            const lastHitEl = document.getElementById('last-hit');
+            const btnNextTurn = document.getElementById('btn-next-turn');
+            const btnRestart = document.getElementById('btn-restart');
+            const leaderboardEl = document.getElementById('leaderboard');
+
+            const dartEls = [
+                document.getElementById('dart-1'),
+                document.getElementById('dart-2'),
+                document.getElementById('dart-3')
+            ];
+
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // --- VARIABLES MULTI-JOUEURS ---
+            let players = [];
+            let activePlayerIndex = 0;
+            let currentTurnDarts = [];
+            let isGameOver = false;
+
+            const sectors = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
+
+            // Rayons proportionnels pour un Canvas de 600x600
+            const rBullseye = 12;
+            const rOuterBull = 30;
+            const rTripleInner = 145;
+            const rTripleOuter = 162;
+            const rDoubleInner = 240;
+            const rDoubleOuter = 258;
+
+
+            // --- LANCEMENT DE LA PARTIE ---
+            btnStartGame.addEventListener('click', function () {
+                const nameInput = document.getElementById('player-name').value.trim();
+                let count = parseInt(playerCountInput.value) || 2;
+                if (count < 1) count = 1;
+                if (count > 6) count = 6;
+
+                players = [];
+
+                // 2. Si l'utilisateur a écrit des prénoms
+                if (nameInput !== "") {
+                    // On découpe le texte à chaque virgule
+                    let rawNames = nameInput.split(',');
+
+                    rawNames.forEach((trimmedName, index) => {
+                        let finalName = trimmedName.trim(); // Supprime les espaces inutiles autour du prénom
+
+                        // Si le prénom n'est pas vide (au cas où l'utilisateur met plusieurs virgules)
+                        if (finalName !== "") {
+                            players.push({
+                                name: finalName,
+                                currentScore: 501,
+                                scoreAtStartOfTurn: 501
+                            });
+                        }
+                    });
+                }
+                // 3. Mode de secours : Si le champ prénom était vide, on génère des "Joueur 1", "Joueur 2"
+                if (players.length === 0) {
+                    if (count < 1) count = 1;
+                    if (count > 6) count = 6;
+
+                    for (let i = 1; i <= count; i++) {
+                        players.push({
+                            name: `Joueur ${i}`,
+                            currentScore: 501,
+                            scoreAtStartOfTurn: 501
+                        });
+                    }
+                }
+
+                activePlayerIndex = 0;
+                isGameOver = false;
+                currentTurnDarts = [];
+
+                // Changement d'écran Bootstrap
+                setupContainer.classList.add('d-none');
+                gameLayout.classList.remove('d-none');
+
+                updateUI();
+                drawDartboard();
+            });
+
+            // --- ENTRAINEMENT DE L'INTERFACE ---
+            function updateUI() {
+                let p = players[activePlayerIndex];
+                currentPlayerDisplay.innerText = p.name;
+                remainingScoreEl.innerText = p.currentScore;
+
+                // Génération dynamique de la liste des scores
+                leaderboardEl.innerHTML = "";
+                players.forEach((player, idx) => {
+                    const li = document.createElement('li');
+                    li.className = `list-group-item bg-transparent text-white d-flex justify-content-between align-items-center px-0 py-1 ${idx === activePlayerIndex ? 'fw-bold text-info' : ''}`;
+                    li.innerHTML = `<span>${idx === activePlayerIndex ? '🎯 ' : ''}${player.name}</span> <span class="badge bg-secondary">${player.currentScore} pts</span>`;
+                    leaderboardEl.appendChild(li);
+                });
+            }
+
+            // --- DESSIN DE LA CIBLE ---
+            function drawDartboard() {
+                ctx.clearRect(0, 0, width, height);
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, rDoubleOuter, 0, 2 * Math.PI);
+                ctx.fillStyle = "#0d0d0d";
+                ctx.fill();
+
+                const anglePerSector = (2 * Math.PI) / 20;
+                const startAngleOffset = -Math.PI / 2 - anglePerSector / 2;
+
+                for (let i = 0; i < 20; i++) {
+                    const startAngle = startAngleOffset + i * anglePerSector;
+                    const endAngle = startAngle + anglePerSector;
+                    const isEven = i % 2 === 0;
+                    const singleColor = isEven ? "#0d0d0d" : "#f5f5dc";
+                    const ringColor = isEven ? "#e74c3c" : "#27ae60";
+
+                    drawSliceHelper(rDoubleInner, rDoubleOuter, startAngle, endAngle, ringColor);
+                    drawSliceHelper(rTripleOuter, rDoubleInner, startAngle, endAngle, singleColor);
+                    drawSliceHelper(rTripleInner, rTripleOuter, startAngle, endAngle, ringColor);
+                    drawSliceHelper(rOuterBull, rTripleInner, startAngle, endAngle, singleColor);
+
+                    ctx.save();
+                    ctx.translate(centerX, centerY);
+                    const textAngle = startAngle + anglePerSector / 2;
+                    ctx.rotate(textAngle + Math.PI / 2);
+                    ctx.fillStyle = "#f1c40f";
+                    ctx.font = "bold 24px 'Arial', sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(sectors[i], 0, -rDoubleOuter - 22);
+                    ctx.restore();
+                }
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, rOuterBull, 0, 2 * Math.PI);
+                ctx.fillStyle = "#27ae60";
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, rBullseye, 0, 2 * Math.PI);
+                ctx.fillStyle = "#e74c3c";
+                ctx.fill();
+
+                // Rendu des fléchettes restées plantées
+                currentTurnDarts.forEach((dart, index) => {
+                    ctx.beginPath();
+                    ctx.arc(dart.x, dart.y, 6, 0, 2 * Math.PI);
+                    ctx.fillStyle = (index === currentTurnDarts.length - 1) ? "#f39c12" : "#ffff00";
+                    ctx.fill();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = "#000";
+                    ctx.stroke();
+
+                    ctx.fillStyle = "#fff";
+                    ctx.font = "11px Arial";
+                    ctx.fillText(index + 1, dart.x + 9, dart.y - 4);
+                });
+            }
+
+            function drawSliceHelper(innerRadius, outerRadius, startAngle, endAngle, color) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle, false);
+                ctx.arc(centerX, centerY, innerRadius, endAngle, startAngle, true);
+                ctx.closePath();
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "#fff";
+                ctx.stroke();
+            }
+
+            // --- GESTION DU CLIC / CAPTURE DES SCORES ---
+            canvas.addEventListener('click', function (event) {
+                if (isGameOver || currentTurnDarts.length >= 3 || players.length === 0) return;
+
+                let p = players[activePlayerIndex];
+
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+
+                const dx = x - centerX;
+                const dy = y - centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                let points = 0;
+                let zoneShortName = "0";
+                let isDouble = false;
+
+                if (distance <= rDoubleOuter) {
+                    if (distance <= rBullseye) {
+                        points = 50;
+                        zoneShortName = "BULL";
+                        isDouble = true;
+                    } else if (distance <= rOuterBull) {
+                        points = 25;
+                        zoneShortName = "25";
+                    } else {
+                        let angle = Math.atan2(dy, dx);
+                        let adjustedAngle = angle + Math.PI / 2 + (Math.PI / 20);
+                        if (adjustedAngle < 0) adjustedAngle += 2 * Math.PI;
+                        if (adjustedAngle >= 2 * Math.PI) adjustedAngle -= 2 * Math.PI;
+
+                        const sectorIndex = Math.floor((adjustedAngle / (2 * Math.PI)) * 20);
+                        const basePoints = sectors[sectorIndex];
+
+                        if (distance >= rDoubleInner && distance <= rDoubleOuter) {
+                            points = basePoints * 2;
+                            zoneShortName = `D${basePoints}`;
+                            isDouble = true;
+                        } else if (distance >= rTripleInner && distance <= rTripleOuter) {
+                            points = basePoints * 3;
+                            zoneShortName = `T${basePoints}`;
+                        } else {
+                            points = basePoints;
+                            zoneShortName = `${basePoints}`;
+                        }
+                    }
+                } else {
+                    zoneShortName = "X";
+                }
+
+                // --- REGLÈS DU 501 MULTI-JOUEURS ---
+                let potentialScore = p.currentScore - points;
+                let isBust = false;
+                const dartIndex = currentTurnDarts.length;
+
+                if (potentialScore < 0 || potentialScore === 1 || (potentialScore === 0 && !isDouble)) {
+                    isBust = true;
+                }
+
+                if (isBust) {
+                    p.currentScore = p.scoreAtStartOfTurn; // Annule les lancers du tour en cours
+                    remainingScoreEl.innerText = p.currentScore;
+
+                    dartEls[dartIndex].innerText = "BUST";
+                    dartEls[dartIndex].classList.add("text-danger");
+
+                    lastHitEl.innerHTML = `<span class="text-danger fw-bold">BUST ! Score gelé à ${p.currentScore}</span>`;
+
+                    currentTurnDarts.push({x: x, y: y});
+                    btnNextTurn.classList.remove('d-none');
+                    updateUI();
+                    drawDartboard();
+                    return;
+                }
+
+                // Coup valide
+                p.currentScore = potentialScore;
+                remainingScoreEl.innerText = p.currentScore;
+
+                currentTurnDarts.push({x: x, y: y});
+                dartEls[dartIndex].innerText = zoneShortName;
+                dartEls[dartIndex].classList.add("text-warning");
+
+                drawDartboard();
+                updateUI();
+
+                // Détection Victoire
+                if (p.currentScore === 0) {
+                    lastHitEl.innerHTML = `<span class="text-success fw-bold">🏆 ${p.name} GAGNE LA PARTIE !</span>`;
+                    isGameOver = true;
+                    btnRestart.classList.remove('d-none');
+                    return;
+                }
+
+                // Fin de volée classique
+                if (currentTurnDarts.length === 3) {
+                    lastHitEl.innerText = "Tour terminé. Passez au joueur suivant.";
+                    btnNextTurn.classList.remove('d-none');
+                } else {
+                    lastHitEl.innerText = `Reste : ${p.currentScore} pts`;
+                }
+            });
+
+            // --- BOUTON VALIDER / JOUEUR SUIVANT ---
+            btnNextTurn.addEventListener('click', function () {
+                // Sauvegarde le score de début pour le prochain tour du joueur actuel
+                players[activePlayerIndex].scoreAtStartOfTurn = players[activePlayerIndex].currentScore;
+
+                // Alterne vers le joueur suivant de manière cyclique
+                activePlayerIndex = (activePlayerIndex + 1) % players.length;
+
+                currentTurnDarts = [];
+
+                dartEls.forEach(el => {
+                    el.innerText = "-";
+                    el.classList.remove("text-warning", "text-danger");
+                });
+
+                lastHitEl.innerText = "Lancez vos 3 fléchettes !";
+                btnNextTurn.classList.add('d-none');
+
+                updateUI();
+                drawDartboard();
+            });
+
+            // --- BOUTON NOUVELLE PARTIE ---
+            btnRestart.addEventListener('click', function () {
+                gameLayout.classList.add('d-none');
+                setupContainer.classList.remove('d-none');
+                btnRestart.classList.add('d-none');
+            });
+        }
+	</script>
+{% endblock %}

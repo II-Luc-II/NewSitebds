@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'captcha',
     "customer",
     "newsletter",
+    "flechettes",
 
 ]
 

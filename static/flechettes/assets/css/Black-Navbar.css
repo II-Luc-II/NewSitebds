@@ -1,0 +1,116 @@
+
+/* ==========================================
+   NAVBAR DARKZONE
+========================================== */
+
+.darkzone-navbar {
+    min-height: 78px;
+    background: #f8f9fa !important;
+    z-index: 1030;
+}
+
+/* LOGO ET MARQUE */
+.darkzone-navbar .navbar-brand {
+    margin-right: 1.5rem;
+}
+
+.darkzone-brand {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: .5px;
+    color: #20232a;
+}
+
+/* LIENS */
+.darkzone-navbar .nav-link {
+    color: #343a40;
+    font-size: .95rem;
+    font-weight: 600;
+    padding: .75rem 1rem !important;
+    position: relative;
+    transition: color .25s ease;
+}
+
+.darkzone-navbar .nav-link:hover,
+.darkzone-navbar .nav-link.active {
+    color: #dc3545;
+}
+
+/* SOULIGNEMENT ANIME */
+@media (min-width: 992px) {
+    .darkzone-navbar .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 5px;
+        left: 1rem;
+        width: 0;
+        height: 2px;
+        background: #dc3545;
+        transition: width .25s ease;
+    }
+
+    .darkzone-navbar .nav-link:hover::after,
+    .darkzone-navbar .nav-link.active::after {
+        width: calc(100% - 2rem);
+    }
+}
+
+/* DROPDOWN */
+.darkzone-navbar .dropdown-menu {
+    border-radius: 10px;
+    padding: .5rem;
+}
+
+.darkzone-navbar .dropdown-item {
+    border-radius: 6px;
+    padding: .65rem 1rem;
+    transition: background .2s ease;
+}
+
+.darkzone-navbar .dropdown-item:hover,
+.darkzone-navbar .dropdown-item.active {
+    background: #fce8ea;
+    color: #b02a37;
+}
+
+/* LOGO BDS */
+.bds-navbar-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    filter: brightness(0);
+}
+
+.bds-navbar-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #20232a;
+    white-space: nowrap;
+}
+
+/* MOBILE */
+@media (max-width: 991.98px) {
+    .darkzone-navbar {
+        min-height: 70px;
+    }
+
+    .darkzone-navbar .navbar-collapse {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .darkzone-navbar .nav-link {
+        padding: .75rem .5rem !important;
+    }
+
+    .darkzone-navbar .dropdown-menu {
+        box-shadow: none !important;
+        background: transparent;
+    }
+
+    .navbar-bds {
+        border-top: 1px solid #dee2e6;
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+}

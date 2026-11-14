@@ -1,0 +1,141 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm darkzone-navbar">
+	<div class="container-fluid px-3 px-lg-4">
+
+		<!-- LOGO DARKZONE -->
+		<a class="navbar-brand d-flex align-items-center gap-2"
+		   href="{% url 'flechettes:index' %}">
+
+			<img src="{% static 'flechettes/svg/logo-dark-zone.svg' %}"
+			     alt="Logo DarkZone"
+			     width="45"
+			     height="45">
+
+			<span class="darkzone-brand">DarkZone</span>
+		</a>
+
+		<!-- BOUTON MOBILE -->
+		<button class="navbar-toggler border-0 shadow-none"
+		        type="button"
+		        data-bs-toggle="collapse"
+		        data-bs-target="#navbarDarkZone"
+		        aria-controls="navbarDarkZone"
+		        aria-expanded="false"
+		        aria-label="Ouvrir le menu">
+
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- NAVIGATION -->
+		<div class="collapse navbar-collapse"
+		     id="navbarDarkZone">
+
+			<!-- MENU CENTRAL -->
+			<ul class="navbar-nav mx-auto align-items-lg-center gap-lg-3">
+
+				<!-- ACCUEIL -->
+				<li class="nav-item">
+					<a class="nav-link"
+					   href="{% url 'flechettes:index' %}">
+						Accueil
+					</a>
+				</li>
+
+				<!-- MENU DÉROULANT -->
+				<li class="nav-item dropdown">
+
+					<button class="nav-link dropdown-toggle"
+					        type="button"
+					        id="darkzoneDropdown"
+					        data-bs-toggle="dropdown"
+					        aria-expanded="false">
+						Découvrir
+					</button>
+
+					<ul class="dropdown-menu"
+					    aria-labelledby="darkzoneDropdown">
+
+						<li>
+							<a class="dropdown-item" href="#">
+								Présentation
+							</a>
+						</li>
+
+						<li>
+							<a class="dropdown-item" href="#">
+								Activités
+							</a>
+						</li>
+
+						<li>
+							<a class="dropdown-item" href="#">
+								Contact
+							</a>
+						</li>
+
+					</ul>
+				</li>
+
+			</ul>
+
+			<!-- IDENTITE BDS -->
+			<div class="navbar-bds d-flex align-items-center gap-2">
+
+				<a href="{% url 'index' %}"
+				   class="d-flex align-items-center gap-2 text-decoration-none">
+
+					<img src="{% static 'images/img-accueil/BLANC-ICON.svg' %}"
+					     alt="Logo BDS"
+					     class="bds-navbar-logo">
+
+					<span class="bds-navbar-title">B.D.S</span>
+				</a>
+
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const currentPath = window.location.pathname;
+
+        const links = document.querySelectorAll(
+            ".darkzone-navbar .nav-link, .darkzone-navbar .dropdown-item"
+        );
+
+        links.forEach(link => {
+
+            const href = link.getAttribute("href");
+
+            if (!href || href === "#") return;
+
+            const linkPath = new URL(href, window.location.origin).pathname;
+
+            if (linkPath === currentPath) {
+
+                link.classList.add("active");
+
+                if (link.classList.contains("nav-link")) {
+                    link.setAttribute("aria-current", "page");
+                }
+
+                const dropdown = link.closest(".dropdown");
+
+                if (dropdown) {
+                    const parentLink = dropdown.querySelector(".dropdown-toggle");
+
+                    if (parentLink) {
+                        parentLink.classList.add("active");
+                    }
+                }
+            }
+        });
+    });
+
+</script>

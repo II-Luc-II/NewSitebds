@@ -1,0 +1,22 @@
+{% extends "base-flechettes.html" %}
+{% load static %}
+{% block content %}
+	<div class="container min-vh-100 d-flex flex-column justify-content-center">
+
+        <div class="row justify-content-center align-items-center w-100">
+			<div class="col-12 py-4">
+				<h1 class="text-warning mb-2">Jeu de Fléchettes - Règles du 501</h1>
+				<h2 class="text-white-50 mb-4 text-uppercase fs-5">Multi-joueurs |
+				De {{ game.players_nbr_min }} à {{ game.players_nbr_max }} joueurs</h2>
+				<h2 class="text-white">Difficulté {{ game.level }}</h2>
+
+				<p>{{ game.description | safe }}</p>
+
+				 <div>
+					 <a href="{{ game.url }}" class="btn btn-info"> Jouer au 501</a>
+	            </div>
+
+			</div>
+	</div>
+
+{% endblock %}
