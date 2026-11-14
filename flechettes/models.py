@@ -16,6 +16,7 @@ class Game(models.Model):
     class Meta:
         verbose_name = "Les jeux de flechettes"
         verbose_name_plural = "Les jeux de flechettes"
+        ordering = ('name',)
 
     def __str__(self):
         return self.name

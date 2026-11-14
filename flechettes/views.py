@@ -20,7 +20,7 @@ def game_selected_301(request):
 
 
 def game_description(request, game_id):
-    game = get_object_or_404(Game, id=game_id,)
+    game = get_object_or_404(Game, id=game_id)
 
     context = {
         "game": game,
