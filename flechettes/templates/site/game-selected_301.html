@@ -3,7 +3,7 @@
 {% block content %}
 	<div class="container min-vh-100 d-flex flex-column justify-content-center">
 
-        <div class="row justify-content-center align-items-center text-center w-100">
+		<div class="row justify-content-center align-items-center text-center w-100">
 			<div class="col-12">
 				<h1 class="text-warning mb-2">Jeu de Fléchettes - 301</h1>
 				<h2 class="text-white-50 mb-4 text-uppercase fs-5">Multi-joueurs</h2>
@@ -290,17 +290,32 @@
 
             // --- GESTION DU CLIC / CAPTURE DES SCORES ---
             canvas.addEventListener('click', function (event) {
-                if (isGameOver || currentTurnDarts.length >= 3 || players.length === 0) return;
+                if (
+                    isGameOver ||
+                    currentTurnDarts.length >= 3 ||
+                    players.length === 0 ||
+                    !btnNextTurn.classList.contains('d-none')
+                ) {
+                    return;
+                }
 
                 let p = players[activePlayerIndex];
 
+                // Dimensions affichées du canvas
                 const rect = canvas.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
 
+                // Rapport entre dimensions internes et affichées
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                // Coordonnées corrigées pour mobile et ordinateur
+                const x = (event.clientX - rect.left) * scaleX;
+                const y = (event.clientY - rect.top) * scaleY;
+
+                // Calcul de la distance au centre
                 const dx = x - centerX;
                 const dy = y - centerY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const distance = Math.hypot(dx, dy);
 
                 let points = 0;
                 let zoneShortName = "0";
